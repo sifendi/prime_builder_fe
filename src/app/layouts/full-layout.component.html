@@ -1,0 +1,224 @@
+<div [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+  <header class="app-header navbar">
+    <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">&#9776;</button>
+    <a class="navbar-brand" href="javascript:void(0)"></a>
+    <ul class="nav navbar-nav hidden-md-down">
+      <li class="nav-item">
+        <a class="nav-link navbar-toggler sidebar-toggler" href="#">&#9776;</a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav d-md-down-none hidden-sm-down">
+      <li class="nav-item" *ngIf="defaultRoles == '$sa' || defaultRoles == '$ra'">
+        <a class="nav-link" href="javascript:void(0);" [ngClass]="{'active': menuItem==='users'}" (click)="changeMenu('users')">Users</a>
+      </li>
+      <li class="nav-item" *ngIf="defaultRoles == '$sa' || defaultRoles == '$ra'">
+        <a class="nav-link" href="javascript:void(0);" [ngClass]="{'active': menuItem==='projects'}" (click)="changeMenu('projects')">Projects</a>
+      </li>
+      <li class="nav-item" *ngIf="defaultRoles == '$sa' || defaultRoles == '$ra' || defaultRoles == '$ac' || defaultRoles == '$am' || defaultRoles == '$tlh'">
+        <a class="nav-link" href="javascript:void(0);" [ngClass]="{'active': menuItem==='uploads'}" (click)="changeMenu('uploads')">Target Upload</a>
+      </li>
+      <li class="nav-item" *ngIf="defaultRoles == '$sa' || defaultRoles == '$ra' || defaultRoles == '$ac' || defaultRoles == '$am'">
+        <a class="nav-link" href="javascript:void(0);" [ngClass]="{'active': menuItem==='reports'}" (click)="changeMenu('reports')">Reports</a>
+      </li>
+      <li class="nav-item" *ngIf="defaultRoles == '$sa' || defaultRoles == '$ra'">
+        <a class="nav-link" href="javascript:void(0);" [ngClass]="{'active': menuItem==='rewards'}" (click)="changeMenu('rewards')">Rewards</a>
+      </li>
+      <li class="nav-item" *ngIf="defaultRoles == '$ac'">
+        <a class="nav-link" href="javascript:void(0);" [ngClass]="{'active': menuItem==='eap'}" (click)="changeMenu('eap')">EAP Support</a>
+      </li>
+      <li class="nav-item" *ngIf="defaultRoles == '$tlh' || defaultRoles == '$sa'">
+        <a class="nav-link" href="javascript:void(0);" [ngClass]="{'active': menuItem==='masters'}" (click)="changeMenu('masters')">Masters</a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link" href="javascript:void(0)" role="button">
+                <img src="assets/img/photo.jpg" class="img-avatar"><label>{{username}}</label>
+            </a>
+      </li>
+      <li class="logOutC"><a (click)="logOut()">Logout <img src="assets/img/logout.png" class="img-avatar"></a></li>
+    </ul>
+  </header>
+  <div class="app-body">
+    <div class="sidebar">
+      <nav class="sidebar-nav">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/dashboard']"> Dashboard</a>
+          </li>
+          <ul *ngIf="menuItem=='users'">
+            <li class="nav-item">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/users/sph']"> SPH</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/users/tlh']"> TLH</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/users/ac']"> AC</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/users/am']"> AM</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/hpb']"> HPB</a>
+            </li>
+            <li *ngIf="defaultRoles == '$sa'" class="nav-item">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/users/sa']"> SA</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/users/ra']"> RA</a>
+            </li>
+            <li *ngIf="defaultRoles == '$ra'" class="nav-item">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/users/hpb-update-approval']"> HPB Update Approval</a>
+            </li>
+          </ul>
+          <ul *ngIf="menuItem=='masters'">
+            <li class="nav-item">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/rds']"> Retailers & Distributors</a>
+            </li>
+            <li class="nav-item" *ngIf="defaultRoles == '$sa'">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/product']"> Product</a>
+            </li>
+            <li class="nav-item" *ngIf="defaultRoles == '$sa'">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/reward']"> Reward</a>
+            </li>
+            <li class="nav-item" *ngIf="defaultRoles == '$sa'">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/region']"> Region</a>
+            </li>
+            <li class="nav-item" *ngIf="defaultRoles == '$sa'">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/province']"> Province</a>
+            </li>
+            <li class="nav-item" *ngIf="defaultRoles == '$sa'">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/district']"> District</a>
+            </li>
+            <li class="nav-item" *ngIf="defaultRoles == '$sa'">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/municipality']"> Municipality</a>
+            </li>
+            <li class="nav-item" *ngIf="defaultRoles == '$sa'">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/subdistrict']"> Subdistrict</a>
+            </li>
+            <li class="nav-item" *ngIf="defaultRoles == '$sa'">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/postalcode']"> Postal Code</a>
+            </li>
+            <li class="nav-item" *ngIf="defaultRoles == '$sa'">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/project-type']"> Project Type</a>
+            </li>
+            <li class="nav-item" *ngIf="defaultRoles == '$sa'">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/project-stage']"> Project Stage</a>
+            </li>
+            <li class="nav-item" *ngIf="defaultRoles == '$sa'">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/nmc']"> NMC</a>
+            </li>
+          </ul>
+          <ul *ngIf="menuItem=='projects'">
+            <li class="nav-item" *ngFor="let menu of menuProject">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="[menu.link]"> {{menu.name}}</a>
+            </li>
+          </ul>
+          <ul *ngIf="menuItem=='rewards'">
+            <li class="nav-item" *ngFor="let menu of menuReward">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="[menu.link]"> {{menu.name}}</a>
+            </li>
+          </ul>
+          <ul *ngIf="menuItem=='uploads'">
+            <li class="nav-item" *ngFor="let menu of menuUpload">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="[menu.link]"> {{menu.name}}</a>
+            </li>
+          </ul>
+          <ul *ngIf="menuItem=='eap'">
+            <li class="nav-item" *ngFor="let menu of menuEap">
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="[menu.link]"> {{menu.name}}</a>
+            </li>
+          </ul>
+          <ul *ngIf="menuItem=='reports'">
+            <li class="nav-item nav-dropdown" routerlinkactive="open" *ngIf="defaultRoles == '$sa' || defaultRoles == '$ra' || defaultRoles == '$ac' ">
+              <a class="nav-link nav-dropdown-toggle" href="#">AC Report</a>
+              <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/ac-reports/scorecard']"> AC Scorecard</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/ac-reports/web-view']" [queryParams]="{type:'srku_vol',name:'SRKU-Volume'}"> SRKU Volume</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/ac-reports/web-view']" [queryParams]="{type:'cement_vol_maintain',name:'Prime-Builder-Maintain'}"> Prime Builder Maintain</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/ac-reports/web-view']" [queryParams]="{type:'cement_vol_switching',name:'Prime-Builder-Switching'}"> Prime Builder Switching</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/ac-reports/web-view']" [queryParams]="{type:'new_switching_hpb',name:'New-Member'}"> New Member</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/ac-reports/web-view']" [queryParams]="{type:'vol_total',name:'Total-Volume'}"> Total Volume</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item nav-dropdown" routerlinkactive="open" *ngIf="defaultRoles == '$sa' || defaultRoles == '$ra' || defaultRoles == '$am' ">
+              <a class="nav-link nav-dropdown-toggle" href="#">AM Report</a>
+              <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/am-reports/scorecard']"> AM Scorecard</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/am-reports/web-view']" [queryParams]="{type:'srku_vol',name:'SRKU-Volume'}"> SRKU Volume</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/am-reports/web-view']" [queryParams]="{type:'cement_vol_maintain',name:'Prime-Builder-Maintain'}"> Prime Builder Maintain</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/am-reports/web-view']" [queryParams]="{type:'cement_vol_switching',name:'Prime-Builder-Switching'}"> Prime Builder Switching</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/am-reports/web-view']" [queryParams]="{type:'new_switching_hpb',name:'New-Member'}"> New Member</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/am-reports/web-view']" [queryParams]="{type:'vol_total',name:'Total-Volume'}"> Total Volume</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </ul>
+        <ul class="nav navbar-nav d-md-down-none hidden-md-up">
+      <li class="nav-item" *ngIf="defaultRoles == '$sa' || defaultRoles == '$ra'">
+        <a class="nav-link" href="javascript:void(0);" [ngClass]="{'active': menuItem==='users'}" (click)="changeMenu('users')">Users</a>
+      </li>
+      <li class="nav-item" *ngIf="defaultRoles == '$sa' || defaultRoles == '$ra'">
+        <a class="nav-link" href="javascript:void(0);" [ngClass]="{'active': menuItem==='projects'}" (click)="changeMenu('projects')">Projects</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0);" [ngClass]="{'active': menuItem==='uploads'}" (click)="changeMenu('uploads')">Target Upload</a>
+      </li>
+      <li class="nav-item" *ngIf="defaultRoles == '$sa' || defaultRoles == '$ra' || defaultRoles == '$ac' || defaultRoles == '$am'">
+        <a class="nav-link" href="javascript:void(0);" [ngClass]="{'active': menuItem==='reports'}" (click)="changeMenu('reports')">Reports</a>
+      </li>
+      <li class="nav-item" *ngIf="defaultRoles == '$sa' || defaultRoles == '$ra'">
+        <a class="nav-link" href="javascript:void(0);" [ngClass]="{'active': menuItem==='rewards'}" (click)="changeMenu('rewards')">Rewards</a>
+      </li>
+      <li class="nav-item" *ngIf="defaultRoles == '$ac'">
+        <a class="nav-link" href="javascript:void(0);" [ngClass]="{'active': menuItem==='eap'}" (click)="changeMenu('eap')">EAP Support</a>
+      </li>
+      <li class="nav-item" *ngIf="defaultRoles == '$tlh' || defaultRoles == '$sa'">
+        <a class="nav-link" href="javascript:void(0);" [ngClass]="{'active': menuItem==='masters'}" (click)="changeMenu('masters')">Masters</a>
+      </li>
+    </ul>
+      </nav>
+    </div>
+    <!-- Main content -->
+    <main class="main">
+      <!-- Breadcrumb -->
+      <ol class="breadcrumb">
+        <breadcrumbs></breadcrumbs>
+      </ol>
+      <div class="container-fluid">
+        <router-outlet></router-outlet>
+      </div>
+      <!-- /.conainer-fluid -->
+    </main>
+  </div>
+  <footer class="app-footer">
+    <a href="http://www.holcim.com/" target="_blank">Holcim</a> &copy; 2017.
+    <span class="float-right">Powered by <a href="http://www.experiencecommerce.com/" target="_blank">Experience Commerce</a>
+    </span>
+  </footer>
+</div>

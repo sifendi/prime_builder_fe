@@ -1,0 +1,378 @@
+<p-growl [(value)]="msgsG"></p-growl>
+<p-confirmDialog></p-confirmDialog>
+<div class="animated fadeIn" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header topGroup">
+                    <button type="button" class="backBtn" [routerLinkActive]="['active']" [routerLink]="[backLink]"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                </div>
+                <div class="user-details">
+                    <p-fieldset legend="User Basic Information" [toggleable]="true" [collapsed]="false">
+                        <div class="ui-g ui-fluid">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Full Name*</label><br/>
+                                    <input type="text" pInputText [(ngModel)]="userData.user_name" #fullName="ngModel" required [ngModelOptions]="{standalone: true}" minlength="4" maxlength="100" pattern="^[^-\s][a-zA-Z '\s-]+$" />
+                                    <div class="error-place">
+                                        <div *ngIf="fullName.errors && (fullName.dirty || fullName.touched || submitted)" class="error">
+                                            <span *ngIf="fullName.errors.required">Full name is required</span>
+                                            <span *ngIf="fullName.errors.pattern">Please enter a valid Full Name</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Mobile No.*</label><br/>
+                                    <input type="text" pInputText [(ngModel)]="userData.mobile" #userNameMobile="ngModel" required [ngModelOptions]="{standalone: true}" pattern="[0][1-9][0-9]+" minlength="10" maxlength="15" />
+                                    <div class="error-place">
+                                        <div *ngIf="userNameMobile.errors && (userNameMobile.dirty || userNameMobile.touched || submitted)" class="error">
+                                            <span *ngIf="userNameMobile.errors.required">Mobile no is required</span>
+                                            <span *ngIf="userNameMobile.errors.pattern">Please enter a valid mobile no</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Email Id</label><br/>
+                                    <input type="text" pInputText [(ngModel)]="userData.email" #eMail="ngModel" [ngModelOptions]="{standalone: true}" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                                    <div class="error-place">
+                                        <div *ngIf="eMail.errors && (eMail.dirty || eMail.touched || submitted)" class="error">
+                                            <span *ngIf="eMail.errors.pattern">Please enter a valid email</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Select Role*</label><br/>
+                                    <p-selectButton disabled [options]="roleList" #roleN="ngModel" [(ngModel)]="role"></p-selectButton>
+                                    <!-- <p-dropdown disabled [options]="roleList" #roleN="ngModel" [(ngModel)]="role"></p-dropdown> -->
+                                    <div class="error-place">
+                                        <div *ngIf="roleN.errors && (roleN.dirty || roleN.touched || submitted)" class="error">
+                                            <span *ngIf="roleN.errors.required">Please select role</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                    <p-fieldset legend="User Mapping" *ngIf="role != '$sa'" [toggleable]="true" [collapsed]="false">
+                        <p class="disCription">(Once you select the ‘Region’ click on ‘Auto Update’ to get related data.)</p>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="updateRemoveBtnWrap">
+                                        <label>Region</label>
+                                        <div class="updateRemoveBtn">
+                                            <button class="removeButton" type="button" [disabled]="region?.length==0" (click)="filterAddCloseTax('region','remove')">Remove All</button>
+                                        </div>
+                                    </div>
+                                    <p-autoComplete [disabled]="role?false:true" [scrollHeight]="200" placeholder="Region" [emptyMessage]="emptyMessage" [(ngModel)]="region" (onSelect)="filterRegionMultipleSelect($event)" (onUnselect)="filterRegionMultipleUnSelect($event)" [suggestions]="filteredRegionMultiple"
+                                        (completeMethod)="filterRegionMultiple($event,'suggest')" (onFocus)="filterRegionMultiple($event)" [autoHighlight]="true" [minLength]="1" field="name" [multiple]="true">
+                                    </p-autoComplete>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="updateRemoveBtnWrap">
+                                        <label>Province</label>
+                                        <div class="updateRemoveBtn">
+                                            <button class="updateBtn" type="button" [disabled]="region?.length==0" (click)="filterAddCloseTax('region','add')">Auto Update</button>
+                                            <button class="removeButton" type="button" [disabled]="province?.length==0" (click)="filterAddCloseTax('province','remove')">Remove All</button>
+                                        </div>
+                                    </div>
+                                    <p-autoComplete [emptyMessage]="emptyMessage" [scrollHeight]="200" (onSelect)="filterProvinceMultipleSelect($event)" (onUnselect)="filterProvinceMultipleUnSelect($event)" [(ngModel)]="province" (onFocus)="filterProvinceMultiple($event)" [suggestions]="filteredProvinceMultiple"
+                                        (completeMethod)="filterProvinceMultiple($event,'suggest')" placeholder="Province" [disabled]="(region?.length>0)?false:true" [autoHighlight]="true" [minLength]="1" field="name" [multiple]="true">
+                                    </p-autoComplete>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="updateRemoveBtnWrap">
+                                        <label>District</label>
+                                        <div class="updateRemoveBtn">
+                                            <button class="updateBtn" type="button" [disabled]="province?.length==0" (click)="filterAddCloseTax('province','add')">Auto Update</button>
+                                            <button class="removeButton" type="button" [disabled]="district?.length==0" (click)="filterAddCloseTax('district','remove')">Remove All</button>
+                                        </div>
+                                    </div>
+                                    <p-autoComplete [emptyMessage]="emptyMessage" [scrollHeight]="200" (onSelect)="filterDistrictMultipleSelect($event)" (onUnselect)="filterDistrictMultipleUnSelect($event)" [(ngModel)]="district" (onFocus)="filterDistrictMultiple($event)" [suggestions]="filteredDistrictMultiple"
+                                        (completeMethod)="filterDistrictMultiple($event,'suggest')" placeholder="District" [disabled]="(province?.length>0)?false:true" [autoHighlight]="true" [minLength]="1" field="name" [multiple]="true">
+                                    </p-autoComplete>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="updateRemoveBtnWrap">
+                                        <label>Municipality</label>
+                                        <div class="updateRemoveBtn">
+                                            <button class="updateBtn" type="button" [disabled]="district?.length==0" (click)="filterAddCloseTax('district','add')">Auto Update</button>
+                                            <button class="removeButton" type="button" [disabled]="municipality?.length==0" (click)="filterAddCloseTax('municipality','remove')">Remove All</button>
+                                        </div>
+                                    </div>
+                                    <p-autoComplete [emptyMessage]="emptyMessage" [scrollHeight]="200" (onSelect)="filterMunicipalityMultipleSelect($event)" (onUnselect)="filterMunicipalityMultipleUnSelect($event)" [(ngModel)]="municipality" (onFocus)="filterMunicipalityMultiple($event)"
+                                        [suggestions]="filteredMunicipalityMultiple" (completeMethod)="filterMunicipalityMultiple($event,'suggest')" placeholder="Municipality" [disabled]="(district?.length>0)?false:true" [autoHighlight]="true" [minLength]="1"
+                                        field="name" [multiple]="true">
+                                    </p-autoComplete>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="updateRemoveBtnWrap">
+                                        <label>Sub District</label>
+                                        <div class="updateRemoveBtn">
+                                            <button class="updateBtn" type="button" [disabled]="municipality?.length==0" (click)="filterAddCloseTax('municipality','add')">Auto Update</button>
+                                            <button class="removeButton" type="button" [disabled]="subdistrict?.length==0" (click)="filterAddCloseTax('subdistrict','remove')">Remove All</button>
+                                        </div>
+                                    </div>
+                                    <p-autoComplete [emptyMessage]="emptyMessage" [scrollHeight]="200" (onSelect)="filterSubDistrictMultipleSelect($event)" (onUnselect)="filterSubDistrictMultipleUnSelect($event)" [(ngModel)]="subdistrict" (onFocus)="filterSubDistrictMultiple($event)" [suggestions]="filteredSubDistrictMultiple"
+                                        (completeMethod)="filterSubDistrictMultiple($event,'suggest')" placeholder="Sub District" [disabled]="(municipality?.length>0)?false:true" [autoHighlight]="true" [minLength]="1" field="name" [multiple]="true">
+                                    </p-autoComplete>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="updateRemoveBtnWrap">
+                                        <label>Postal Code</label>
+                                        <div class="updateRemoveBtn">
+                                            <button class="updateBtn" type="button" [disabled]="subdistrict?.length==0" (click)="filterAddCloseTax('subdistrict','add')">Auto Update</button>
+                                            <button class="removeButton" type="button" [disabled]="postalCode?.length==0" (click)="filterAddCloseTax('postalcode','remove')">Remove All</button>
+                                        </div>
+                                    </div>
+                                    <p-autoComplete [emptyMessage]="emptyMessage" [scrollHeight]="200" (onSelect)="filterPostalCodeMultipleSelect($event)" (onUnselect)="filterPostalCodeMultipleUnSelect($event)" [(ngModel)]="postalCode" (onFocus)="filterPostalCodeMultiple($event)" [suggestions]="filteredPostalCodeMultiple"
+                                        (completeMethod)="filterPostalCodeMultiple($event,'suggest')" placeholder="Postal Code" [disabled]="(subdistrict?.length>0)?false:true" [autoHighlight]="true" [minLength]="1" field="name" [multiple]="true">
+                                    </p-autoComplete>
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                    <p-fieldset *ngIf="role != '$sa'" legend="Related Users" [toggleable]="true" [collapsed]="true">
+                        <div class="row">
+                            <div class="col-sm-12"> 
+                                <p-tabView>
+                                    <p-tabPanel header="All">
+                                        <p-dataList [value]="relatedUsers" [paginator]="false" [rows]="1000">
+                                            <ng-template let-userD pTemplate="item">
+                                                <div class="ui-g ui-fluid car-item">
+                                                    <div class="ui-g-12 ui-md-1">
+                                                        <div class="userID" (click)="editUser(userD.id,userD.rolename)" >
+                                                            <img class="userIdPhoto" src="assets/img/photo.jpg">
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui-g-12 ui-md-11 roleDetails">
+                                                        <div class="ui-g">
+                                                            <ul class="roleBase">
+                                                                <li>
+                                                                    <div class="roleHeader">User Role: </div>
+                                                                    <div class="roleText">{{roleNameParse(userD.rolename)}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Full Name: </div>
+                                                                    <div class="roleText">{{userD.realm}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Email: </div>
+                                                                    <div class="roleText">{{userD.email?userD.email:"-"}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Username / Mobile No.: </div>
+                                                                    <div class="roleText">{{userD.username}}</div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </p-dataList>
+                                    </p-tabPanel>
+                                    <p-tabPanel header="RA" *ngIf="relatedUsersRA.length>0">
+                                        <p-dataList [value]="relatedUsersRA" [paginator]="false" [rows]="1000">
+                                            <ng-template let-userD pTemplate="item">
+                                                <div class="ui-g ui-fluid car-item">
+                                                    <div class="ui-g-12 ui-md-1">
+                                                        <div class="userID" (click)="editUser(userD.id,userD.rolename)">
+                                                            <img class="userIdPhoto" src="assets/img/photo.jpg">
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui-g-12 ui-md-11 roleDetails">
+                                                        <div class="ui-g">
+                                                            <ul class="roleBase">
+                                                                <li>
+                                                                    <div class="roleHeader">User Role: </div>
+                                                                    <div class="roleText">{{roleNameParse(userD.rolename)}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Full Name: </div>
+                                                                    <div class="roleText">{{userD.realm}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Email: </div>
+                                                                    <div class="roleText">{{userD.email?userD.email:"-"}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Username / Mobile No.: </div>
+                                                                    <div class="roleText">{{userD.username}}</div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </p-dataList>
+                                    </p-tabPanel>
+                                    <p-tabPanel header="AM" *ngIf="relatedUsersAM.length>0">
+                                        <p-dataList [value]="relatedUsersAM" [paginator]="false" [rows]="1000">
+                                            <ng-template let-userD pTemplate="item">
+                                                <div class="ui-g ui-fluid car-item">
+                                                    <div class="ui-g-12 ui-md-1">
+                                                        <div class="userID" (click)="editUser(userD.id,userD.rolename)">
+                                                            <img class="userIdPhoto" src="assets/img/photo.jpg">
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui-g-12 ui-md-11 roleDetails">
+                                                        <div class="ui-g">
+                                                            <ul class="roleBase">
+                                                                <li>
+                                                                    <div class="roleHeader">User Role: </div>
+                                                                    <div class="roleText">{{roleNameParse(userD.rolename)}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Full Name: </div>
+                                                                    <div class="roleText">{{userD.realm}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Email: </div>
+                                                                    <div class="roleText">{{userD.email?userD.email:"-"}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Username / Mobile No.: </div>
+                                                                    <div class="roleText">{{userD.username}}</div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </p-dataList>
+                                    </p-tabPanel>
+                                    <p-tabPanel header="AC" *ngIf="relatedUsersAC.length>0">
+                                        <p-dataList [value]="relatedUsersAC" [paginator]="false" [rows]="1000">
+                                            <ng-template let-userD pTemplate="item">
+                                                <div class="ui-g ui-fluid car-item">
+                                                    <div class="ui-g-12 ui-md-1">
+                                                        <div class="userID" (click)="editUser(userD.id,userD.rolename)">
+                                                            <img class="userIdPhoto" src="assets/img/photo.jpg">
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui-g-12 ui-md-11 roleDetails">
+                                                        <div class="ui-g">
+                                                            <ul class="roleBase">
+                                                                <li>
+                                                                    <div class="roleHeader">User Role: </div>
+                                                                    <div class="roleText">{{roleNameParse(userD.rolename)}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Full Name: </div>
+                                                                    <div class="roleText">{{userD.realm}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Email: </div>
+                                                                    <div class="roleText">{{userD.email?userD.email:"-"}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Username / Mobile No.: </div>
+                                                                    <div class="roleText">{{userD.username}}</div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </p-dataList>
+                                    </p-tabPanel>
+                                    <p-tabPanel header="TLH" *ngIf="relatedUsersTLH.length>0">
+                                        <p-dataList [value]="relatedUsersTLH" [paginator]="false" [rows]="1000">
+                                            <ng-template let-userD pTemplate="item">
+                                                <div class="ui-g ui-fluid car-item">
+                                                    <div class="ui-g-12 ui-md-1">
+                                                        <div class="userID" (click)="editUser(userD.id,userD.rolename)">
+                                                            <img class="userIdPhoto" src="assets/img/photo.jpg">
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui-g-12 ui-md-11 roleDetails">
+                                                        <div class="ui-g">
+                                                            <ul class="roleBase">
+                                                                <li>
+                                                                    <div class="roleHeader">User Role: </div>
+                                                                    <div class="roleText">{{roleNameParse(userD.rolename)}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Full Name: </div>
+                                                                    <div class="roleText">{{userD.realm}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Email: </div>
+                                                                    <div class="roleText">{{userD.email?userD.email:"-"}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Username / Mobile No.: </div>
+                                                                    <div class="roleText">{{userD.username}}</div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </p-dataList>
+                                    </p-tabPanel>
+                                    <p-tabPanel header="SPH" *ngIf="relatedUsersSPH.length>0">
+                                        <p-dataList [value]="relatedUsersSPH" [paginator]="false" [rows]="1000">
+                                            <ng-template let-userD pTemplate="item">
+                                                <div class="ui-g ui-fluid car-item">
+                                                    <div class="ui-g-12 ui-md-1">
+                                                        <div class="userID" (click)="editUser(userD.id,userD.rolename)">
+                                                            <img class="userIdPhoto" src="assets/img/photo.jpg">
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui-g-12 ui-md-11 roleDetails">
+                                                        <div class="ui-g">
+                                                            <ul class="roleBase">
+                                                                <li>
+                                                                    <div class="roleHeader">User Role: </div>
+                                                                    <div class="roleText">{{roleNameParse(userD.rolename)}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Full Name: </div>
+                                                                    <div class="roleText">{{userD.realm}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Email: </div>
+                                                                    <div class="roleText">{{userD.email?userD.email:"-"}}</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="roleHeader">Username / Mobile No.: </div>
+                                                                    <div class="roleText">{{userD.username}}</div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </p-dataList>
+                                    </p-tabPanel>
+                                </p-tabView>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                    <div class="col-sm-12">
+                        <p-messages [(value)]="msgs"></p-messages>
+                        <br/>
+                        <button class="btn" type="button" class="btn darkBtn" (click)="userSubmit()">Update User</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

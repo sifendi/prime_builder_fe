@@ -1,0 +1,200 @@
+<div class="animated fadeIn" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    Projects
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-Wrapper">
+                            <div class="card-block">
+                                <div class="primaryDetails">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Project Name </label>
+                                                <p-autoComplete field="project_name" [(ngModel)]="projectName" [suggestions]="filteredProject" (completeMethod)="filterProject($event)" (onFocus)="filterProject($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="projNameErrors" class="error">
+                                                        <span>Please enter a valid project name</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Project Type </label>
+                                                <select class="form-control" [(ngModel)]="projectType">
+												  <option value="">All</option>
+												  <option *ngFor="let type of typeData" value="{{type.id}}">{{type.project_type}}</option>
+												</select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Project Stage</label>
+                                                <select class="form-control" [(ngModel)]="projectage">
+												  <option value="">All</option>
+												  <option *ngFor="let stg of stgData" value="{{stg.id}}">{{stg.project_stage}}</option>
+												</select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Is SRKU </label>
+                                                <select class="form-control" [(ngModel)]="srku">
+												  <option value="">All</option>
+												  <option value="1">Yes</option>
+												  <option value="0">No</option>
+												</select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>SRKU Approved</label>
+                                                <select class="form-control" [(ngModel)]="approval">
+												  <option value="">All</option>
+												  <option value="0">Pending</option>
+												  <option value="1">Approved</option>
+												  <option value="-1">Rejected</option>
+												</select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>HPB Assigned</label>
+                                                <p-autoComplete field="hpb_name" [(ngModel)]="hpbName" [suggestions]="filteredHpb" (completeMethod)="filterHpb($event)" (onFocus)="filterHpb($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="hpbAssignErrors" class="error">
+                                                        <span>Please enter a valid HPB name</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Created By</label>
+                                                <p-autoComplete field="sph_name" [(ngModel)]="createdBy" [suggestions]="filteredUserFullName" (completeMethod)="filterFullName($event)" (onFocus)="filterFullName($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="hpbNameErrors" class="error">
+                                                        <span>Please enter a valid name</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Created From</label>
+                                                <p-calendar name="createdDate" [maxDate]="maxDate" dateFormat="dd M yy" [(ngModel)]="value"></p-calendar>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="buttonContainer">
+                            <div class="form-group">
+                                <!-- <label style="visibility:hidden;">Search</label> -->
+                                <a href="javascript:void(0);" (click)="searchData()" class="btn darkBtn">Apply</a>
+                                <a href="javascript:void(0);" (click)="resetData()" class="btn darkBtn">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    RESULTS
+                    <a href="javascript:void(0);" *ngIf="total!=0" class="exportWish pull-right" (click)="download()">
+                        <i class="fa fa-cloud-download fa-lg mt-4"></i>Export
+                    </a>
+                </div>
+				<div class="statusCont">
+                    <ul>
+                        <li>
+                            <p>Total</p>
+                            <h3>{{total}}</h3>
+                        </li>
+                        <li>
+                            <p>SRKU</p>
+                            <h3>{{srkuTotal}}</h3>
+                        </li>
+                        <li>
+                            <p>Micro Credit</p>
+                            <h3>{{nmcTotal}}</h3>
+                        </li>
+                    </ul>
+                </div>
+				<div class="ui-g-12 ui-md-4">
+					Displaying <span>{{(offset==0)?1:(perPageLimit*(offset+1))-perPageLimit+1}} - {{(offset==0)?perPageLimit-(perPageLimit-projects?.length):perPageLimit*(offset+1)-(perPageLimit-projects?.length)}} of {{total}}</span>
+				</div>
+                <div class="card-Wrapper">
+                    <div class="card-block" [class.tableWrap]="total > 5">
+                        <table class="table table-bordered productRequestTable">
+                            <thead>
+                                <tr>
+									<th>Sr No.</th>
+                                    <th>Project Photo</th>
+                                    <th>Project Name</th>
+                                    <th>Completion Date</th>
+                                    <th>Quantity Estimation</th>
+                                    <th>Project Stage</th>
+                                    <th>Project Type</th>
+                                    <th>Is SRKU</th>
+                                    <th>Approval</th>
+                                    <th>HPB Assigned</th>
+                                    <th>Created By</th>
+                                    <th>Created Date</th>
+                                    <th class="widthView">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let proj of projects; let i=index">
+									<td>{{i+1+(offset?offset*10:0)}}</td>
+                                    <td>
+                                        <img [src]="proj.project_photo" (click)="open(i)" width="100" />
+                                    </td>
+                                    <td><a target="_blank" [routerLink]="['/view-project', proj.project_id]">{{proj.project_name || '-'}}</a></td>
+                                    <td>{{proj.project_completion_date || '-' }}</td>
+                                    <td>{{proj.project_quantity_estimation || '-' }}</td>
+                                    <td>{{proj.project_stage_name || '-'}}</td>
+                                    <td>{{proj.project_type_name || '-'}}</td>
+                                    <td>{{proj.is_srku || '-'}}</td>
+                                    <td><span class="{{proj.classname}}">{{proj.approval || '-'}}</span></td>
+                                    <td>
+                                        <!-- <a href="javascript:void(0);" (click)="goToHpb(proj.hpb_id)">{{proj.hpb_name || '-' }}</a> -->
+                                        <a target="_blank" *ngIf="proj.hpb_id" [routerLink]="['/view-hpb', proj.hpb_id]">{{proj.hpb_name || '-' }}</a>
+                                    </td>
+                                    <td>{{proj.sph_name || '-'}}</td>
+                                    <td>{{proj.created_date || '-'}}</td>
+                                    <td>
+                                        <div class="groupBtn">
+                                            <!-- <a href="javascript:void(0);" class="btn btnEdit" (click)="view(proj.project_id)">View</a> -->
+                                            <a class="btn btnEdit" target="_blank" [routerLink]="['/view-project', proj.project_id]">View</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p-paginator *ngIf="paginationVal" rows="10" totalRecords={{total}}  (onPageChange)="paginate($event)"></p-paginator>
+                    <div class="card-block" *ngIf="projects?.length==0">
+                        <div class="row">
+                            <div class="col-md-4">&nbsp;</div>
+                            <div class="col-md-4">
+                                <h4>NO RESULT FOUND</h4>
+                            </div>
+                            <div class="col-md-4">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

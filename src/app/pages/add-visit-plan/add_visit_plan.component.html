@@ -1,0 +1,104 @@
+<div class="overlay" *ngIf="loading">
+  <i class="fa fa-spinner fa-pulse fa-3x fa-fw contCenter"></i> <span class="sr-only">Loading...</span>
+</div>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <button type="button" class="backBtn" [routerLinkActive]="['active']" [routerLink]="['/visit-plan']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+          <div>
+            Upload Retailer / Distributor Target
+          </div>
+        </div>
+        <div>
+          <button type="button" class="btn darkBtn" *ngIf="uploadedData" (click)="uploadAgain()">Upload another CSV</button>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card-Wrapper">
+              <div class="card-block" *ngIf="!uploadedData">
+                <form #product="ngForm">
+                  <div class="primaryDetails">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="name">Upload CSV</label>
+                          <input type="file" class="form-control" id="upload" name="upload" placeholder="Enter your upload" [(ngModel)]="product.upload" (change)="_onChange($event)" #upload="ngModel" required>
+                          <div class="error-place" *ngIf="csvError">
+                            <div class="error">
+                              <span>File must be CSV only</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="buttonContainer">
+              <div class="form-group">
+                <button *ngIf="!uploading && !uploadedData" class="btn darkBtn" type="submit" (click)="uploadTarget()">UPLOAD RETAILER / DISTRIBUTOR TARGET</button>
+                <div class="loader" *ngIf="loading"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          Format
+        </div>
+        <div class="card-Wrapper">
+          <div class="card-block" *ngIf="!uploadedData">
+            <table class="table table-bordered productRequestTable">
+              <thead>
+                <tr>
+                  <th>target_date</th>
+                  <th>sph_mobile</th>
+                  <th>visitor_code</th>
+                  <th>visitor_type</th>
+                  <th>status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>7/11/2017</td>
+                  <td>8692903858</td>
+                  <td>MMABDT0188</td>
+                  <td>retailer</td>
+                  <td>Active/Inactive</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-block" *ngIf="uploadedData">
+            <table class="table table-bordered productRequestTable">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>SPH</th>
+                  <th>Visitor</th>
+                  <th>Visit Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let tg of uploadedData">
+                  <td class="{{tg.class}}">{{tg.target_date}}</td>
+                  <td class="{{tg.class}}">{{tg.sph_mobile}}</td>
+                  <td class="{{tg.class}}">{{tg.visitor_mobile}}</td>
+                  <td class="{{tg.class}}">{{tg.target_status}}</td>
+                  <td class="{{tg.class}}">{{tg.status}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,160 @@
+<div class="animated fadeIn">
+    <div class="row" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <button type="button" class="backBtn" [routerLinkActive]="['active']" [routerLink]="[pageLink]"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                </div>
+                <div class="detailsContainer productContainer">
+                    <div class="card-details">
+                        <div class="card-block">
+                            <div class="blockTop productBlock">
+                                <div class="items">
+                                    <div class="gutter-space">
+                                        <div class="panelWrapper">
+                                            <div class="panelHead">
+                                                <h3>Receipt Approval Status</h3>
+                                            </div>
+                                            <div class="panelBody">
+                                                <ul class="panelitem panelInfo">
+                                                    <li class="badge-{{tlhApproval.approval_class}}" *ngIf="tlhApproval!=''">
+                                                        <p>{{tlhApproval.approval_status}}</p>
+                                                        <h4><i class="icon-{{tlhApproval.approval_status}}"></i>TLH</h4>
+                                                        <p>{{tlhApproval.rejection_reason}}</p>
+                                                    </li>
+                                                    <li class="badge-{{acApproval.approval_class}}" *ngIf="acApproval!='' && tlhApproval.approval_status !='Rejected'">
+                                                        <p>{{acApproval.approval_status}}</p>
+                                                        <h4><i class="icon-{{acApproval.approval_status}}"></i>AC</h4>
+                                                        <p>{{acApproval.rejection_reason}}</p>
+                                                    </li>
+                                                    <li *ngIf="tlhApproval.approval_status =='Rejected'">
+                                                        <p>-</p>
+                                                        <h4>AC</h4>
+                                                    </li>
+                                                    <li class="badge-{{saApproval.approval_class}}" *ngIf="saApproval!=''  && tlhApproval.approval_status !='Rejected'">
+                                                        <p>{{saApproval.approval_status}}</p>
+                                                        <h4><i class="icon-{{saApproval.approval_status}}"></i>SA</h4>
+                                                        <p>{{saApproval.rejection_reason}}</p>
+                                                    </li>
+                                                    <li *ngIf="tlhApproval.approval_status =='Rejected'">
+                                                        <p>-</p>
+                                                        <h4>SA</h4>
+                                                    </li>
+                                                </ul>
+                                                <ul class="panelitem panelInfo" *ngIf="ifApproval == true">
+                                                    <li *ngIf="tlhApproval!=''">
+                                                        <div class="statusBtn" *ngIf="!rejection">
+                                                            <button type="button" (click)="confirm(saApproval.id,1)" class="btn btnApprove">Approve</button>
+                                                            <button type="button" (click)="reject(saApproval.id,-1)" class="btn btnReject">Reject</button>
+                                                        </div>
+                                                        <div class="statusBtn editStatus" *ngIf="rejection">
+                                                            <textarea id="reason" name="reason" placeholder="Enter Reason" [(ngModel)]="reason"></textarea>
+                                                            <div class="error-place">
+                                                                <div *ngIf="reasonError" class="error">
+                                                                    <span>
+                                                                         Reason is required
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="statusBtn statusRej" *ngIf="rejection">
+                                                            <button type="button " (click)="approveReceipt(saApproval.id,-1)" class="btn darkBtn">Submit</button>
+                                                            <button type="button" (click)="goBack()" class="btn darkBtn">Cancel</button>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="items">
+                                    <div class="gutter-space">
+                                        <div class="panelWrapper">
+                                            <div class="panelHead">
+                                                <h3>Receipt Details</h3>
+                                            </div>
+                                            <div class="panelBody">
+                                                <ul class="panelitem panelInfo">
+                                                    <li>
+                                                        <p>Project Name</p>
+                                                        <h4><a [routerLink]="['/view-project', prodrecData.project_id]">{{prodrecData.project}}</a></h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>HPB Name</p>
+                                                        <h4><a [routerLink]="['/view-hpb', prodrecData.hpb_id]">{{prodrecData.hpb_name}}</a></h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Product Name</p>
+                                                        <h4><a [routerLink]="['/view-product', prodrecData.product_id]">{{prodrecData.product}}</a></h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Is SRKU</p>
+                                                        <h4>{{prodrecData.is_srku}}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Unit</p>
+                                                        <h4>{{prodrecData.unit}}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Quantity</p>
+                                                        <h4>{{prodrecData.quantity}}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Invoice Quantity</p>
+                                                        <h4>{{prodrecData.invoice_quantity}}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Purchase Date</p>
+                                                        <h4>{{prodrecData.purchase_date}}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Distributor / Retailer Name</p>
+                                                        <h4>{{prodrecData.retailer}}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Invoice Photos</p>
+                                                        <ul class="invoiceImages">
+                                                            <li *ngFor="let invoice_photo_image of invoice_photo_array; let i = index">
+                                                                <a href="{{invoice_photo_image.path}}" target="_blank"  *ngIf="invoice_photo_image.fileType!='jpeg' && invoice_photo_image.fileType!='jpg' && invoice_photo_image.fileType!='png'; else elseBlock" >
+																	<img src="assets/img/document.jpg" alt="" width="100" height="100">
+                                                                </a>
+																<ng-template #elseBlock>
+																	<a href="{{invoice_photo_image.path}}" target="_blank">
+																		<img src="{{invoice_photo_image.path}}" alt="" width="100" height="100">
+																	</a>
+																</ng-template>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <p>Note</p>
+                                                        <h4>{{prodrecData.additional_comments || '-'}}</h4>
+                                                    </li>
+                                                    <li *ngIf="prodrecData.digital_sign" class="invoiceImages">
+                                                        <p>Signature</p>
+                                                        <ul class="invoiceImages">
+                                                            <li>
+                                                                <a href="{{prodrecData.digital_sign}}" target="_blank"><img src="{{prodrecData.digital_sign}}" alt=""></a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" #cd>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" label="Yes" (click)="cd.accept()"></button>
+        <button type="button" pButton icon="fa-check" label="No" (click)="cd.reject()"></button>
+    </p-footer>
+</p-confirmDialog>

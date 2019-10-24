@@ -1,0 +1,129 @@
+<div [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+    <div class="forecast row">
+        <div class="col-sm-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <button class="backBtn" type="button" tabindex="0" [routerLinkActive]="['active']" [routerLink]="['/subdistrict']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                    <div>Add Subdistrict</div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-Wrapper">
+                            <div class="card-block">
+                                <div class="primaryDetails">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Region*</label>
+                                                <p-autoComplete field="name" required [(ngModel)]="region_id" [suggestions]="filteredRegion" (completeMethod)="filterRegion($event)" (loading-text)="loading" (keyup)="deSelect($event,'region')" (keypress)="deSelect($event,'region')" (onFocus)="filterRegion($event)"
+                                                    #regionId="ngModel" (onUnselect)="filterRegionMultipleUnSelect($event)" (onSelect)="filterRegionMultipleSelect($event)"></p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="regionId.errors && (regionId.dirty || regionId.touched || submitted)" class="error">
+                                                        <span *ngIf="regionId.errors.required">
+											Region is required
+										</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Province*</label>
+                                                <p-autoComplete field="name" [(ngModel)]="Prvnc" [suggestions]="filteredProvince" (completeMethod)="filterProvince($event)" (loading-text)="loading" (keyup)="deSelect($event,'province')" (keypress)="deSelect($event,'province')" [disabled]="(filteredRegion?.length>0)?false:true"
+                                                    required #provinceId="ngModel" (onFocus)="filterProvince($event)" (onUnselect)="filterProvinceMultipleUnSelect($event)" (onSelect)="filterProvinceMultipleSelect($event)"></p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="provinceId.errors && (provinceId.dirty || provinceId.touched || submitted)" class="error">
+                                                        <span *ngIf="provinceId.errors.required">
+											Province is required
+										</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>District*</label>
+                                                <p-autoComplete field="name" [(ngModel)]="Distr" [suggestions]="filteredDistrict" (completeMethod)="filterDistrict($event)" (loading-text)="loading" (keyup)="deSelect($event,'district')" (keypress)="deSelect($event,'district')" [disabled]="(filteredProvince?.length>0)?false:true"
+                                                    required #districtId="ngModel" (onFocus)="filterDistrict($event)" (onUnselect)="filterDistrictMultipleUnSelect($event)" (onSelect)="filterDistrictMultipleSelect($event)"></p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="districtId.errors && (districtId.dirty || districtId.touched || submitted)" class="error">
+                                                        <span *ngIf="districtId.errors.required">
+											District is required
+										</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>City / Municipality*</label>
+                                                <p-autoComplete field="name" [(ngModel)]="cty" [suggestions]="filteredMun" (completeMethod)="filterMun($event)" (loading-text)="loading" (keyup)="deSelect($event,'municipality')" (keypress)="deSelect($event,'municipality')" [disabled]="(filteredDistrict?.length>0)?false:true"
+                                                    required #cityId="ngModel" (onFocus)="filterMun($event)" (onUnselect)="filterMunMultipleUnSelect($event)" (onSelect)="filterMunMultipleSelect($event)"></p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="cityId.errors && (cityId.dirty || cityId.touched || submitted)" class="error">
+                                                        <span *ngIf="cityId.errors.required">
+											City/Municipality is required
+										</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="name">Subdistrict Name*</label>
+                                                <input type="text" class="form-control" id="name" name="name" required (ngModelChange)="NameChange($event)" placeholder="Enter subdistrict name" [(ngModel)]="subdistrictName" #name="ngModel" pattern="^[a-zA-Z0-9_ ]*$">
+                                                <div class="error-place">
+                                                    <div *ngIf="name.errors && (name.dirty || name.touched || submitted)" class="error">
+                                                        <span *ngIf="name.errors.required">
+												Subdistrict name is required
+										</span>
+                                                        <span *ngIf="name.errors.pattern">
+											Please enter a valid subdistrict name.
+										</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="code">Subdistrict Code*</label>
+                                                <input type="text" readonly class="form-control" id="code" name="code" [(ngModel)]="subdistrictcode" #code="ngModel">
+                                                <span *ngIf="namechkResErr" class="error">
+										Sub district code loading. Please wait
+								</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        <div class="buttonContainer">
+                            <button class="btn darkBtn" *ngIf="!loading" type="submit" (click)="submit()" label="Show">Submit</button>
+                            <div class="loader" *ngIf="loading"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i></div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dargPop">
+    <p-dialog [modal]="true" [(visible)]="display" *ngIf="result == 'success'">
+        <h6>Add new subdistrict</h6>
+    </p-dialog>
+    <p-dialog header="Added new subdistrict" [modal]="true" [(visible)]="display" *ngIf="result != 'success'">
+        <p>{{result}}</p>
+    </p-dialog>
+</div>

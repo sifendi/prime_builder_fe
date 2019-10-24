@@ -1,0 +1,59 @@
+<div [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+    <div class="forecast row">
+        <div class="col-sm-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <button class="backBtn" type="button" tabindex="0" [routerLinkActive]="['active']" [routerLink]="['/project-type']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                    <div>Add Project Type</div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-Wrapper">
+                            <div class="card-block">
+                                <div class="primaryDetails">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="project_type">Project*</label>
+                                                <input type="text" class="form-control" id="project_type" name="project_type" required placeholder="Enter your Project type" maxlength="25" [(ngModel)]="projecttype" #project_type="ngModel" pattern="^[^-\s][a-zA-Z '\s-]+$">
+                                                <div class="error-place">
+                                                    <div *ngIf="project_type.errors && (project_type.dirty || project_type.touched || submitted)" class="error">
+                                                        <span *ngIf="project_type.errors.required">
+												Project type is required
+										</span>
+                                                        <span *ngIf="project_type.errors.pattern">
+											Please enter a valid Project type.
+										</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="buttonContainer">
+                            <button class="btn darkBtn" type="submit" (click)="submit()" pButton icon="fa-external-link-square" label="Show">Submit</button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dargPop">
+    <p-dialog [modal]="true" [(visible)]="display" *ngIf="result == 'success'">
+        <h6>Added new Project type</h6>
+    </p-dialog>
+    <p-dialog header="Added new project type" [modal]="true" [(visible)]="display" *ngIf="result != 'success'">
+        <p>{{result}}</p>
+    </p-dialog>
+</div>

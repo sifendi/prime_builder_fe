@@ -1,0 +1,161 @@
+<div class="overlay" *ngIf="loading">
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw contCenter"></i>
+    <span class="sr-only">Loading...</span>
+</div>
+<div class="animated fadeIn" *ngIf="!loading">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div *ngIf="role != '$tlh'" class="addUser">
+                    <button type="button" [routerLinkActive]="['active']" [routerLink]="['/add-rds']" class="btn btnUser">Add Retailer &amp; Distributor</button>
+                </div>
+                <div class="card-header">
+                    Retailer Distributor Master
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-Wrapper">
+                            <div class="card-block">
+                                <div class="primaryDetails">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Name </label>
+                                                <input class="form-control" [(ngModel)]="rdsName" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Type </label>
+                                                <select class="form-control" [(ngModel)]="rdsType">
+                                                    <option value="">All </option>
+                                                    <option value="retailer">Retailer</option>
+                                                    <option value="distributor">Distributor</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Holcim ID</label>
+                                                <p-autoComplete field="holcim_id" [(ngModel)]="rds_id" [suggestions]="filteredHolcimId" (completeMethod)="filterHolcimId($event)"
+                                                    (onFocus)="filterHolcimId($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="holcimIdErrors" class="error">
+                                                        <span>Please enter a valid holcim ID</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>City/Muncipality </label>
+                                                <p-autoComplete field="name" [(ngModel)]="rdscity" [suggestions]="filteredCity" (completeMethod)="filterCity($event)" (onFocus)="filterCity($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="cityErrors" class="error">
+                                                        <span>Please enter a valid city / municipality</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Sub District </label>
+                                                <p-autoComplete field="name" [(ngModel)]="rdssbdstrct" [suggestions]="filteredSubDistrict" (completeMethod)="filterSubDistrict($event)"
+                                                    (onFocus)="filterSubDistrict($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="subDistrictErrors" class="error">
+                                                        <span>Please enter a valid subdistrict</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="buttonContainer">
+                            <div class="form-group">
+                                <!-- <label style="visibility:hidden;">Search</label> -->
+                                <a href="javascript:void(0);" (click)="searchData()" class="btn darkBtn">Apply</a>
+                                <a href="javascript:void(0);" (click)="resetData()" class="btn darkBtn">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card oneLData">
+                    <div class="card-header">
+                        RESULTS
+                        <a href="javascript:void(0);" *ngIf="total > 0" class="exportWish pull-right" (click)="download()">
+                            <i class="fa fa-cloud-download fa-lg mt-4"></i>Export
+                        </a>
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        Displaying
+                        <span>{{(offset==0)?1:(perPageLimit*(offset+1))-perPageLimit+1}} - {{(offset==0)?perPageLimit-(perPageLimit-rdsData?.length):perPageLimit*(offset+1)-(perPageLimit-rdsData?.length)}}
+                            of {{total}}</span>
+                    </div>
+                    <div class="card-Wrapper">
+                        <div class="card-block" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+                            <table class="table table-bordered productRequestTable">
+                                <thead>
+                                    <tr>
+                                        <th>Sr No.</th>
+                                        <th>Name</th>
+                                        <th>Mobile</th>
+                                        <th>Type</th>
+                                        <th>Holcim Id</th>
+                                        <th>Address</th>
+                                        <th>City / Muncipality</th>
+                                        <th>Sub District</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let rds of rdsData; let i = index;">
+                                        <td>{{i+1+(offset?offset*10:0)}}</td>
+                                        <td>{{rds.rds_name || '-'}}</td>
+                                        <td>{{rds.rds_mobile || '-'}}</td>
+                                        <td>{{rds.rds_type || '-'}}</td>
+                                        <td>{{rds.holcim_id || '-'}}</td>
+                                        <td>{{rds.rds_address || '-'}}</td>
+                                        <td class="oneText">{{rds.municipalityList || '-'}}</td>
+                                        <td class="oneText">{{rds.subdistrictList || '-'}}</td>
+                                        <td>
+                                            <div class="groupBtn">
+                                                <!-- <a href="javascript:void(0);" class="btn btnEdit" (click)="view(rds.id)">View</a> -->
+                                                <a class="btn btnEdit" target="_blank" [routerLink]="['/view-rds', rds.id]">View</a>
+                                                <a *ngIf="role != '$tlh'" href="javascript:void(0);" target="_blank" class="btn btnEdit" [routerLink]="['/edit-rds', rds.id]">Edit</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p-paginator *ngIf="paginationVal" rows="10" totalRecords={{total}} (onPageChange)="paginate($event)"></p-paginator>
+                        </div>
+                        <div class="card-block" *ngIf="rdsData?.length==0">
+                            <div class="row">
+                                <div class="col-md-4">&nbsp;</div>
+                                <div class="col-md-4">
+                                    <h4>NO RESULT FOUND</h4>
+                                </div>
+                                <div class="col-md-4">&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dargPop">
+    <div class="dargPop">
+        <p-dialog header="Error" [modal]="true" [(visible)]="display" *ngIf="exportDataErr">
+            <p>{{exportDataErr}}</p>
+        </p-dialog>
+    </div>
+</div>

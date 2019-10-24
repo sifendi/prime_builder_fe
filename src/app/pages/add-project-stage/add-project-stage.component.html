@@ -1,0 +1,61 @@
+<div [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+    <div class="forecast row">
+        <div class="col-sm-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <button class="backBtn" type="button" tabindex="0" [routerLinkActive]="['active']" [routerLink]="['/project-stage']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                    <div>Add Project Stage</div>
+                </div>
+
+
+                <div class="row">
+                    <form #projectStage="ngForm">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card-Wrapper">
+                                    <div class="card-block">
+                                        <div class="primaryDetails">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="project_stage">Project stage*</label>
+                                                        <input type="text" class="form-control" maxlength="25" id="project_stage" name="project_stage" required placeholder="Enter Project stage" [(ngModel)]="projStg" #project_stage="ngModel" pattern="^[^-\s][a-zA-Z '\s-]+$">
+                                                        <div class="error-place">
+                                                            <div *ngIf="project_stage.errors && (project_stage.dirty || project_stage.touched || submitted)" class="error">
+                                                                <span *ngIf="project_stage.errors.required">
+												Project stage is required
+										</span>
+                                                                <span *ngIf="project_stage.errors.pattern">
+											Please enter a valid Project stage.
+										</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="buttonContainer">
+                                    <button *ngIf="!loading" class="btn darkBtn" type="submit" (click)="submit()" pButton icon="fa-external-link-square" label="Show">Submit</button>
+                                    <div class="loader" *ngIf="loading"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dargPop">
+    <p-dialog [modal]="true" [(visible)]="display" *ngIf="result == 'success'">
+        <h6>Inserted Successfully</h6>
+    </p-dialog>
+    <p-dialog header="Added new project stage" [modal]="true" [(visible)]="display" *ngIf="result != 'success'">
+        <p>{{result}}</p>
+    </p-dialog>
+</div>

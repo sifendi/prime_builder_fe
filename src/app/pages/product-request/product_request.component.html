@@ -1,0 +1,146 @@
+<div class="overlay" *ngIf="loading">
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw contCenter"></i> <span class="sr-only">Loading...</span>
+</div>
+<div class="animated fadeIn" *ngIf="!loading">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    Product Request
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-Wrapper">
+                            <div class="card-block">
+                                <div class="primaryDetails">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>HPB Name </label>
+                                                <p-autoComplete field="hpb_name" [(ngModel)]="hpbName" [suggestions]="filteredHpb" (completeMethod)="filterHpb($event)" (onFocus)="filterHpb($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="hpbNameErrors" class="error">
+                                                        <span>Please enter a valid HPB name</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Project Name </label>
+                                                <p-autoComplete field="project_name" [(ngModel)]="projectName" [suggestions]="filteredProject" (completeMethod)="filterProject($event)" (onFocus)="filterProject($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="projectNameErrors" class="error">
+                                                        <span>Please enter a valid project name</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Request Date </label>
+                                                <p-calendar dateFormat="dd MM yy" [maxDate]="maxDate" [(ngModel)]="value"></p-calendar>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Created By</label>
+                                                <p-autoComplete field="sph_name" [(ngModel)]="createdBy" [suggestions]="filteredUserFullName" (completeMethod)="filterFullName($event)" (onFocus)="filterFullName($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="createdByErrors" class="error">
+                                                        <span>Please enter a valid name</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Request Status</label>
+                                                <select class="form-control" [(ngModel)]="reqStatus">
+                                                    <option value="">All</option>
+                                                    <option value="0">Pending</option>
+                                                    <option value="1">Approved</option>
+                                                    <option value="-1">Rejected</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="buttonContainer">
+                            <div class="form-group">
+                                <a href="javascript:void(0);" (click)="searchData()" class="btn darkBtn">Apply</a>
+                                <a href="javascript:void(0);" (click)="resetData()" class="btn darkBtn">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    RESULTS
+                </div>
+				<div class="ui-g-12 ui-md-4">
+					Displaying <span>{{(offset==0)?1:(perPageLimit*(offset+1))-perPageLimit+1}} - {{(offset==0)?perPageLimit-(perPageLimit-prodRequest?.length):perPageLimit*(offset+1)-(perPageLimit-prodRequest?.length)}} of {{total}}</span>
+				</div>
+                <div class="card-Wrapper">
+                    <div class="card-block" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+                        <table class="table table-bordered productRequestTable">
+                            <thead>
+                                <tr>
+									<th>Sr No.</th>
+                                    <th>Project</th>
+                                    <th>HPB</th>
+                                    <!--<th>RDS</th>-->
+                                    <th>Quantity Required</th>
+                                    <th>Created By</th>
+                                    <th>Request Date</th>
+                                    <th>Request Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rds of prodRequest; let i=index;">
+								<td>{{i+1+(offset?offset*10:0)}}</td>
+                                    <td>
+                                        <!-- <a href="javascript:void(0);" (click)="goToPage('view-project',rds.project_id)">{{rds.project}}</a> -->
+                                        <a target="_blank" [routerLink]="['/view-project', rds.project_id]">{{rds.project || '-'}}</a>
+                                    </td>
+                                    <td>
+                                        <!-- <a href="javascript:void(0);" (click)="goToPage('view-hpb',rds.hpb_id)">{{rds.hpb_name}}</a> -->
+                                        <a target="_blank" [routerLink]="['/view-hpb', rds.hpb_id]">{{rds.hpb_name || '-'}}</a>
+                                    </td>
+                                    <td>{{rds.quantity_required}}</td>
+                                    <td><a target="_blank" [routerLink]="['/users/view-user', rds.created_by, '$sph']">{{rds.realm || '-'}}</a></td>
+                                    <td>{{rds.request_date}}</td>
+                                    <td><span class="{{rds.productclassname}}">{{rds.product_request_status || '-'}}</span></td>
+                                    <td>
+                                        <div class="groupBtn">
+                                            <a class="btn btnEdit" target="_blank" [routerLink]="['/view-product-request', rds.id]">View</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p-paginator *ngIf="paginationVal" rows="10" totalRecords={{total}} (onPageChange)="paginate($event)"></p-paginator>
+                    </div>
+                    <div class="card-block" *ngIf="prodRequest?.length==0">
+                        <div class="row">
+                            <div class="col-md-4">&nbsp;</div>
+                            <div class="col-md-4">
+                                <h4>NO RESULT FOUND</h4>
+                            </div>
+                            <div class="col-md-4">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

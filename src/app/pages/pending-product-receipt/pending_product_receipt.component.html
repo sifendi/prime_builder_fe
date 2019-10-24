@@ -1,0 +1,161 @@
+<div class="animated fadeIn" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    Pending Product Receipt
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-Wrapper">
+                            <div class="card-block">
+                                <div class="primaryDetails">
+                                    <div class="row">
+                                       <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Product Name </label>
+                                                <p-autoComplete field="name" [(ngModel)]="product" [suggestions]="filteredProduct" (completeMethod)="filterProduct($event)" (onFocus)="filterProduct($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="productErrors" class="error">
+                                                        <span>Please enter a valid product name</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Project Name </label>
+                                                 <p-autoComplete field="project_name" [(ngModel)]="project" [suggestions]="filteredProject" (completeMethod)="filterProject($event)" (onFocus)="filterProject($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="projectErrors" class="error">
+                                                        <span>Please enter a valid project name</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>HPB Name </label>
+                                                <p-autoComplete field="hpb_name" [(ngModel)]="hpb" [suggestions]="filteredHpb" (completeMethod)="filterHpb($event)" (onFocus)="filterHpb($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="hpbErrors" class="error">
+                                                        <span>Please enter a valid HPB name</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Created By</label>
+                                                <p-autoComplete field="sph_name" [(ngModel)]="createdBy" [suggestions]="filteredUserFullName" (completeMethod)="filterFullName($event)" (onFocus)="filterFullName($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="createdByErrors" class="error">
+                                                        <span>Please enter a valid name</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Created From</label>
+												<p-calendar name="createdDate" [maxDate]="maxDate" dateFormat="yy-mm-dd" [(ngModel)]="value"></p-calendar>
+											</div>
+										</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="buttonContainer">
+                            <div class="form-group">
+                                <a href="javascript:void(0);" (click)="searchData()" class="btn darkBtn">Apply</a>
+                                <a href="javascript:void(0);" (click)="resetData()" class="btn darkBtn">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    RESULTS
+                    <a href="javascript:void(0);" *ngIf="total > 0" class="exportWish pull-right" (click)="download()">
+                        <i class="fa fa-cloud-download fa-lg mt-4"></i>Export
+                    </a>
+                </div>
+				<div class="ui-g-12 ui-md-4">
+					Displaying <span>{{(offset==0)?1:(perPageLimit*(offset+1))-perPageLimit+1}} - {{(offset==0)?perPageLimit-(perPageLimit-prodrecData?.length):perPageLimit*(offset+1)-(perPageLimit-prodrecData?.length)}} of {{total}}</span>
+				</div>
+                <div class="card-Wrapper">
+                    <div class="card-block" [class.tableWrap]="prodrecData?.length > 0">
+                        <table class="table table-bordered productRequestTable">
+                            <thead>
+                                <tr>
+									<th>Sr No.</th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Unit</th>
+                                    <th>Project</th>
+                                    <th>Is SRKu?</th>
+                                    <th>HPB</th>
+									<th>HPB Type</th>
+                                    <th>HPB Status</th>
+                                    <th>TLH Approval</th>
+                                    <th>AC Approval</th>
+                                    <th>SA Approval</th>
+                                    <th>Created By</th>
+                                    <th>Created Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let prod of prodrecData; let i=index;">
+								<td>{{i+1+(offset?offset*10:0)}}</td>
+                                    <td>{{prod.product}}</td>
+                                    <td>{{prod.quantity}}</td>
+                                    <td>{{prod.unit}}</td>
+                                    <td>
+                                        <!-- <a href="javascript:void(0);" (click)="goToPage('view-project',prod.project_id)">{{prod.project}}</a> -->
+                                        <a target="_blank" [routerLink]="['/view-project', prod.project_id]">{{prod.project}}</a>
+                                    </td>
+                                    <td>{{prod.is_srku?"Yes":"No"}}</td>
+                                    <td>
+                                        <!-- <a href="javascript:void(0);" (click)="goToPage('view-hpb',prod.hpb_id)">{{prod.hpb_name}}</a> -->
+                                        <a target="_blank" [routerLink]="['/view-hpb', prod.hpb_id]">{{prod.hpb_name}}</a>
+                                    </td>
+                                    <td>{{prod.hpb_type}}</td>
+									<td>{{prod.hpb_status}}</td>
+                                    <td><span class="{{prod.tlhclassname}}">{{prod.tlhapproval}}</span></td>
+                                    <td><span class="{{prod.acclassname}}">{{prod.acapproval}}</span></td>
+                                    <td><span class="{{prod.saclassname}}">{{prod.saapproval}}</span></td>
+                                    <td>{{prod.sph_name}}</td>
+                                    <td>{{prod.created_date}}</td>
+                                    <td>
+                                        <div class="groupBtn">
+                                            <!-- <a href="javascript:void(0);" class="btn btnEdit" (click)="view(prod.receipt_id,'pending')">View</a> -->
+                                            <a class="btn btnEdit" target="_blank" [routerLink]="['/view-product-receipt', prod.receipt_id,'pending']">View</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p-paginator *ngIf="paginationVal" rows="10" totalRecords={{total}} (onPageChange)="paginate($event)"></p-paginator>
+                    <div class="card-block" *ngIf="prodrecData?.length==0">
+                        <div class="row">
+                            <div class="col-md-4">&nbsp;</div>
+                            <div class="col-md-4">
+                                <h4>NO RESULT FOUND</h4>
+                            </div>
+                            <div class="col-md-4">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

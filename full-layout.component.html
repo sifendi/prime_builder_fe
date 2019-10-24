@@ -1,0 +1,138 @@
+<header class="app-header navbar">
+    <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">&#9776;</button>
+    <a class="navbar-brand" href="javascript:void(0)"></a>
+
+    <ul class="nav navbar-nav hidden-md-down brder">
+        <li class="nav-item">
+            <a class="nav-link navbar-toggler sidebar-toggler" href="#">&#9776;</a>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav hidden-md-down">
+        <li class="nav-item px-1">
+            <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/dashboard']">Dashboard</a>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav ml-auto">
+
+        <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
+                <img src="assets/img/photo.jpg" class="img-avatar">
+                <span class="hidden-md-down">{{currUsernameDisplay}}</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" dropdownMenu aria-labelledby="simple-dropdown">
+				<a class="dropdown-item" href="javascript:void(0)" (click)="logOut()"><i class="icon-logout"></i> Logout</a>
+            </div>
+        </li>
+        <li class="nav-item hidden-md-down"></li>
+    </ul>
+
+</header>
+
+<div class="app-body">
+    <div class="sidebar">
+        <nav class="sidebar-nav">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/dashboard']"> Dashboard <span class="badge badge-info">NEW</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/user']"> User</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/hpb']"> HPB</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/project']"> Project</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/rds-visit']"> RDS Visit</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/product-receipt']"> Product Receipt</a>
+                </li>
+				<li class="nav-item">
+                    <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/cement-bag-removal']">Cement Bag Removal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/product-request']"> Product Request</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/redemption']"> Points Redemption</a>
+                </li>
+				<li class="nav-item">
+                    <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/rewardwishlist']"> Reward Wishlist</a>
+                </li>
+				<li class="nav-item">
+                    <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/monthly-actual-target']"> Monthly Actual Target</a>
+                </li>
+				<li class="nav-item">
+                    <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/visit-plan']"> Retailer/Distributor Target</a>
+                </li>
+				<li class="nav-item">
+                    <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/monthly-forecast-target']">Mason/Contractor Target</a>
+                </li>
+				<li class="nav-item nav-dropdown" routerlinkactive="open">
+					<a class="nav-link nav-dropdown-toggle" href="#">All Masters</a>
+					<ul class="nav-dropdown-items">
+						<li class="nav-item">
+							<a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/rds']"> RDS</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/product']"> Product</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/reward']"> Reward</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/region']"> Region</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/province']"> Province</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/district']"> District</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/municipality']"> Municipality</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/subdistrict']"> Subdistrict</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/postalcode']"> Postal Code</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/project-type']"> Project Type</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/project-stage']"> Project Stage</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/nmc']"> NMC</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+        </nav>
+    </div>
+
+    <!-- Main content -->
+    <main class="main">
+
+        <!-- Breadcrumb -->
+        <ol class="breadcrumb">
+            <breadcrumbs></breadcrumbs>
+        </ol>
+
+        <div class="container-fluid">
+            <router-outlet></router-outlet>
+        </div>
+        <!-- /.conainer-fluid -->
+    </main>
+</div>
+
+<footer class="app-footer">
+    <a href="http://www.holcim.com/" target="_blank">Holcim</a> &copy; 2017.
+    <span class="float-right">Powered by <a href="http://www.experiencecommerce.com/" target="_blank">Experience Commerce</a>
+    </span>
+</footer>

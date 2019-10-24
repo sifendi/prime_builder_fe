@@ -1,0 +1,146 @@
+<div class="overlay" *ngIf="loading">
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw contCenter"></i> <span class="sr-only">Loading...</span>
+</div>
+<div class="animated fadeIn" *ngIf="!loading">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    Points Redeemed
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-Wrapper">
+                            <div class="card-block">
+                                <div class="primaryDetails">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>HPB Name </label>
+                                            <p-autoComplete field="hpb_name" [(ngModel)]="hpbName" [suggestions]="filteredHpb" (completeMethod)="filterHpb($event)" (onFocus)="filterHpb($event)">
+                                            </p-autoComplete>
+                                            <div class="error-place">
+                                                <div *ngIf="hpbNameErrors" class="error">
+                                                    <span>Please enter a valid HPB name</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Reward</label>
+                                            <input class="form-control" [(ngModel)]="rewardName" />
+                                        </div>
+                                        <div class="col-md-4">
+											<div class="form-group">
+												<label>Approval Status</label>
+												<select class="form-control" [(ngModel)]="aprvStatus">
+												<option value="">All</option>
+												<option value="0">Pending</option>
+												<option value="1">Approved</option>
+												<option value="-1">Rejected</option>
+											  </select>
+											</div>
+										</div>
+                                    </div>
+                                </div>
+                                <div class="secondaryDetails">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="restGrp">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+														<label>Created By</label>
+														<p-autoComplete field="sph_name" [(ngModel)]="name" [suggestions]="filteredUserFullName" (completeMethod)="filterFullName($event)" (onFocus)="filterFullName($event)">
+                                                        </p-autoComplete>
+                                                        <div class="error-place">
+                                                            <div *ngIf="createdByErrors" class="error">
+                                                                <span>Please enter a valid name</span>
+                                                            </div>
+                                                        </div>
+													</div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Created Date</label>
+                                                            <p-calendar [maxDate]="maxDate" dateFormat="dd MM yy" [(ngModel)]="cDate"></p-calendar>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="buttonContainer">
+                            <div class="form-group">
+                                <a href="javascript:;" (click)="searchData()" class="btn darkBtn">Apply</a>
+                                <a href="javascript:;" (click)="resetPage()" class="btn darkBtn">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    RESULTS
+                    <a href="javascript:void(0);" *ngIf="total > 0"  class="exportWish pull-right" (click)="download()">
+                        <i class="fa fa-cloud-download fa-lg mt-4"></i>Export
+                    </a>
+                </div>
+				<div class="ui-g-12 ui-md-4">
+					Displaying <span>{{(offset==0)?1:(perPageLimit*(offset+1))-perPageLimit+1}} - {{(offset==0)?perPageLimit-(perPageLimit-rewardData?.length):perPageLimit*(offset+1)-(perPageLimit-rewardData?.length)}} of {{total}}</span>
+				</div>
+                <div class="card-Wrapper">
+                    <div class="card-block" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+                        <table class="table table-bordered productRequestTable">
+                            <thead>
+                                <tr>
+									<th>Sr No.</th>
+                                    <th>HPB Name</th>
+                                    <th>Reward</th>
+                                    <!-- <th>image</th> -->
+                                    <th>Points Redeemed</th>
+                                    <th>Approval Status</th>
+                                    <th>Created By</th>
+                                    <th>Created Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let n of rewardData; let i=index;">
+									<td>{{i+1+(offset?offset*10:0)}}</td>
+                                    <td>
+                                        <!-- <a href="javascript:void(0);" (click)="goToHpb(n.hpb_id)">{{n.hpb_name}}</a> -->
+                                        <a target="_blank" [routerLink]="['/view-hpb', n.hpb_id]">{{n.hpb_name}}</a>
+                                    </td>
+                                    <td>{{n.reward_name}}</td>
+                                    <!-- <td><img src="{{n.reward_name}}" alt="{{n.hpb_name}}" title="{{hpb.hpb_name}}" width="100" /></td> -->
+                                    <td>{{n.points_redeemed || 0}}</td>
+                                    <td><span class="{{n.classname}}">{{n.status || '-'}}</span></td>
+                                    <td>{{n.sph_name || '-' }}</td>
+                                    <td>{{n.created_date || '-' }}</td>
+                                    <td>
+                                        <div class="groupBtn">
+                                            <!-- <a href="javascript:void(0);" class="btn btnEdit" (click)="viewProd(n.id)">View</a> -->
+                                            <a class="btn btnEdit" target="_blank" [routerLink]="['/view-redemption', n.id]">View</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p-paginator class="paginCustome" *ngIf="paginationVal" rows="10" totalRecords={{total}} (onPageChange)="paginate($event)"></p-paginator>
+                    </div>
+                    <div class="card-block" *ngIf="rewardData?.length==0">
+                        <div class="row">
+                            <div class="col-md-4">&nbsp;</div>
+                            <div class="col-md-4">
+                                <h4>NO RESULT FOUND</h4>
+                            </div>
+                            <div class="col-md-4">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

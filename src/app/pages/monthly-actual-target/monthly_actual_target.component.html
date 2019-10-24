@@ -1,0 +1,114 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    Monthly Target
+                </div>
+                <div class="addUser">
+                    <button type="button" [routerLinkActive]="['active']" [routerLink]="['/add-monthly-actual-target']" class="btn btnUser">Add Monthly Target</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-Wrapper">
+                            <div class="card-block">
+                                <div class="primaryDetails">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Year</label>
+                                                <select name="year_select" class="form-control" [(ngModel)]="yearVal">
+                          <option *ngFor="let yr of years" value="{{yr}}">{{yr}}</option>
+                        </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Month</label>
+                                                <select name="from_date" class="form-control" [(ngModel)]="monthVal">
+                          <option *ngFor="let mn of monthsArr; let i=index" value="{{i+1}}">{{mn}}</option>
+                        </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>SPH Name</label>
+                                                <p-autoComplete (onSelect)="captureId($event)" [(ngModel)]="sphSelected" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30" [minLength]="1" [dropdown]="false">
+                                                    <!-- <ng-template let-sphSelected pTemplate="item">
+                          <div class="">
+                            <div>{{sphSelected}}</div>
+                          </div>
+                        </ng-template> -->
+                                                </p-autoComplete>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Status</label>
+                                                <select name="status" [(ngModel)]="status" class="form-control">
+                          <option value="">All</option>
+                          <option value="1">Active</option>
+                          <option value="0">Inactive</option>
+                        </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="buttonContainer">
+                            <div class="form-group">
+                                <a href="javascript:;" (click)="searchData()" class="btn darkBtn">Apply</a>
+                                <a href="javascript:;" (click)="resetData()" class="btn darkBtn">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header targetHead">
+                    RESULTS
+                </div>
+                <div class="card-Wrapper tragets">
+                    <div class="card-block" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+                        <div class="monthlyTarget" *ngIf="!ifEmpty">
+                            <div class="panelContainer" *ngFor="let key of targetSph | keys; let i = index">
+                                <div class="mnthCont">
+                                    <ul class="row">
+                                        <li *ngFor="let data of targetSph[key] | keys;">
+                                            <div class="monthlyTargetBx">
+                                                <h5 [innerHTML]="replaceValue(data)"></h5>
+                                                <p>{{targetSph[key][data]}}</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="targetCont">
+                                    <ul class="row">
+                                        <li *ngFor="let data of target[key] | keys;">
+                                            <div class="monthlyTargetBx">
+                                                <h5 [innerHTML]="replaceValue(data)"></h5>
+                                                <p>{{target[key][data]}}</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					<div class="card-block" *ngIf="totalRows == 0">
+						<div class="row">
+							<div class="col-md-4">&nbsp;</div>
+							<div class="col-md-4">
+								<h4>NO RESULT FOUND</h4>
+							</div>
+							<div class="col-md-4">&nbsp;</div>
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

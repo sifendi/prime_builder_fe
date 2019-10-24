@@ -1,0 +1,32 @@
+<p-growl [(value)]="msgs"></p-growl>
+<p-confirmDialog></p-confirmDialog>
+<div class="animated fadeIn" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+  
+				<div class="upper-details">
+                       <p-steps [model]="items"  [(activeIndex)]="activeIndex" [readonly]="true"></p-steps>
+				</div>
+           
+                <div class="upper-details" [hidden]="activeIndex!=0">
+                        <h3>Role</h3>
+                        <button pButton type="button" (click)="roleSubmit()" label="Next"></button>
+                </div>
+                <div class="upper-details" [hidden]="activeIndex!=1">
+                        <h3>Sheet</h3>
+                        <p-fileUpload mode="basic"  name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"></p-fileUpload>                        
+                        <button pButton type="button" (click)="sheetSubmit()" label="Next"></button>
+                </div>
+                <div class="upper-details" [hidden]="activeIndex!=2">
+                        <h3>Data</h3>
+                        <button pButton type="button" (click)="sheetcheck()" label="Next"></button>
+                </div>
+                <div class="upper-details" [hidden]="activeIndex!=3">
+                        <h3>Result</h3>
+                        <button pButton type="button" (click)="resultSubmit()" label="Next"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<div>
+    <div class="row forecast">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="cardContent">
+                    <div class="card-header">
+                        <button class="backBtn" type="button" tabindex="0" [routerLinkActive]="['active']" [routerLink]="['/nmc']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                        <div>Edit Nmc</div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <form #nmc="ngForm">
+                        <div class="col-md-12">
+                            <div class="card-Wrapper">
+                                <div class="card-block">
+                                    <div class="primaryDetails">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="nmc_type">NMC*</label>
+                                                    <input type="text" class="form-control" id="nmc_type" name="nmc_type" required placeholder="Enter your Nmc Type" [(ngModel)]="type" #nmc_type="ngModel" pattern="^[^-\s][a-zA-Z '\s-]+$">
+                                                    <div class="error-place">
+                                                        <div *ngIf="nmc_type.errors && (nmc_type.dirty || nmc_type.touched || submitted)" class="error">
+                                                            <span *ngIf="nmc_type.errors.required">
+											Nmc Type is required
+										</span>
+                                                            <span *ngIf="nmc_type.errors.pattern">
+											Please enter a valid Nmc type.
+										</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="buttonContainer">
+                                <button class="btn darkBtn" *ngIf="!loading" type="submit" (click)="submit()" label="Show">Submit</button>
+                                <div class="loader" *ngIf="loading"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i></div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dargPop">
+    <p-dialog [modal]="true" [(visible)]="display" *ngIf="result == 'success'">
+        <h6>Updated Successfully</h6>
+    </p-dialog>
+    <p-dialog header="Updated NMC" [modal]="true" [(visible)]="display" *ngIf="result != 'success'">
+        <p>{{result}}</p>
+    </p-dialog>
+</div>

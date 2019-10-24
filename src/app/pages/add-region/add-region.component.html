@@ -1,0 +1,69 @@
+<div [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+    <div class="forecast row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <button class="backBtn" type="button" tabindex="0" [routerLinkActive]="['active']" [routerLink]="['/region']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                    <div>Add Region</div>
+                </div>
+                <div class="row">
+                    <form #regionfrm="ngForm">
+                        <div class="col-md-12">
+                            <div class="card-Wrapper">
+                                <div class="card-block">
+                                    <div class="primaryDetails">
+                                        <div class="row">
+
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="name">Region Name*</label>
+                                                    <input type="text" class="form-control" (ngModelChange)="NameChange($event)" id="name" name="name" required placeholder="Enter region name" [(ngModel)]="regionfrmname" #name="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+                                                    <div class="error-place">
+                                                        <div *ngIf="name.errors && (name.dirty || name.touched || submitted)" class="error">
+                                                            <span *ngIf="name.errors.required">
+												Region name is required
+										</span>
+                                                            <span *ngIf="name.errors.pattern">
+											Please enter a valid region name.
+										</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="code">Region Code*</label>
+                                                    <input type="text" readonly class="form-control" id="code" name="code" [(ngModel)]="regionfrmcode" #code="ngModel">
+                                                    <span *ngIf="namechkResErr" class="error">
+										Region code loading. Please wait
+								</span>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="buttonContainer">
+                                <button class="btn darkBtn" *ngIf="!loading" type="submit" (click)="submit()" label="Show">Submit</button>
+                                <div class="loader" *ngIf="loading"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dargPop">
+    <p-dialog [modal]="true" [(visible)]="display" *ngIf="result == 'success'">
+        <h6>Added new region</h6>
+    </p-dialog>
+    <p-dialog header="Added new region" [modal]="true" [(visible)]="display" *ngIf="result != 'success'">
+        <p>{{result}}</p>
+    </p-dialog>
+</div>

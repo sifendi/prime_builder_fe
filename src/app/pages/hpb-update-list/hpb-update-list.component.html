@@ -1,0 +1,135 @@
+<div class="overlay" *ngIf="loading">
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw contCenter"></i> <span class="sr-only">Loading...</span>
+</div>
+<div class="animated fadeIn" *ngIf="!loading">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    Search
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-Wrapper">
+                            <div class="card-block">
+                                <div class="primaryDetails">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Customer Name</label>
+                                                <p-autoComplete field="hpb_name" [(ngModel)]="name" [suggestions]="filteredUserFullName" (completeMethod)="filterFullName($event)" (onFocus)="filterFullName($event)">
+                                                </p-autoComplete>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Old Data</label>
+                                                <p-autoComplete field="field_old_value" [(ngModel)]="oldMobile" [suggestions]="filteredOldNo" (completeMethod)="filterOldNo($event)" (onFocus)="filterOldNo($event)">
+                                                </p-autoComplete>
+                                                <!-- <input class="form-control" [(ngModel)]="mobile" /> -->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>New Data</label>
+                                                <p-autoComplete field="field_new_value" [(ngModel)]="newMobile" [suggestions]="filteredNewNo" (completeMethod)="filterNewNo($event)" (onFocus)="filterNewNo($event)">
+                                                    </p-autoComplete>
+                                                <!-- <input class="form-control" [(ngModel)]="mobile" /> -->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Approval Status</label>
+                                                <select class="form-control" [(ngModel)]="status">
+                                                    <option value="">All </option>
+                                                    <option value="0">Pending</option>
+                                                    <option value="1">Approved</option>
+                                                    <option value="-1">Rejected</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Created Date From</label>
+                                                <p-calendar dateFormat="dd MM yy" [maxDate]="maxDateValue" [(ngModel)]="createddate"></p-calendar>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Updated Date From</label>
+                                                <p-calendar dateFormat="dd MM yy" [maxDate]="maxDateValue" [(ngModel)]="updateddate"></p-calendar>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="buttonContainer">
+                            <div class="form-group">
+                                <!-- <label style="visibility:hidden;">Search</label> -->
+                                <a href="javascript:void(0);" (click)="searchData()" class="btn darkBtn">Apply</a>
+                                <a href="javascript:void(0);" (click)="resetData()" class="btn darkBtn">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    RESULTS
+                </div>
+                <div class="ui-g-12 ui-md-4">
+                    Displaying <span>{{(offset==0)?1:(perPageLimit*(offset+1))-perPageLimit+1}} - {{(offset==0)?perPageLimit-(perPageLimit-updateUserData?.length):perPageLimit*(offset+1)-(perPageLimit-updateUserData?.length)}} of {{total}}</span>
+                </div>
+                <div class="card-Wrapper">
+                    <div class="card-block" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+                        <table class="table table-bordered productRequestTable">
+                            <thead>
+                                <tr>
+                                <th>Sr no</th>
+                                <th>Name</th>
+                                <th>Old Data</th>
+                                <th>New Data</th>
+                                <th>Type</th>
+                                <th>Updated Date</th>
+                                <th>Created Date</th>
+                                <th>Approval Status</th>
+                                <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of updateUserData;let i=index;">
+                                    <td>{{i+1+(offset?offset*10:0)}}</td>
+                                    <td>{{user.hpb_name || '-'}}</td>
+                                    <td>{{user. field_old_value || '-'}}</td>
+                                    <td>{{user. field_new_value || '-'}}</td>
+                                    <td>{{user. field_name || '-'}}</td>
+                                    <td>{{user. updated_date || '-'}}</td>
+                                    <td>{{user. created_date || '-'}}</td>
+                                    <td><span class="{{user.classname}}">{{user.status || '-'}}</span></td>
+                                    <td>
+                                        <div class="groupBtn">
+                                            <a target="_blank" class="btn btnEdit" [routerLink]="['/hpb-update-view',user.id]">View</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p-paginator *ngIf="paginationVal" rows="10" totalRecords={{total}} (onPageChange)="paginate($event)"></p-paginator>
+                    </div>
+                    <div class="card-block" *ngIf="updateUserData?.length==0">
+                        <div class="row">
+                            <div class="col-md-4">&nbsp;</div>
+                            <div class="col-md-4">
+                                <h4>NO RESULT FOUND</h4>
+                            </div>
+                            <div class="col-md-4">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

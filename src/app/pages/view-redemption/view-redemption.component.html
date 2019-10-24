@@ -1,0 +1,89 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <button type="button" class="backBtn" [routerLinkActive]="['active']" [routerLink]="['/redemption']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                </div>
+                <div class="detailsContainer productContainer" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+                    <div class="card-details">
+                        <div class="card-block">
+                            <div class="blockTop productBlock">
+                                <div class="items">
+                                    <div class="gutter-space">
+                                        <div class="panelWrapper">
+                                            <div class="panelHead">
+                                                <h3>Status</h3>
+                                            </div>
+                                            <div class="panelBody">
+                                                <ul class="panelitem">
+                                                    <li *ngIf="rewardData.status" class="badge-{{rewardData.status_class}} statusBlock">
+                                                        <p>{{rewardData.status}}</p>
+                                                        <h4><i class="icon-{{rewardData.status}}"></i>SA</h4>
+                                                    </li>
+                                                    <li *ngIf="rewardData.status == 'Pending' && role=='$sa'">
+                                                        <div class="statusBtn" *ngIf="!rejection">
+                                                            <button type="button" (click)="approveRedemption(rewardData.id,1)" class="btn btnApprove">Approve</button>
+                                                            <button type="button" (click)="rejectNow()" class="btn btnReject">Reject</button>
+                                                        </div>
+                                                        <div class="statusBtn editStatus" *ngIf="rejection">
+                                                            <textarea id="reason" name="reason" placeholder="Enter Reason" [(ngModel)]="reason"></textarea>
+                                                            <div class="error-place">
+                                                                <div *ngIf="reasonError" class="error">
+                                                                    <span>
+                                                                        Reason is required
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="statusBtn statusRej" *ngIf="rejection">
+                                                            <button type="button " (click)="approveRedemption(rewardData.id,-1)" class="btn darkBtn">Submit</button>
+                                                            <button type="button" (click)="goBack()" class="btn darkBtn">Cancel</button>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <p>Reason</p>
+                                                        <h4>{{rewardData?.rejected_reason?rewardData?.rejected_reason:"-"}}</h4>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="items ">
+                                    <div class="gutter-space ">
+                                        <div class="panelWrapper ">
+                                            <div class="panelHead ">
+                                                <h3>View Details</h3>
+                                            </div>
+                                            <div class="panelBody ">
+                                                <ul class="panelitem ">
+                                                    <li>
+                                                        <p>HPB Name</p>
+                                                        <h4><a [routerLink]="['/view-hpb', rewardData.hpb_id]">{{rewardData.hpb_name || '-' }}</a></h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>SPH Name</p>
+                                                        <h4>{{rewardData.sph_name || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Reward Name</p>
+                                                        <h4><a [routerLink]="['/view-reward', rewardData.reward_id]">{{rewardData.reward_name || '-' }}</a></h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Points Redeemed</p>
+                                                        <h4>{{rewardData.points_redeemed || '-' }}</h4>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

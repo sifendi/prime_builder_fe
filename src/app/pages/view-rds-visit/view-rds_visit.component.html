@@ -1,0 +1,87 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <button type="button" class="backBtn" [routerLinkActive]="['active']" [routerLink]="['/rds-visit']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+        </div>
+        <div class="detailsContainer productContainer">
+          <div class="card-details">
+            <div class="card-block">
+              <div class="blockTop productBlock">
+                <div class="items">
+                  <div class="gutter-space">
+                    <div class="panelWrapper">
+                      <div class="panelHead">
+                        <h3>Visit Details</h3>
+                      </div>
+                      <div class="panelBody">
+                        <ul class="panelitem panelInfo">
+                          <li>
+                            <p>Distributor Name</p>
+                            <h4>{{rdsUnique.retailer}}</h4>
+                          </li>
+                          <li>
+                            <p>Visit Date</p>
+                            <h4>{{rdsUnique.visit_date}}</h4>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="items" *ngFor="let brand of rdsVisitData let i = index" [attr.data-index]="i">
+                  <div class="gutter-space">
+                    <div class="panelWrapper">
+                      <div class="panelHead">
+                        <h3>Brand {{i+1}}</h3>
+                      </div>
+                      <div class="panelBody">
+                        <ul class="panelitem panelInfo">
+                          <li>
+                            <p>Brand Name</p>
+                            <h4>{{brand.name}}</h4>
+                          </li>
+                          <li>
+                            <p>Selling Price</p>
+                            <h4>{{brand.stock_selling_price}}</h4>
+                          </li>
+                          <li>
+                            <p>Type of packaging</p>
+                            <h4>{{brand.unit}}</h4>
+                          </li>
+                          <li>
+                            <p>Promotion Program</p>
+                            <h4>{{brand.stock_promo}}</h4>
+                          </li>
+                          <li>
+                            <p>Stock Quantity</p>
+                            <h4>{{brand.stock_quantity}}</h4>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+				<div class="items">
+                  <div class="gutter-space">
+                    <div class="panelWrapper">
+                      <div class="panelBody">
+                        <ul class="panelitem panelInfo">
+                          <li>
+                            <p>Note</p>
+                            <h4>{{rdsUnique.additional_comments || '-' }}</h4>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+			  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

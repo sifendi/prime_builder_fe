@@ -1,0 +1,93 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <button type="button" class="backBtn" [routerLinkActive]="['active']" [routerLink]="['/rds']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+        </div>
+        <div class="detailsContainer productContainer">
+          <div class="card-details">
+            <div class="card-block">
+              <div class="blockTop productBlock">
+                <div class="items">
+                  <div class="gutter-space">
+                    <div class="panelWrapper">
+                      <div class="panelHead">
+                        <h3>RDS Details</h3>
+                      </div>
+                      <div class="panelBody">
+                        <ul class="panelitem panelInfo">
+                          <li>
+                            <p>Holcim Id</p>
+                            <h4>{{hpbData.holcim_id || '-' }}</h4>
+                          </li>
+                          <li>
+                            <p>Name</p>
+                            <h4>{{hpbData.rds_name || '-' }}</h4>
+                          </li>
+                          <li>
+                            <p>Mobile</p>
+                            <h4>{{hpbData.rds_mobile || '-' }}</h4>
+                          </li>
+                          <li>
+                            <p>Phone</p>
+                            <h4>{{hpbData.rds_phone || '-' }}</h4>
+                          </li>
+                          <li>
+                            <p>Email ID</p>
+                            <h4>{{hpbData.rds_email || '-' }}</h4>
+                          </li>
+                          <li>
+                            <p>Gender</p>
+                            <h4>{{hpbData.rds_gender || '-' }}</h4>
+                          </li>
+                          <li>
+                            <p>Type</p>
+                            <h4>{{hpbData.rds_type || '-' }}</h4>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="items">
+                  <div class="gutter-space">
+                    <div class="panelWrapper">
+                      <div class="panelHead">
+                        <h3>Personal Details</h3>
+                      </div>
+                      <div class="panelBody">
+                        <ul class="panelitem panelInfo">
+                          <li>
+                            <p>Address</p>
+                            <h4>{{hpbData.rds_address || '-' }}</h4>
+                          </li>
+                          <li>
+                            <p>Province</p>
+                            <h4>{{hpbData.provinceName || '-' }}</h4>
+                          </li>
+                          <li>
+                            <p>District</p>
+                            <h4>{{hpbData.districtName || '-' }}</h4>
+                          </li>
+                          <li>
+                            <p>City / Municipality</p>
+                            <h4>{{hpbData.municipalityName || '-' }}</h4>
+                          </li>
+                          <li>
+                            <p>Sub District</p>
+                            <h4>{{hpbData.subdistrictName || '-' }}</h4>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

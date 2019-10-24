@@ -1,0 +1,144 @@
+<!-- <div class="overlay" *ngIf="loading">
+  <i class="fa fa-spinner fa-pulse fa-3x fa-fw contCenter"></i> <span class="sr-only">Loading...</span>
+</div> -->
+<div class="animated fadeIn" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          Search
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-Wrapper">
+              <div class="card-block">
+                <div class="primaryDetails">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Full Name</label>
+                        <input class="form-control" [(ngModel)]="hpbName" />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>HPB Type </label>
+                        <select name="hpbtype" class="form-control" [(ngModel)]="hpbType">
+                          <option value="">All</option>
+                          <option value="mason">Mason</option>
+                          <option value="contractor">Contractor</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Status</label>
+                        <select name="hpbtype" class="form-control" [(ngModel)]="hpbStatus">
+                          <option value="">All</option>
+                          <option value="prospect">Prospect</option>
+                          <option value="switching">Switching</option>
+                          <option value="maintain">Maintain</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="secondaryDetails">
+                  <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Mobile No.</label>
+                          <input class="form-control" [(ngModel)]="primobNo" />
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Created By</label>
+                          <p-autoComplete field="sph_name" [(ngModel)]="createdBy" [suggestions]="filteredUserFullName" (completeMethod)="filterFullName($event)" (onFocus)="filterFullName($event)">
+                          </p-autoComplete>
+                          <div class="error-place">
+                            <div *ngIf="createdByErrors" class="error">
+                                <span>Please enter a valid name</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="buttonContainer">
+              <div class="form-group">
+                <!-- <label style="visibility:hidden;">Search</label> -->
+                <a href="javascript:;" (click)="searchData()" class="btn darkBtn">Apply</a>
+                <a href="javascript:;" (click)="resetPage()" class="btn darkBtn">Reset</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          RESULTS
+          <a href="javascript:void(0);" *ngIf="total > 0" class="exportWish pull-right" (click)="download()">
+            <i class="fa fa-cloud-download fa-lg mt-4"></i>Export
+          </a>
+        </div>
+		<div class="ui-g-12 ui-md-4">
+			Displaying <span>{{(offset==0)?1:(perPageLimit*(offset+1))-perPageLimit+1}} - {{(offset==0)?perPageLimit-(perPageLimit-hpbData?.length):perPageLimit*(offset+1)-(perPageLimit-hpbData?.length)}} of {{total}}</span>
+		</div>
+        <div class="card-Wrapper">
+          <div class="card-block">
+            <table class="table table-bordered productRequestTable">
+              <thead>
+                <tr>
+					        <th>Sr No.</th>
+                  <th>Profile Photo</th>
+                  <th>HPB Name</th>
+                  <th>HPB Type</th>
+                  <th>Primary Mobile</th>
+                  <th>HPB Status</th>
+                  <th>Created By</th>
+                  <th>Created At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let hpb of hpbData; let i=index">
+                  <td>{{i+1+(offset?offset*10:0)}}</td>
+                  <td>
+					          <img [src]="hpb.hpb_profile_pic" (click)="open(i)" width="100" />
+                  </td>
+                  <td>{{hpb.hpb_name || '-'}}</td>
+                  <td>{{hpb.hpb_type || '-'}}</td>
+                  <td>{{hpb.primary_mobile_no || '-'}}</td>
+                  <td>{{hpb.hpb_status || '-'}}</td>
+                  <td>{{hpb.sph_name || '-'}}</td>
+                  <td>{{hpb.created_date || '-'}}</td>
+                  <td>
+                    <div class="groupBtn">
+                      <a class="btn btnEdit" target="_blank" [routerLink]="['/view-hpb', hpb.hpb_id]">View</a>
+                      <a class="btn btnEdit" *ngIf="rolename == '$ra'" target="_blank" [routerLink]="['/edit-hpb', hpb.hpb_id]" [class.disabled]="hpb.status!=1">Edit</a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p-paginator class="paginCustome" *ngIf="paginationVal" rows="10" totalRecords={{total}} (onPageChange)="paginate($event)"></p-paginator>
+          </div>
+          <div class="card-block" *ngIf="hpbData?.length==0">
+            <div class="row">
+              <div class="col-md-4">&nbsp;</div>
+              <div class="col-md-4">
+                <h4>NO RESULT FOUND</h4>
+              </div>
+              <div class="col-md-4">&nbsp;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

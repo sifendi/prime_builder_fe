@@ -1,0 +1,154 @@
+<div class="animated fadeIn" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <button type="button" class="backBtn" [routerLinkActive]="['active']" [routerLink]="['/eap-support-assignment']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                </div>
+                <div class="detailsContainer productContainer">
+                    <div class="card-details">
+                        <div class="card-block">
+                            <div class="blockTop productBlock">
+                                <div class="items">
+                                    <div class="gutter-space">
+                                        <div class="panelWrapper">
+                                            <div class="panelHead">
+                                                <h3>Project / Customer Data</h3>
+                                            </div>
+                                            <div class="panelBody">
+                                                <ul class="panelitem">
+                                                    <li>
+                                                        <p>Project / Customer Name</p>
+                                                        <h4>{{support.lead_name || '0'}}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Mobile</p>
+                                                        <h4>{{support.lead_mobile || '-'}}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Segment</p>
+                                                        <h4>{{support.segment_name || '-'}}</h4>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="items">
+                                    <div class="gutter-space">
+                                        <div class="panelWrapper">
+                                            <div class="panelBody">
+                                                <ul class="panelitem">
+                                                    <li>
+                                                        <p>Status</p>
+                                                        <h4>{{support.lead_status || '-'}}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Visit Date</p>
+                                                        <h4>{{support.lead_visit_date || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Created Date</p>
+                                                        <h4>{{support.created_date}}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Created by</p>
+                                                        <h4>{{support.eap_name || '-' }}</h4>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="items">
+                                    <div class="gutter-space">
+                                        <div class="panelWrapper">
+                                            <div class="panelBody">
+                                                <ul class="panelitem">
+                                                    <li class="col-md-12">
+                                                       <p>Interview Result</p>
+                                                        <h4>{{support.lead_interview_result || '-' }}</h4>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+								<div class="items">
+                                    <div class="gutter-space">
+                                        <div class="panelWrapper">
+                                            <div class="panelBody">
+                                                <ul class="panelitem">
+                                                    <li class="col-md-12">
+                                                        <p>Address</p>
+                                                        <h4>{{support.lead_address || '-' }}</h4>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="items">
+                                    <div class="gutter-space">
+                                        <div class="panelWrapper">
+                                            <div class="panelBody">
+                                                <ul class="panelitem">
+                                                    <li>
+                                                        <p>Province</p>
+                                                        <h4>{{support.lead_province || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>City / Municipality</p>
+                                                        <h4>{{support.lead_city || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Sub District</p>
+                                                        <h4>{{support.lead_sub_district}}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Postal Code</p>
+                                                        <h4>{{support.lead_postal_code || '-' }}</h4>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-block">
+                    <div class="primaryDetails">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Assign SPH*</label>
+                                    <p-autoComplete field="realm" required [(ngModel)]="sph_id" [suggestions]="filteredSph" (completeMethod)="filterSph($event)" (loading-text)="loading" (onFocus)="filterSph($event)" #sphId="ngModel"></p-autoComplete>
+                                    <div class="error-place">
+                                        <div *ngIf="sphIdErr" class="error">
+                                            <span>SPH is required</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="buttonContainer">
+                <div class="form-group">
+                    <!-- <label style="visibility:hidden;">Search</label> -->
+                    <button *ngIf="!loading" type="submit" (click)="submit()" class="btn darkBtn">Submit</button>
+                    <div class="loader" *ngIf="loading"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

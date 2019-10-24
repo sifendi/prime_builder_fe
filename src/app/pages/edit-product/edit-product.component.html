@@ -1,0 +1,159 @@
+<div class="overlay" *ngIf="loading">
+  <i class="fa fa-spinner fa-pulse fa-3x fa-fw contCenter"></i> <span class="sr-only">Loading...</span>
+</div>
+<div class="animated fadeIn" *ngIf="!loading">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <button type="button" class="backBtn" tabindex="0" [routerLinkActive]="['active']" [routerLink]="['/product']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+          <div>
+            Edit Product
+          </div>
+        </div>
+        <div class="row">
+          <form #product="ngForm">
+            <div class="col-md-12">
+              <div class="card-Wrapper">
+                <div class="card-block">
+                  <div class="primaryDetails">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="name">Product Name*</label>
+                          <input type="text" class="form-control" required id="name" name="product name" placeholder="Enter name" [(ngModel)]="prodName" #name="ngModel" pattern="^[^-\s][a-zA-Z0-9 '\s-]+$" maxlength="50">
+                          <div class="error-place">
+                            <div *ngIf="name.errors && (name.dirty || name.touched || submitted)" class="error">
+                              <span *ngIf="name.errors.required">
+                                            Product name is required
+                                        </span>
+                              <span *ngIf="name.errors.pattern">
+                                            Please enter a valid product name.
+                                        </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="unit">Unit*</label>
+                          <input type="text" class="form-control" required id="unit" name="unit" placeholder="Enter unit" [(ngModel)]="prodUnit" #unit="ngModel" pattern="^[a-zA-Z0-9 '\s-]+$" maxlength="25">
+                          <div class="error-place">
+                            <div *ngIf="unit.errors && (unit.dirty || unit.touched || submitted)" class="error">
+                              <span *ngIf="unit.errors.required">
+                                            Unit is required
+                                        </span>
+                              <span *ngIf="unit.errors.pattern">
+                                            Please enter a valid unit.
+                                        </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="unitvalue">Unit Value*</label>
+                          <input type="text" class="form-control" required id="unitvalue" name="unitvalue" placeholder="Enter unit value" [(ngModel)]="prodUnitValue" #unitvalue="ngModel" pattern="^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$" maxlength="3">
+                          <div class="error-place">
+                            <div *ngIf="unitvalue.errors && (unitvalue.dirty || unitvalue.touched || submitted)" class="error">
+                              <span *ngIf="unitvalue.errors.required">
+                                            Unit value is required
+                                        </span>
+                              <span *ngIf="unitvalue.errors.pattern">
+                                            Please enter a valid unit value.
+                                        </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="name">Points*</label>
+                          <input type="number" class="form-control" required min="0" id="points" name="points" placeholder="Enter points" [(ngModel)]="prodPoints" #points="ngModel" pattern="^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$">
+                          <div class="error-place">
+                            <div *ngIf="points.errors && (points.dirty || points.touched || submitted)" class="error">
+                              <span *ngIf="points.errors.required">
+                                            Points is required
+                                        </span>
+                              <span *ngIf="points.errors.pattern">
+                                            Please enter valid points.
+                                        </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="name">Product Type*</label>
+                          <select class="form-control" required name="producttype" [(ngModel)]="prodType" #producttype="ngModel">
+                            <option value="holcim_product" [selected]="prodType == 'holcim_product'">Holcim Product</option>
+                            <option value="non_holcim_product" [selected]="prodType == 'non_holcim_product'">Non Holcim Product</option>
+                          </select>
+                          <div class="error-place">
+                            <div *ngIf="producttype.errors && (producttype.dirty || producttype.touched || submitted)" class="error">
+                              <span *ngIf="producttype.errors.required">
+                                            Product type is required
+                                        </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="name">Approval Quantity*</label>
+                          <input type="number" class="form-control" min="0" required id="quantity" name="quantity" placeholder="Enter quantity" [(ngModel)]="prodQuantity" #quantity="ngModel" pattern="^[0-9]*$">
+                          <div class="error-place">
+                            <div *ngIf="quantity.errors && (quantity.dirty || quantity.touched || submitted)" class="error">
+                              <span *ngIf="quantity.errors.required">
+                                            Quantity is required
+                                        </span>
+                              <span *ngIf="quantity.errors.pattern">
+                                            Please enter a valid quantity.
+                                        </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="name">Is Cement*</label>
+                          <select class="form-control" required name="productisCement" [(ngModel)]="isCement" #productisCement="ngModel">
+                            <option value="1" [selected]="isCement == '1'">Yes</option>
+                            <option value="0" [selected]="isCement == '0'">No</option>
+                          </select>
+                          <div class="error-place">
+                            <div *ngIf="productisCement.errors && (productisCement.dirty || productisCement.touched || submitted)" class="error">
+                              <span *ngIf="productisCement.errors.required">
+                                            Choose if product is of type cement 
+                                        </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="buttonContainer">
+                <div class="form-group">
+                  <button *ngIf="!loading" class="btn darkBtn" type="submit" (click)="submit()">Submit</button>
+                  <div class="loader" *ngIf="loading"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i></div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="dargPop">
+  <p-dialog [modal]="true" [(visible)]="display" *ngIf="result == 'success'">
+    <h6>Updated Successfully</h6>
+  </p-dialog>
+  <p-dialog header="Updated product" [modal]="true" [(visible)]="display" *ngIf="result != 'success'">
+    <p>{{result}}</p>
+  </p-dialog>
+</div>

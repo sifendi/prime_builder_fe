@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+<head>
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+
+    <title>Holcim - Dashboard</title>
+
+    <!-- Icons -->
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/simple-line-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/ngbusy/busy.css">
+    <link rel="stylesheet" href="assets/lib/jquery-confirm/jquery-confirm.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="assets/primeng/resources/themes/bootstrap/theme.css" />
+    <link rel="stylesheet" type="text/css" href="assets/primeng/resources/primeng.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="assets/css/lightbox.css">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/icomoon.css" rel="stylesheet">
+    <script>
+       window.safeValueWithKeyGet = function(objectOrData,keyName){
+                var returnData=null;	
+                try{
+                 returnData = objectOrData[keyName]?objectOrData[keyName]:objectOrData;
+                }catch(e){
+                  returnData = objectOrData;
+                }
+                console.log('returnData',returnData);
+              return returnData;
+            }
+    </script>
+</head>
+
+<!-- BODY options, add following classes to body to change options
+
+// Header options
+1. '.header-fixed'					- Fixed Header
+
+// Sidebar options
+1. '.sidebar-fixed'					- Fixed Sidebar
+2. '.sidebar-hidden'				- Hidden Sidebar
+3. '.sidebar-off-canvas'		- Off Canvas Sidebar
+4. '.sidebar-compact'				- Compact Sidebar Navigation (Only icons)
+
+// Aside options
+1. '.aside-menu-fixed'			- Fixed Aside Menu
+2. '.aside-menu-hidden'			- Hidden Aside Menu
+3. '.aside-menu-off-canvas'	- Off Canvas Aside Menu
+
+// Footer options
+1. 'footer-fixed'						- Fixed footer
+
+-->
+
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+    <!-- Enable bootstrap 4 theme -->
+    <script src="assets/lib/jquery/jquery-3.2.1.min.js"></script>
+    <script src="assets/lib/jquery-confirm/jquery-confirm.min.js"></script>
+    <script>
+        window.__theme = 'bs4';
+        var menu = "";
+        var globalRole = "";
+		//var hostname ="https://hpb-id.hssanet.com";
+		//var hostname ="https://primebuilder.id";
+		var hostname ="http://127.0.0.1:9000";
+    </script>
+    <!-- App Loading... -->
+</body>
+
+</html>

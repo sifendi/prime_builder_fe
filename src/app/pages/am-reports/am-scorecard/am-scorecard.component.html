@@ -1,0 +1,93 @@
+<div class="overlay" *ngIf="loading">
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw contCenter"></i> <span class="sr-only">Loading...</span>
+</div>
+<div class="animated fadeIn" *ngIf="!loading">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    {{reportName}}
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-Wrapper">
+                            <div class="card-block">
+                                <div class="primaryDetails">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Year</label>
+                                                <select name="year_select" (ngModelChange)="changeYear($event)" class="form-control" [(ngModel)]="year">
+												  <option *ngFor="let yr of years" value="{{yr}}">{{yr}}</option>
+												</select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Month</label>
+                                                <select name="to_date" class="form-control" [(ngModel)]="month">
+                          <option *ngFor="let mn of monthsArr; let i=index" value="{{i+1}}">{{mn}}</option>
+                        </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>AM Name</label>
+                                                <p-autoComplete field="realm" [(ngModel)]="name" [suggestions]="filteredUserFullName" (completeMethod)="filterFullName($event)" (onFocus)="filterFullName($event)">
+                                                </p-autoComplete>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>District</label>
+                                                <p-autoComplete field="name" [(ngModel)]="district" [suggestions]="filteredDistrict" (completeMethod)="filterDistrict($event)" (loading-text)="loading" (onFocus)="filterDistrict($event)">
+                                                </p-autoComplete>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="error" *ngIf="monthErr">To-Month needs to be greater than From-Month</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="buttonContainer">
+                            <div class="form-group">
+                                <!-- <label style="visibility:hidden;">Search</label> -->
+                                <a href="javascript:void(0);" (click)="searchData()" class="btn darkBtn">Apply</a>
+                                <a href="javascript:void(0);" (click)="resetData()" class="btn darkBtn">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card ">
+                <div class="card-header ">
+                    RESULTS
+                    <a href="javascript:void(0);" class="exportWish pull-right" (click)="downloadData()">
+                        <i class="fa fa-cloud-download fa-lg mt-4"></i>Export
+                    </a>
+                </div>
+                <div class="card-Wrapper">
+                    <div class="card-block tableWrap" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600} ">
+                        <table class="table table-bordered productRequestTable ">
+                            <thead>
+                                <tr>
+                                    <th *ngFor="let col of columns ">{{col}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of report ">
+                                    <td *ngFor="let col of key ">{{data[col]}}</td>
+                                </tr>
+                                <tr *ngIf="report?.length==0 ">
+                                    <td>No Data Available</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

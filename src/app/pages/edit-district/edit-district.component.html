@@ -1,0 +1,97 @@
+<div class="overlay" *ngIf="loading">
+  <i class="fa fa-spinner fa-pulse fa-3x fa-fw contCenter"></i> <span class="sr-only">Loading...</span>
+</div>
+<div class="animated fadeIn" *ngIf="!loading">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <button type="button" class="backBtn" tabindex="0" [routerLinkActive]="['active']" [routerLink]="['/district']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+          <div>
+            Edit District
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-Wrapper">
+              <div class="card-block">
+                <div class="primaryDetails">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label>Region*</label>
+                        <p-autoComplete field="name" required [(ngModel)]="region_id" [suggestions]="filteredRegion" (completeMethod)="filterRegion($event)" (loading-text)="loading" (keyup)="deSelect($event,'region')" (keypress)="deSelect($event,'region')" (onFocus)="filterRegion($event)" #regionId="ngModel" (onUnselect)="filterRegionMultipleUnSelect($event)" (onSelect)="filterRegionMultipleSelect($event)"></p-autoComplete>
+                        <div class="error-place">
+                          <div *ngIf="regionId.errors && (regionId.dirty || regionId.touched || submitted)" class="error">
+                            <span *ngIf="regionId.errors.required">
+														Region is required
+													</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label>Province*</label>
+                        <p-autoComplete field="name" [(ngModel)]="Prvnc" [suggestions]="filteredProvince" (completeMethod)="filterProvince($event)" (loading-text)="loading" (keyup)="deSelect($event,'province')" (keypress)="deSelect($event,'province')" [disabled]="(region_id)?false:true" required #provinceId="ngModel" (onFocus)="filterProvince($event)" (onUnselect)="filterProvinceMultipleUnSelect($event)" (onSelect)="filterProvinceMultipleSelect($event)"></p-autoComplete>
+                        <div class="error-place">
+                          <div *ngIf="provinceId.errors && (provinceId.dirty || provinceId.touched || submitted)" class="error">
+                            <span *ngIf="provinceId.errors.required">
+													Province is required
+												</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="name">District Name*</label>
+                        <input type="text" (ngModelChange)="NameChange($event)" class="form-control" id="name" name="name" required placeholder="Enter district name" [(ngModel)]="distName" #name="ngModel" pattern="^[a-zA-Z0-9 ]*$">
+                        <div class="error-place">
+                          <div *ngIf="name.errors && (name.dirty || name.touched || submitted)" class="error">
+                            <span *ngIf="name.errors.required">
+												District name is required
+										</span>
+                            <span *ngIf="name.errors.pattern">
+											Please enter a valid district name.
+										</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="code">District Code*</label>
+                        <input type="text" readonly class="form-control" id="code" name="code" [(ngModel)]="distCode" #code="ngModel">
+                        <span *ngIf="namechkResErr" class="error">
+										District code loading.please wait
+								</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="buttonContainer">
+              <div class="form-group">
+                <!-- <label style="visibility:hidden;">Search</label> -->
+                <button *ngIf="!loading" type="submit" (click)="submit()" class="btn darkBtn">Submit</button>
+                <div class="loader" *ngIf="loading"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="dargPop">
+    <p-dialog  [modal]="true" [(visible)]="display" *ngIf="result == 'success'">
+        <h6>Updated district Successfully</h6>
+    </p-dialog>
+    <p-dialog header="Updated district" [modal]="true" [(visible)]="display" *ngIf="result != 'success'">
+        <p>{{result}}</p>
+    </p-dialog>
+</div>

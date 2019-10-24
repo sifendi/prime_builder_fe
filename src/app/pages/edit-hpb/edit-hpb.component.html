@@ -1,0 +1,433 @@
+<p-growl [(value)]="msgsG"></p-growl>
+<p-confirmDialog></p-confirmDialog>
+<div class="animated fadeIn" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header topGroup">
+                    <button type="button" class="backBtn" [routerLinkActive]="['active']" [routerLink]="['/hpb']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                </div>
+                <div class="detailsContainer productContainer" *ngIf="approvalData.length > 0">
+                    <div class="card-details">
+                        <div class="card-block">
+                            <div class="blockTop productBlock">
+                                <div class="items">
+                                    <div class="gutter-space">
+                                        <div class="panelWrapper">
+                                            <div class="panelHead">
+                                                <h3>User Approval Details</h3>
+                                            </div>
+                                            <div class="panelBody">
+                                                <ul class="panelitem panelInfo" *ngFor="let approve of approvalData; let i = index;">
+                                                    <li>
+                                                        <p>Current {{approve.label_name}} Number</p>
+                                                        <h4>{{approve.field_new_value || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>New {{approve.label_name}} Number</p>
+                                                        <h4>{{approve.field_old_value || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <div class="statusBtn approvalBtn">
+                                                            <a class="btn btnEdit" target="_blank" [routerLink]="['/hpb-update-view/', approve.id]">View</a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <p class="noteDesc"><b>Note:</b> If you make changes to the mobile number or ID card number, the above changes will be overwritten.</p>                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="user-details">
+                    <p-fieldset legend="User Basic Information" [toggleable]="true" [collapsed]="false">
+                        <div class="ui-g ui-fluid">
+                            <div class="form-group col-sm-4">
+                                <label for="hpbName">HPB name*</label>
+                                <input type="text" class="form-control" id="hpbName" required [(ngModel)]="hpbnameval" #hpbName="ngModel" [ngModelOptions]="{standalone: true}" minlength="4" maxlength="100" pattern="^[^-\s][a-zA-Z '\s-]+$" >
+                                <div class="error-place">
+                                    <div *ngIf="hpbName.errors && (hpbName.dirty || hpbName.touched || submitted)" class="error">
+                                        <span *ngIf="hpbName.errors.required">HPB name is required</span>
+                                        <span *ngIf="hpbName.errors.pattern">Please enter a valid HPB Name</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="type">Type*</label>
+                                <select class="form-control" disabled="disabled" id="type" name="type" required [(ngModel)]="hpbtype" #type="ngModel">
+                                    <option value="mason" [selected]="hpbtype == 'mason'">Mason</option>
+                                    <option  value="contractor" [selected]="hpbtype == 'contractor'">Contractor</option>
+                                </select>
+                                <div class="error-place">
+                                    <div *ngIf="type.errors && (type.dirty || type.touched || submitted)" class="error">
+                                        <span *ngIf="type.errors.required">
+                                                Type is required
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="form-group col-sm-3">
+                                <label for="status">Hpb Status*</label>
+                                <select class="form-control" id="status" name="status" required placeholder="Enter your status" [(ngModel)]="hpbstatus" #status="ngModel">
+                                    <option [selected]="hpbstatus == 'prospect'"  value="prospect">Prospect</option>
+                                    <option [selected]="hpbstatus == 'maintain'"  value="maintain">Maintain</option>
+                                    <option [selected]="hpbstatus == 'switching'" value="switching">Switching</option>
+                                </select>
+                                <div class="error-place">
+                                    <div *ngIf="status.errors && (status.dirty || status.touched || submitted)" class="error">
+                                        <span *ngIf="status.errors.required">
+                                                Status is required
+                                        </span>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="form-group col-sm-4">
+                                <label for="pMobile">Primary Mobile*</label>
+                                <input type="text" class="form-control" id="pMobile" required [(ngModel)]="hpbpMobile" #pMobile="ngModel" pattern="[0][1-9][0-9]+" (input)="validateMobileFunc()" minlength="10" maxlength="15">
+                                <div class="error-place">
+                                    <div *ngIf="pMobile.errors && (pMobile.dirty || pMobile.touched || submitted)" class="error">
+                                        <span *ngIf="pMobile.errors.required">Mobile number is required.</span>
+                                        <span *ngIf="pMobile.errors.pattern || pMobile.errors.minlength">Please enter a valid mobile number.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="sMobile">Secondary Mobile</label>
+                                <input type="text" class="form-control" id="sMobile" [(ngModel)]="hpbsMobile" #sMobile="ngModel" pattern="[0][1-9][0-9]+" (input)="validateMobileFunc()" minlength="10" maxlength="15">
+                                <div class="error-place">
+                                    <div *ngIf="!validMobile" class="error">
+                                        <span>Primary and Secondary mobile no. should not be same.</span>
+                                    </div>
+                                    <div *ngIf="sMobile.errors && (sMobile.dirty || sMobile.touched || submitted)" class="error">
+                                        <span *ngIf="sMobile.errors.pattern || sMobile.errors.minlength">Please enter a valid mobile number.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="email">Email</label>
+                                <input type="text" class="form-control" id="email" name="email" [(ngModel)]="hpbemail" #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                                <div class="error-place">
+                                    <div *ngIf="email.errors && (email.dirty || email.touched || submitted)" class="error">
+                                        <span *ngIf="email.errors.pattern">Please enter valid email.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="pOBrth">Place Of Birth*</label>
+                                <input type="text" class="form-control" id="pOBrth" [ngModelOptions]="{standalone: true}" required pattern="^[^-\s][a-zA-Z0-9 '\s-]+$" [(ngModel)]="hpbpOBrth" #pOBrth="ngModel">
+                                <div class="error-place">
+                                    <div *ngIf="pOBrth.errors && (pOBrth.dirty || pOBrth.touched || submitted)" class="error">
+                                        <span *ngIf="pOBrth.errors.required">Place of birth is required.</span>
+                                        <span *ngIf="pOBrth.errors.pattern">Please valid place name.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="dOBrth">Date Of Birth*</label>
+                                <!-- <input type="date" class="form-control" dateFormat="dd MM yy" id="dOBrth" name="dOBrth" required placeholder="Enter dOBrth" [(ngModel)]="hpbdOBrth" #dOBrth="ngModel"> -->
+                                <p-calendar dateFormat="dd MM yy" [maxDate]="maxDate" id="dOBrth" readonlyInput="true" name="dOBrth" required [(ngModel)]="hpbdOBrth" #dOBrth="ngModel"></p-calendar>
+                                <div class="error-place">
+                                    <div *ngIf="dOBrth.errors && (dOBrth.dirty || dOBrth.touched || submitted)" class="error">
+                                        <span *ngIf="dOBrth.errors.required">
+                                            Date of birth is required.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="profilePhoto">Profile Photo*</label>
+                                <input (change)="onFileChange($event,'profile')" type="file" class="form-control" id="profilePhoto" name="profilePhoto" [(ngModel)]="profileImg" #profilePhoto="ngModel">
+                                <label>jpg/jpeg/png(max 5Mb)</label>
+                                <div class="row" *ngIf="profileErrDisplay" class="error">
+                                    <span>
+                                        {{profileErr}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-2">
+                                <button *ngIf="profileshow!='' && profileshow!=profileDefaultImg" class="removeBtn" type="submit" (click)="removeimage('profile')" label="Show">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                </button>
+                                <a href="{{profileshow}}" target="_blank">
+                                    <img *ngIf="profileshow!=''" src="{{profileshow}}" width="150" />
+                                </a>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="email">Status</label>
+                                <!-- <input type="text" class="form-control" [(ngModel)]="hpbstatus" disabled="disabled"> -->
+                                <select class="form-control" id="status" name="status" required [(ngModel)]="hpbstatus" #status="ngModel" (ngModelChange)="statusChange($event)">
+                                    <option value="prospect" [selected]="hpbstatus == 'prospect'">Prospect</option>
+                                    <option  value="switching" [selected]="hpbstatus == 'switching'">Switching</option>
+                                    <option  value="maintain" [selected]="hpbstatus == 'maintain'">Maintain</option>
+                                </select>
+                            </div>
+                            <div class=" form-group col-md-4" *ngIf="switchingFlag">
+                                
+                                <label>Switching Date*</label>
+                                <p-calendar name="prospect_switching" [maxDate]="maxDate" dateFormat="dd M yy" [(ngModel)]="hpb_prospect_switching_dt" #swdt="ngModel"></p-calendar>
+                                <div class="error-place">
+                                    <div *ngIf="switchingErrFlag && !hpb_prospect_switching_dt" class="error">
+                                        <span>
+                                            Prospect to Switching Date is required.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" form-group col-md-4" *ngIf="maintainFlag">
+                               
+                                <label>Maintain Date*</label>
+                                <p-calendar name="switching_maintain" [maxDate]="maxDate" dateFormat="dd M yy" [(ngModel)]="hpb_switching_maintain_dt" #mndt="ngModel"></p-calendar>
+                                <div class="error-place">
+                                    <div *ngIf="maintainErrFlag && !hpb_switching_maintain_dt" class="error">
+                                        <span>
+                                            Switching to Maintain Date is required.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </p-fieldset>
+                    <p-fieldset legend="ID Card Details" [toggleable]="true" [collapsed]="false">
+                        <div class="ui-g ui-fluid">
+                            <div class="form-group col-sm-4">
+                                <label for="idCardNo">Id Card No.*</label>
+                                <input type="text" class="form-control" id="idCardNo" required [(ngModel)]="hpbidCrdNo" #idCardNo="ngModel" pattern="^[^-\s][a-zA-Z0-9 '\s-]+$">
+                                <div class="error-place">
+                                    <div *ngIf="idCardNo.errors && (idCardNo.dirty || idCardNo.touched || submitted)" class="error">
+                                        <span *ngIf="idCardNo.errors.required">Number is required.</span>
+                                        <span *ngIf="idCardNo.errors.pattern">Please enter a valid number.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-8">
+                                <label for="idCardAdd">Id Card Address*</label>
+                                <textarea class="form-control" id="idCardAdd" required [(ngModel)]="hpbidCrdAdd" #idCardAdd="ngModel">
+                                </textarea>
+                                <div class="error-place">
+                                    <div *ngIf="idCardAdd.errors && (idCardAdd.dirty || idCardAdd.touched || submitted)" class="error">
+                                        <span *ngIf="idCardAdd.errors.required">Address is required.</span>
+                                        <!-- <span *ngIf="idCardAdd.errors.pattern">Please enter a valid address.</span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label for="idProvince">Id Card Province*</label>
+                                <p-autoComplete field="name" #idProvince="ngModel" required [(ngModel)]="idProvinceValue" [suggestions]="filteredProvince" (completeMethod)="getProvinceFilter('id',$event)" (onChange)="getProvinceFilter('id',$event)">
+                                </p-autoComplete>
+                                <div class="error-place">
+                                    <div *ngIf="idProvince.errors && (idProvince.dirty || idProvince.touched || submitted)" class="error">
+                                        <span *ngIf="idProvince.errors.required">Province is required.</span>
+                                        <!-- <span *ngIf="idProvince.errors.pattern">Please enter valid province.</span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label for="idCity">Id Card City / Municipality*</label>
+                                <p-autoComplete field="name" required #idCity="ngModel" [(ngModel)]="idCityValue" [suggestions]="filteredCity" (completeMethod)="getCityFilter('id',$event)" (onChange)="getCityFilter('id',$event)">
+                                </p-autoComplete>
+                                <div class="error-place">
+                                    <div *ngIf="idCity.errors && (idCity.dirty || idCity.touched || submitted)" class="error">
+                                        <span *ngIf="idCity.errors.required">City is required.</span>
+                                        <!-- <span *ngIf="idCity.errors.pattern">Please enter valid city/municipality.</span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label for="idSubDistrict">Id Card Sub District*</label>
+                                <p-autoComplete field="name" #idSubDistrict="ngModel" required [(ngModel)]="idSubdistrictValue" [suggestions]="filteredSubDistrict" (completeMethod)="getSubDistFilter('id',$event)" (onChange)="getSubDistFilter('id',$event)">
+                                </p-autoComplete>
+                                <div class="error-place">
+                                    <div *ngIf="idSubDistrict.errors && (idSubDistrict.dirty || idSubDistrict.touched || submitted)" class="error">
+                                        <span *ngIf="idSubDistrict.errors.required">Sub district is required.</span>
+                                        <!-- <span *ngIf="idSubDistrict.errors.pattern">Please enter valid sub district.</span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label for="idPostalCode">Id Card Pincode*</label>
+                                <p-autoComplete field="postal_code" required #idPostalCode="ngModel" [(ngModel)]="idPostalCodeValue" [suggestions]="filteredPostalCode" (completeMethod)="getPinCodeFilter('id',$event)" (onChange)="getPinCodeFilter('id',$event)">
+                                </p-autoComplete>
+                                <div class="error-place">
+                                    <div *ngIf="idPostalCode.errors && (idPostalCode.dirty || idPostalCode.touched || submitted)" class="error">
+                                        <span *ngIf="idPostalCode.errors.required">Pincode is required.</span>
+                                        <!-- <span *ngIf="idPostalCode.errors.pattern">Please enter valid postal code.</span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col-sm-12">
+                                <div class="form-group col-sm-4">
+                                    <label for="idCardPhoto">ID Card Photo*</label>
+                                    <input (change)="onFileChange($event,'doc')" type="file" class="form-control" id="idCardPhoto" name="idCardPhoto" [(ngModel)]="idPhoto" #idCardPhoto="ngModel">
+                                    <label>jpg/jpeg/png(max 5Mb)</label>
+                                    <div class="row" *ngIf="imgErrDisplay" class="error">
+                                        <span>
+                                            {{imgErr}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div *ngFor="let show of imgshow; let i = index;" class="form-group col-sm-2">
+                                    <button class="removeBtn" type="submit" (click)="removeimage('doc',i)" label="Show">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    </button>
+                                    <img *ngIf="show!=''" src="{{show}}" width="150" height="100"/>
+                                </div>
+                            </div>
+                            <!-- <div class="form-group col-sm-8">
+                                <label for="idCardPhoto">ID Card Photo*</label>
+                                <div class="customFile">
+                                    <p-fileUpload name="myfile[]" customUpload="true" multiple="multiple" (uploadHandler)="myUploader($event)">
+                                    </p-fileUpload>
+                                </div>
+                            </div> -->
+                        </div>
+                    </p-fieldset>
+                    <p-fieldset legend="Domicile Details" [toggleable]="true" [collapsed]="false">
+                        <div class="ui-g ui-fluid">
+                            <div class="form-group col-sm-4">
+                                <label for="issmdom">Is Domicile address same as Id card*</label>
+                                <select class="form-control" id="issmdom" name="issmdom" required [(ngModel)]="hpbissmdom" #issmdom="ngModel">
+                                    <option [selected]='hpbissmdom == 1' value=1>YES</option>
+                                    <option [selected]='hpbissmdom == 0' value=0>NO</option>
+                                </select>
+                                <div class="error-place">
+                                    <div *ngIf="issmdom.errors && (issmdom.dirty || issmdom.touched || submitted)" class="error">
+                                        <span *ngIf="issmdom.errors.required">Please choose any.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" [ngSwitch]="issmdom.value">
+                            <div class="form-group col-sm-4" *ngSwitchCase="0">
+                                <label for="dmclAdd">Domicile Address*</label>
+                                <textarea class="form-control" id="dmclAdd" name="dmclAdd" required [(ngModel)]="hpbdmclAdd" #dmclAdd="ngModel">
+                                </textarea>
+                                <div class="error-place">
+                                    <div *ngIf="issmdom.value==0 && (dmclAdd.errors && (dmclAdd.dirty || dmclAdd.touched || submitted))" class="error">
+                                        <span *ngIf="dmclAdd.errors.required">Address is required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4" *ngSwitchCase="0">
+                                <label for="dmclCrdPrvnc">Domicile Province*</label>
+                                <p-autoComplete field="name" #domProvince="ngModel" required [(ngModel)]="domProvinceValue" [suggestions]="filteredDomProvince" (completeMethod)="getProvinceFilter('dom',$event)" (onFocus)="getProvinceFilter('dom',$event)">
+                                </p-autoComplete>
+                                <div class="error-place">
+                                    <div *ngIf="domProvince.errors && (domProvince.dirty || domProvince.touched || submitted)" class="error">
+                                        <span *ngIf="domProvince.errors.required">
+                                            Province is required.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4" *ngSwitchCase="0">
+                                <label for="domCity">Domicile City / Municipality*</label>
+                                <p-autoComplete field="name" required #domCity="ngModel" [(ngModel)]="domCityValue" [suggestions]="filteredDomCity" (completeMethod)="getCityFilter('dom',$event)" (onFocus)="getCityFilter('dom',$event)">
+                                </p-autoComplete>
+                                <div class="error-place">
+                                    <div *ngIf="domCity.errors && (domCity.dirty || domCity.touched || submitted)" class="error">
+                                        <span *ngIf="domCity.errors.required">
+                                            City is required.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" [ngSwitch]="issmdom.value">
+                            <div class="form-group col-sm-4" *ngSwitchCase="0">
+                                <label for="domSubDistrict">Domicile Sub District*</label>
+                                <p-autoComplete field="name" #domSubDistrict="ngModel" required [(ngModel)]="domSubDistrictValue" [suggestions]="filteredDomSubDistrict" (completeMethod)="getSubDistFilter('dom',$event)" (onFocus)="getSubDistFilter('dom',$event)">
+                                </p-autoComplete>
+                                <div class="error-place">
+                                    <div *ngIf="domSubDistrict.errors && (domSubDistrict.dirty || domSubDistrict.touched || submitted)" class="error">
+                                        <span *ngIf="domSubDistrict.errors.required">
+                                            Sub district is required.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4" *ngSwitchCase="0">
+                                <label for="domPostalCode">Domicile Pincode*</label>
+                                <p-autoComplete field="postal_code" required #domPostalCode="ngModel" [(ngModel)]="domPostalCodeValue" [suggestions]="filteredDomPostalCode" (completeMethod)="getPinCodeFilter('dom',$event)" (onFocus)="getPinCodeFilter('dom',$event)">
+                                </p-autoComplete>
+                                <div class="error-place">
+                                    <div *ngIf="domPostalCode.errors && (domPostalCode.dirty || domPostalCode.touched || submitted)" class="error">
+                                        <span *ngIf="domPostalCode.errors.required">
+                                                Pincode is required.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                    <p-fieldset *ngIf="type.value == 'contractor'" legend="Company Details" [toggleable]="true" [collapsed]="false">
+                        <div class="ui-g ui-fluid">
+                            <div class="form-group col-sm-4">
+                                <label for="cmpnyName">Company Name*</label>
+                                <input type="text" class="form-control" id="cmpnyName" required [(ngModel)]="hpbcmpnyName" #cmpnyName="ngModel" pattern="^[^-\s][a-zA-Z0-9., '\s-]+$">
+                                <div class="error-place">
+                                    <div *ngIf="cmpnyName.errors && (cmpnyName.dirty || cmpnyName.touched || submitted)" class="error">
+                                        <span *ngIf="cmpnyName.errors.required">Company name is required.</span>
+                                        <span *ngIf="cmpnyName.errors.pattern">Please enter a valid company name.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="cmpnyRName">Company Representative Name*</label>
+                                <input type="text" class="form-control" id="cmpnyRName" required [(ngModel)]="hpbcmpnyRName" #cmpnyRName="ngModel" pattern="^[^-\s][a-zA-Z '\s-]+$">
+                                <div class="error-place">
+                                    <div *ngIf="cmpnyRName.errors && (cmpnyRName.dirty || cmpnyRName.touched || submitted)" class="error">
+                                        <span *ngIf="cmpnyRName.errors.required">Company representative name is required.</span>
+                                        <span *ngIf="cmpnyRName.errors.pattern">Please enter a valid company representative name.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="dsgntn">Designation</label>
+                                <input type="text" class="form-control" id="dsgntn" name="dsgntn" [(ngModel)]="hpbdsgntn" #dsgntn="ngModel" pattern="^[^-\s][a-zA-Z '\s-]+$">
+                                <div class="error-place">
+                                    <div *ngIf="dsgntn.errors && (dsgntn.dirty || dsgntn.touched || submitted)" class="error">
+                                        <!-- <span *ngIf="dsgntn.errors.required">Designation is required.</span> -->
+                                        <span *ngIf="dsgntn.errors.pattern">Please enter a valid designation.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                    <p-fieldset legend="Other Details" [toggleable]="true" [collapsed]="false">
+                        <div class="ui-g ui-fluid">
+                            <div class="form-group col-sm-6">
+                                <label for="comments">Comments</label>
+                                <textarea class="form-control" id="comments" name="comments" [(ngModel)]="hpbcomments" #comments="ngModel" pattern="^[^-\s][a-zA-Z0-9_@ ]*$">
+                                </textarea>
+                                <div class="error-place">
+                                    <div *ngIf="comments.errors && (comments.dirty || comments.touched || submitted)" class="error">
+                                        <span *ngIf="comments.errors.pattern">Please enter a valid comment.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                    <div class="col-sm-12">
+                        <p-messages [(value)]="msgs"></p-messages>
+                        <br/>
+                        <button type="button" class="btn darkBtn" (click)="userSubmit()">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dargPop">
+    <p-dialog header="Edit HPB User" [modal]="true" *ngIf="success != 1" [(visible)]="display">
+        <p>{{result}}</p>
+    </p-dialog>
+    <p-dialog header="Success" (onHide)="goToListing()"  [modal]="true" *ngIf="success == 1" [(visible)]="display">
+        <p>User updated successfully</p>
+    </p-dialog>
+</div>

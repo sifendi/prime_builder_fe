@@ -1,0 +1,430 @@
+<div class="forecast animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+
+
+            <div class="card">
+                <div class="card-block">
+                    <form #hpb="ngForm">
+                        <div class="card card-details">
+                            <div class="card-header">
+                                <strong>Personal Details</strong>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-3">
+                                    <label for="hpbName">HPB Name*</label>
+                                    <input type="text" class="form-control" id="hpbName" name="hpbName" required placeholder="Enter HPB Name" [(ngModel)]="hpbname" #hpbName="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+                                    <div class="error-place">
+                                        <div *ngIf="hpbName.errors && (hpbName.dirty || hpbName.touched || submitted)" class="error">
+                                            <span *ngIf="hpbName.errors.required">
+                                                HPB name is required
+                                            </span>
+                                            <span *ngIf="hpbName.errors.pattern">
+                                                Please enter a valid HPB name.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label for="type">HPB Type*</label>
+                                    <select class="form-control" id="type" name="type" required placeholder="Select HPB Type" [(ngModel)]="hpb.type" #type="ngModel">
+                                                <option value=0>Mason</option>
+                                                <option value=1>Contractor</option>
+                                            </select>
+                                    <div class="error-place">
+                                        <div *ngIf="type.errors && (type.dirty || type.touched || submitted)" class="error">
+                                            <span *ngIf="type.errors.required">
+                                                    HPB type is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label for="status">HPB Status*</label>
+                                    <select class="form-control" id="status" name="status" required placeholder="Select HPB Status" [(ngModel)]="hpbstatus" #status="ngModel">
+                                                <option value="prospect">Prospect</option>
+                                                <option  value="maintain">Maintain</option>
+                                                <option  value="switching">Switching</option>
+                                            </select>
+                                    <div class="error-place">
+                                        <div *ngIf="status.errors && (status.dirty || status.touched || submitted)" class="error">
+                                            <span *ngIf="status.errors.required">
+                                                    HPB Status is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label for="pMobile">Primary Mobile No*</label>
+                                    <input type="text" class="form-control" id="pMobile" name="pMobile" required placeholder="Enter Primary Mobile No." 
+                                    minlenght="10" maxlength="15" [(ngModel)]="hpbpMobile" #pMobile="ngModel" pattern="^[0-9]*$">
+                                    <div class="error-place">
+                                        <div *ngIf="pMobile.errors && (pMobile.dirty || pMobile.touched || submitted)" class="error">
+                                            <span *ngIf="pMobile.errors.required">
+                                                Primary mobile no. is required
+                                            </span>
+                                            <span *ngIf="pMobile.errors.pattern">
+                                                Please enter a valid primary mobile no.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label for="sMobile">Secondary Mobile No</label>
+                                    <input type="text" class="form-control" id="sMobile" name="sMobile" required placeholder="Enter Secondary Mobile No." 
+                                    [(ngModel)]="hpbsMobile" #sMobile="ngModel" pattern="^[0-9]*$" minlenght="10" maxlength="15">
+                                    <div class="error-place">
+                                        <div *ngIf="sMobile.errors && (sMobile.dirty || sMobile.touched || submitted)" class="error">
+                                            <span *ngIf="sMobile.errors.required">
+                                                Secondary Mobile No. is required
+                                            </span>
+                                            <span *ngIf="sMobile.errors.pattern">
+                                                Please enter a valid secondary mobile no.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" name="email" required placeholder="Enter HPB Email" [(ngModel)]="hpbemail" #email="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+                                    <div class="error-place">
+                                        <div *ngIf="email.errors && (email.dirty || email.touched || submitted)" class="error">
+                                            <span *ngIf="email.errors.required">
+                                                    HPB email id is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label for="pOBrth">Place Of Birth</label>
+                                    <input type="text" class="form-control" id="pOBrth" name="pOBrth" required placeholder="Enter Place of Birth" pattern="^[a-zA-Z0-9_@ ]*$" [(ngModel)]="hpbpOBrth" #pOBrth="ngModel">
+                                    <div class="error-place">
+                                        <div *ngIf="pOBrth.errors && (pOBrth.dirty || pOBrth.touched || submitted)" class="error">
+                                            <span *ngIf="pOBrth.errors.required">
+                                                    Place of birth is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label for="dOBrth">Date Of Birth</label>
+                                    <input type="date" class="form-control" id="dOBrth" name="dOBrth" required placeholder="Enter Date of brth" [(ngModel)]="hpbdOBrth" #dOBrth="ngModel">
+                                    <div class="error-place">
+                                        <div *ngIf="dOBrth.errors && (dOBrth.dirty || dOBrth.touched || submitted)" class="error">
+                                            <span *ngIf="dOBrth.errors.required">
+                                                Date of birth is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card card-details">
+                            <div class="card-header">
+                                <strong>ID Card Details</strong>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-3">
+                                    <label for="idCrdNo">Id Card No*</label>
+                                    <input type="text" class="form-control" id="idCrdNo" name="idCrdNo" required placeholder="Enter Id Card No" [(ngModel)]="hpbidCrdNo" #idCrdNo="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+                                    <div class="error-place">
+                                        <div *ngIf="idCrdNo.errors && (idCrdNo.dirty || idCrdNo.touched || submitted)" class="error">
+                                            <span *ngIf="idCrdNo.errors.required">
+                                                Id card no. is required
+                                            </span>
+                                            <span *ngIf="idCrdNo.errors.pattern">
+                                                Please enter a valid id card no.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label for="idCrdAdd">Address*</label>
+                                    <textarea class="form-control" id="idCrdAdd" name="idCrdAdd" required placeholder="Enter Id Card Address" [(ngModel)]="hpbidCrdAdd" #idCrdAdd="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+                                    </textarea>
+                                    <div class="error-place">
+                                        <div *ngIf="idCrdAdd.errors && (idCrdAdd.dirty || idCrdAdd.touched || submitted)" class="error">
+                                            <span *ngIf="idCrdAdd.errors.required">
+                                                Address is required
+                                            </span>
+                                            <span *ngIf="idCrdAdd.errors.pattern">
+                                                Please enter a valid address.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label for="idCrdPrvnc">Province*</label>
+                                    <select class="form-control" id="idCrdPrvnc" name="idCrdPrvnc" required placeholder="Enter Id Card province" (change)="getdistrict('id')" [(ngModel)]="hpbidCrdPrvnc" #idCrdPrvnc="ngModel">
+                                        <option *ngFor="let pCd of provData" value="{{pCd.name}}">{{pCd.name}}</option>
+                                    </select>
+                                    <div class="error-place">
+                                        <div *ngIf="idCrdPrvnc.errors && (idCrdPrvnc.dirty || idCrdPrvnc.touched || submitted)" class="error">
+                                            <span *ngIf="idCrdPrvnc.errors.required">
+                                                    Province is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label for="idCrdDistr">District*</label>
+                                    <select class="form-control" id="idCrdDistr" name="idCrdDistr" required placeholder="Enter Id Card District" (change)="getCity('id')" [(ngModel)]="hpbidCrdDistr" #idCrdDistr="ngModel">
+                                        <option *ngFor="let pCd of dData" value="{{pCd.name}}">{{pCd.name}}</option>
+                                    </select>
+                                    <div class="error-place">
+                                        <div *ngIf="idCrdDistr.errors && (idCrdDistr.dirty || idCrdDistr.touched || submitted)" class="error">
+                                            <span *ngIf="idCrdDistr.errors.required">
+                                                    District is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label for="idCrdcty">City/Municipality*</label>
+                                    <select type="text" class="form-control" id="idCrdcty" name="idCrdcty" required placeholder="Enter Id Card City" [(ngModel)]="hpbidCrdcty" #idCrdcty="ngModel" pattern="^[a-zA-Z0-9_@ ]*$" (change)="getSubDist('id')">
+                                        <option *ngFor="let muncplt of mData" value="{{muncplt.name}}">{{muncplt.name}}</option>
+                                    </select>
+                                    <div class="error-place">
+                                        <div *ngIf="idCrdcty.errors && (idCrdcty.dirty || idCrdcty.touched || submitted)" class="error">
+                                            <span *ngIf="idCrdcty.errors.required">
+                                                City is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label for="idCrdSbDst">Sub District*</label>
+                                    <select type="text" class="form-control" id="idCrdSbDst" name="idCrdSbDst" required placeholder="Enter Id Card Sub District" [(ngModel)]="hpbidCrdSbDst" #idCrdSbDst="ngModel" pattern="^[a-zA-Z0-9_@ ]*$" (change)="getPinCode('id')">
+                                        <option *ngFor="let subDist of subDist" value="{{subDist.name}}">{{subDist.name}}</option>
+                                    </select>
+                                    <div class="error-place">
+                                        <div *ngIf="idCrdSbDst.errors && (idCrdSbDst.dirty || idCrdSbDst.touched || submitted)" class="error">
+                                            <span *ngIf="idCrdSbDst.errors.required">
+                                                Sub district is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label for="idCrdPcd">Postal Code*</label>
+                                    <select class="form-control" id="idCrdPcd" name="idCrdPcd" required placeholder="Enter Id Card Postal Code" [(ngModel)]="hpbidCrdPcd" #idCrdPcd="ngModel">
+                                        <option *ngFor="let pCd of pCdData" value="{{pCd.postal_code}}">{{pCd.postal_code}}</option>
+                                    </select>
+                                    <div class="error-place">
+                                        <div *ngIf="idCrdPcd.errors && (idCrdPcd.dirty || idCrdPcd.touched || submitted)" class="error">
+                                            <span *ngIf="idCrdPcd.errors.required">
+                                                    Postal code is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card card-details">
+                            <div class="card-header">
+                                <strong>Domicile Details</strong>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-3">
+                                    <label for="issmdom">Is Domicile address same as Id card</label>
+                                    <select class="form-control" id="issmdom" name="issmdom" required placeholder="Enter your issmdom" [(ngModel)]="hpbissmdom" #issmdom="ngModel">
+                                        <option value=1>YES</option><option value=0>NO</option>
+                                    </select>
+                                    <div class="error-place">
+                                        <div *ngIf="issmdom.errors && (issmdom.dirty || issmdom.touched || submitted)" class="error">
+                                            <span *ngIf="issmdom.errors.required">
+                                                   Is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" [ngSwitch]="issmdom.value">
+                            <div class="form-group col-sm-3" *ngSwitchCase="0">
+                                <label for="dmclAdd">Domicile Address*</label>
+                                <textarea class="form-control" id="dmclAdd" name="dmclAdd" required placeholder="Enter Domicile Address" [(ngModel)]="hpbdmclAdd" #dmclAdd="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+                                </textarea>
+                                <div class="error-place">
+                                    <div *ngIf="issmdom.value==0 && (dmclAdd.errors && (dmclAdd.dirty || dmclAdd.touched || submitted))" class="error">
+                                        <span *ngIf="dmclAdd.errors.required">
+                                            Domicile address is required
+                                        </span>
+                                        <span *ngIf="dmclAdd.errors.pattern">
+                                            Please enter a valid domicile address.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-3" *ngSwitchCase="0">
+                                <label for="dmclCrdPrvnc"> Province</label>
+                                <select class="form-control" id="dmclCrdPrvnc" name="dmclCrdPrvnc" required placeholder="Enter Domicile Province" (change)="getdistrict('dom')" [(ngModel)]="hpbdmclCrdPrvnc" #dmclCrdPrvnc="ngModel">
+                                    <option *ngFor="let pCd of provData" value="{{pCd.name}}">{{pCd.name}}</option>
+                                </select>
+                                <div class="error-place">
+                                    <div *ngIf="dmclCrdPrvnc.errors && (dmclCrdPrvnc.dirty || dmclCrdPrvnc.touched || submitted)" class="error">
+                                        <span *ngIf="dmclCrdPrvnc.errors.required">
+                                            Province is required
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-3" *ngSwitchCase="0">
+                                <label for="dmclCrdDistr">Domicile District*</label>
+                                <select class="form-control" id="dmclCrdDistr" name="dmclCrdDistr" required placeholder="Enter Domicile District" (change)="getCity('dom')" [(ngModel)]="hpbdmclCrdDist" #dmclCrdDistr="ngModel">
+                                               <option *ngFor="let pCd of dmDData" value="{{pCd.name}}">{{pCd.name}}</option>
+                                            </select>
+                                <div class="error-place">
+                                    <div *ngIf="dmclCrdDistr.errors && (dmclCrdDistr.dirty || dmclCrdDistr.touched || submitted)" class="error">
+                                        <span *ngIf="dmclCrdDistr.errors.required">
+                                                    District is required
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-3" *ngSwitchCase="0">
+                                <label for="dmclcty">City / Municipality*</label>
+                                <select class="form-control" id="dmclcty" name="dmclcty" required placeholder="Enter Domicile City" [(ngModel)]="hpbdmclcty" #dmclcty="ngModel" pattern="^[a-zA-Z0-9_@ ]*$" (change)="getSubDist('dom')">
+                                    <option *ngFor="let dmCd of dmCityData" value="{{dmCd.name}}">{{dmCd.name}}</option>
+                                </select>
+                                <div class="error-place">
+                                    <div *ngIf="dmclcty.errors && (dmclcty.dirty || dmclcty.touched || submitted)" class="error">
+                                        <span *ngIf="dmclcty.errors.required">
+                                                City / Municipality is required
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" [ngSwitch]="issmdom.value">
+                            <div class="form-group col-sm-3" *ngSwitchCase="0">
+                                <label for="dmclSbDst">Sub District*</label>
+                                <select class="form-control" id="dmclSbDst" name="dmclSbDst" required placeholder="Enter Domicile Sub District" [(ngModel)]="hpbdmclSbDst" #dmclSbDst="ngModel" pattern="^[a-zA-Z0-9_@ ]*$" (change)="getPinCode('dom')">
+                                    <option *ngFor="let pCd of dmSdData" value="{{pCd.name}}">{{pCd.name}}</option>
+                                </select>
+                                <div class="error-place">
+                                    <div *ngIf="dmclSbDst.errors && (dmclSbDst.dirty || dmclSbDst.touched || submitted)" class="error">
+                                        <span *ngIf="dmclSbDst.errors.required">
+                                            Sub district is required
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-3" *ngSwitchCase="0">
+                                <label for="dmclPcd">Postal Code*</label>
+                                <select class="form-control" id="dmclPcd" name="dmclPcd" required placeholder="Select Domicile Postal Code" [(ngModel)]="hpbdmclPcd" #dmclPcd="ngModel">
+                                    <option *ngFor="let pCd of dmPcdData" value="{{pCd.postal_code}}">{{pCd.postal_code}}</option>
+                                </select>
+                                <div class="error-place">
+                                    <div *ngIf="dmclPcd.errors && (dmclPcd.dirty || dmclPcd.touched || submitted)" class="error">
+                                        <span *ngIf="dmclPcd.errors.required">
+                                             Postal code is required
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-details">
+                            <div [ngSwitch]="type.value">
+                            <div class="card-header" *ngSwitchCase=1>
+                                <strong>Company Details</strong>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-3"  *ngSwitchCase=1>
+                                    <label for="cmpnyName">Company Name*</label>
+                                    <input type="text" class="form-control" id="cmpnyName" name="cmpnyName" required placeholder="Enter Company Name" [(ngModel)]="hpbcmpnyName" #cmpnyName="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+                                    <div class="error-place">
+                                        <div *ngIf="cmpnyName.errors && (cmpnyName.dirty || cmpnyName.touched || submitted)" class="error">
+                                            <span *ngIf="cmpnyName.errors.required">
+                                                Company name is required
+                                            </span>
+                                            <span *ngIf="cmpnyName.errors.pattern">
+                                                Please enter a valid company name.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3"  *ngSwitchCase=1>
+                                    <label for="cmpnyRName">Company Representative*</label>
+                                    <input type="text" class="form-control" id="cmpnyRName" name="cmpnyRName" required placeholder="Enter Company Representative Name" [(ngModel)]="hpbcmpnyRName" #cmpnyRName="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+                                    <div class="error-place">
+                                        <div *ngIf="cmpnyRName.errors && (cmpnyRName.dirty || cmpnyRName.touched || submitted)" class="error">
+                                            <span *ngIf="cmpnyRName.errors.required">
+                                                Company representative is required
+                                            </span>
+                                            <span *ngIf="cmpnyRName.errors.pattern">
+                                                Please enter a valid company representative name.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3" *ngSwitchCase=1>
+                                    <label for="dsgntn">Designation</label>
+                                    <input type="text" class="form-control" id="dsgntn" name="dsgntn" required placeholder="Enter Designation" [(ngModel)]="hpbdsgntn" #dsgntn="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+                                    <div class="error-place">
+                                        <div *ngIf="dsgntn.errors && (dsgntn.dirty || dsgntn.touched || submitted)" class="error">
+                                            <span *ngIf="dsgntn.errors.required">
+                                                Designation is required
+                                            </span>
+                                            <span *ngIf="dsgntn.errors.pattern">
+                                                Please enter a valid designation.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="card card-details">
+                            <div class="card-header">
+                                <strong>Other Details</strong>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-3">
+                                    <label for="assignTo">Assign To</label>
+                                    <select class="form-control" id="assignTo" name="assignTo" required placeholder="Enter your assignTo" [(ngModel)]="hpbassignTo" #assignTo="ngModel">
+                                                <option value=1>assign1</option><option value="2">assign2</option>
+                                            </select>
+                                    <div class="error-place">
+                                        <div *ngIf="assignTo.errors && (assignTo.dirty || assignTo.touched || submitted)" class="error">
+                                            <span *ngIf="assignTo.errors.required">
+                                                    Assign to is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="comments">Note</label>
+                                    <textarea class="form-control" id="comments" name="comments" required placeholder="Enter comments" [(ngModel)]="hpbcomments" #comments="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+                                    </textarea>
+                                    <div class="error-place">
+                                        <div *ngIf="comments.errors && (comments.dirty || comments.touched || submitted)" class="error">
+                                            <span *ngIf="comments.errors.required">
+                                                Note is required
+                                            </span>
+                                            <span *ngIf="comments.errors.pattern">
+                                                Please enter a valid note.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="forcastbtn col-sm-3" type="submit" (click)="submit()" pButton icon="fa-external-link-square" label="Show">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div  class="dargPop">
+    <p-dialog header="Edit product Details" [modal]="true" [(visible)]="display">
+        <p>{{result}}</p>
+    </p-dialog>
+</div>

@@ -1,0 +1,218 @@
+<div class="animated fadeIn"  [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <button type="button" class="backBtn" tabindex="0" [routerLinkActive]="['active']" [routerLink]="['/reward']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+          <div>
+            Edit reward
+          </div>
+        </div>
+        <div class="row">
+          <form #nmc="ngForm">
+            <div class="col-md-12">
+              <div class="card-Wrapper">
+                <div class="card-block">
+                  <div class="primaryDetails">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="name">Name*</label>
+                          <input type="text" class="form-control" id="name" name="name" required placeholder="Enter Reward Name" maxlength="25" [(ngModel)]="name" #rewardname="ngModel" pattern="^[^-\s][a-zA-Z '\s-]+$">
+                          <div class="error-place">
+                            <div *ngIf="rewardname.errors && (rewardname.dirty || rewardname.touched || submitted)" class="error">
+                              <span *ngIf="rewardname.errors.required">
+                                Reward name is required
+                            </span>
+                              <span *ngIf="rewardname.errors.pattern">
+                                  Please enter a valid reward name
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                                  <div class="form-group">
+                        <label for="description">Description*</label>
+                        <input type="text" class="form-control" id="description" name="description" required 
+                        placeholder="Enter Reward description" maxlength="200"
+                          [(ngModel)]="description" #rewarddescription="ngModel" pattern="^[^-\s][a-zA-Z0-9., '\s-]+$" >
+                        <div class="error-place">
+                          <div *ngIf="rewarddescription.errors && (rewarddescription.dirty || rewarddescription.touched || submitted)" class="error">
+                            <span *ngIf="rewarddescription.errors.required">
+                                Reward description is required
+                            </span>
+                            <span *ngIf="rewarddescription.errors.pattern">
+                              Please enter a valid description.
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="points">Points*</label>
+                          <input type="number" class="form-control" id="points" name="points" required placeholder="Enter Reward points" maxlength="200" min="1" pattern="^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$" [(ngModel)]="points" #rewardpoints="ngModel">
+                          <div class="error-place">
+                            <div *ngIf="rewardpoints.errors && (rewardpoints.dirty || rewardpoints.touched || submitted)" class="error">
+                              <span *ngIf="rewardpoints.errors.required">
+												Reward points is required
+										</span>
+                              <span *ngIf="rewardpoints.errors.pattern">
+											    Please enter valid points.
+										</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="rewcategory">Reward Category*</label>
+                          <select class="form-control" id="rewcategory" name="rewcategory" required placeholder="Choose category" [(ngModel)]="rewardcategory" #rewcategory="ngModel">
+                              <option value="">Please Select</option>
+                            <option *ngFor="let cat of category" value="{{cat.rew_category_id}}">{{cat.rew_category_name}}</option>
+                          </select>
+                          <div class="error-place">
+                            <div *ngIf="rewcategory.errors && (rewcategory.dirty || rewcategory.touched || submitted)" class="error">
+                              <span *ngIf="rewcategory.errors.required">
+										Category is required
+										</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+					  <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="rewcategory">Reward Status*</label>
+                          <select class="form-control" id="rewstatus" name="rewstatus" required placeholder="Choose Status" [(ngModel)]="rewardstatus" #rewstatus="ngModel">
+                            <option value="">Please Select</option>
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
+                          </select>
+                          <div class="error-place">
+                            <div *ngIf="rewstatus.errors && (rewstatus.dirty || rewstatus.touched || submitted)" class="error">
+                              <span *ngIf="rewstatus.errors.required">
+										Status is required
+										</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="rewarditem">Reward Item*</label>
+                          <input type="text" class="form-control" id="rewarditem" name="rewarditem" required placeholder="Enter Reward item" maxlength="200" [(ngModel)]="item" #rewarditem="ngModel" pattern="^[^-\s][a-zA-Z0-9. '\s-]+$">
+                          <div class="error-place">
+                            <div *ngIf="rewarditem.errors && (rewarditem.dirty || rewarditem.touched || submitted)" class="error">
+                              <span *ngIf="rewarditem.errors.required">
+												Reward item is required
+										</span>
+                              <span *ngIf="rewarditem.errors.pattern">
+											Please enter a valid reward item.
+										</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <label for="description">Reward Code*</label>
+                        <input type="text" class="form-control" id="rewardcode" name="rewardcode" required placeholder="Enter Reward Code" maxlength="200" [(ngModel)]="code" #rewardcode="ngModel" pattern="^[^-\s][a-zA-Z0-9. '\s-]+$">
+                        <div class="error-place">
+                          <div *ngIf="rewardcode.errors && (rewardcode.dirty || rewardcode.touched || submitted)" class="error">
+                            <span *ngIf="rewardcode.errors.required">
+												Reward code is required
+										</span>
+                            <span *ngIf="rewardcode.errors.pattern">
+											Please enter a valid Code.
+										</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="rewardimage">Reward Image*</label>
+                          <input (change)="onFileChange($event)" type="file" class="form-control" id="rewardimage" name="rewardimage" [(ngModel)]="rewimage" #rewardimage="ngModel">
+                          <label>jpg/jpeg/png(max 5Mb)</label>
+                          <div class="row" *ngIf="imgErrDisplay" class="error">
+                            <span>
+										{{imgErr}}
+									</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <button *ngIf="imgshow!=''&&imgshow!=defaultImg" class="removeBtn" type="submit" (click)="removeimage()" label="Show">
+                          	<i class="fa fa-times" aria-hidden="true"></i>
+                          </button>
+							<a href="{{imgshow}}" target="_blank">
+								<img *ngIf="imgshow!=''" src="{{imgshow}}" width="150" />
+							</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+			<!--<div class="card-Wrapper">
+					<div class="card-block">
+						<div class="primaryDetails">
+							<div class="row" *ngFor="let sdD of prmtnFldArray; let i = index;">
+								<div class="col-md-3">
+									<label>Promotion From</label>
+									<p-calendar dateFormat="dd.mm.yy" [disabled]="sdD['frmdtDisable']" [disabledDates]="invalidDates" [(ngModel)]="sdD['promFrm']" [ngModelOptions]="{standalone: true}"></p-calendar>
+								</div>
+								<div class="col-sm-3">
+									<label>Promotion to</label>
+									<p-calendar dateFormat="dd.mm.yy" [disabled]="sdD['todtDisable']"  [disabledDates]="invalidDates" [(ngModel)]="sdD['promTo']" [ngModelOptions]="{standalone: true}"></p-calendar>
+								</div>
+								<div class="col-sm-3">
+									<label>Promotion Points</label>
+									<input class="form-control" [disabled]="sdD['todtDisable']"  type="number" required placeholder="Enter Reward points" maxlength="200" pattern="^[^-\s][0-9]+$"  [(ngModel)]="sdD['promPts']" [ngModelOptions]="{standalone: true}">
+								</div>
+								<div class="col-sm-3">
+									<div class="buttonContainer">
+										<div class="form-group">
+											<button class="btn darkBtn" *ngIf="!todtDisable" type="submit" (click)="removeRwdFld(i)" >X</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row" *ngIf="promErrDisplay"  class="error">
+								<span>
+									{{addPromErr}}
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>-->
+				
+				<div class="col-md-12">
+					<div class="buttonContainer">
+						<div class="form-group">
+							<!--<button class="btn darkBtn" type="submit" (click)="AddRwdFld()" >Add</button>-->
+							<button class="btn darkBtn" type="submit" (click)="submit()" >Submit</button>							
+						</div>
+					</div>
+				</div>
+			</div>
+            <!--<div class="col-md-12">
+              <div class="buttonContainer">
+                <div class="form-group">
+                  <button *ngIf="!loading" class="btn darkBtn" type="submit" (click)="submit()">Submit</button>
+                  <div class="loader" *ngIf="loading"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i></div>
+                </div>
+              </div>
+            </div>-->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="dargPop">
+  <p-dialog header="Updated reward" [modal]="true" [(visible)]="display">
+    <p>{{result}}</p>
+  </p-dialog>
+</div>

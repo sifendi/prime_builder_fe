@@ -1,0 +1,241 @@
+<div class="overlay" *ngIf="loading">
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw contCenter"></i> <span class="sr-only">Loading...</span>
+</div>
+<div class="animated fadeIn" *ngIf="!loading">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <button type="button" class="backBtn" tabindex="0" [routerLinkActive]="['active']" [routerLink]="['/rds']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                    <div>
+                        Add Retailers & Distributors
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-Wrapper">
+                            <div class="card-block">
+                                <div class="primaryDetails">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="holcimId">Holcim Id*</label>
+                                                <input type="text" class="form-control" id="holcimId" name="holcimId" pattern="^[^-\s][a-zA-Z0-9\s-]+$" required placeholder="Enter your holcim Id" [(ngModel)]="rdsholcimId" #holcimId="ngModel">
+                                                <div class="error-place">
+                                                    <div *ngIf="holcimId.errors && (holcimId.dirty || holcimId.touched || submitted)" class="error">
+                                                        <span *ngIf="holcimId.errors.required">
+                                                            Holcim id is required
+                                                        </span>
+                                                        <span *ngIf="holcimId.errors.pattern">
+                                                            Please enter a valid holcim id
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="name">RDS name*</label>
+                                                <input type="text" class="form-control" id="name" name="name" required placeholder="Enter RDS name" [(ngModel)]="rdsname" #name="ngModel" pattern="^[^-\s][a-zA-Z '\s-]+$">
+                                                <div class="error-place">
+                                                    <div *ngIf="name.errors && (name.dirty || name.touched || submitted)" class="error">
+                                                        <span *ngIf="name.errors.required">
+                                                            RDS name is required
+                                                        </span>
+                                                        <span *ngIf="name.errors.pattern">
+                                                            Please enter a valid RDS name
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="pMobile">Mobile no*</label>
+                                                <input type="tel" class="form-control" max=10 id="pMobile" name="pMobile" required placeholder="Enter mobile no" [(ngModel)]="rdspMobile" #pMobile="ngModel" pattern="[0][1-9][0-9]+" maxlength="15" minlength="10">
+                                                <div class="error-place">
+                                                    <div *ngIf="pMobile.errors && (pMobile.dirty || pMobile.touched || submitted)" class="error">
+                                                        <span *ngIf="pMobile.errors.required">
+                                                            Mobile no is required
+                                                        </span>
+                                                        <span *ngIf="pMobile.errors.pattern">
+                                                            Please enter a valid mobile no.
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="sMobile">Phone no*</label>
+                                                <input type="tel" class="form-control" max=10 id="sMobile" name="sMobile" required placeholder="Enter mobile no" [(ngModel)]="rdssMobile" #sMobile="ngModel" pattern="[0][1-9][0-9]+" maxlength="15" minlength="10">
+                                                <div class="error-place">
+                                                    <div *ngIf="sMobile.errors && (sMobile.dirty || sMobile.touched || submitted)" class="error">
+                                                        <span *ngIf="sMobile.errors.required">
+                                                            Phone no is required
+                                                        </span>
+                                                        <span *ngIf="sMobile.errors.pattern">
+                                                            Please enter a valid phone no.
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="email">Email id*</label>
+                                                <input type="text" class="form-control" id="email" name="email" required placeholder="Enter email" [(ngModel)]="rdsemail" #email="ngModel" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                                                <div class="error-place">
+                                                    <div *ngIf="email.errors && (email.dirty || email.touched || submitted)" class="error">
+                                                        <span *ngIf="email.errors.required">Email id is required</span>
+                                                        <span *ngIf="email.errors.pattern">Please enter valid email</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="gndr">Gender*</label>
+                                                <select class="form-control" id="gndr" name="gndr" required placeholder="Enter your gndr" [(ngModel)]="rdsgndr" #gndr="ngModel">
+                                                    <option value="">Please Select</option>                                                    
+                                                    <option value="male">Male</option>
+                                                    <option value="female">Female</option>
+                                                </select>
+                                                <div class="error-place">
+                                                    <div *ngIf="gndr.errors && (gndr.dirty || gndr.touched || submitted)" class="error">
+                                                        <span *ngIf="gndr.errors.required">
+                                                            Please select gender
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="type">Type*</label>
+                                                <select class="form-control" id="type" name="type" required placeholder="Enter your type" [(ngModel)]="rdstype" #type="ngModel">
+                                                    <option value="">Please Select</option>
+                                                    <option value="retailer">Retailer</option>
+                                                    <option value="distributor">Distributor</option>
+                                                </select>
+                                                <div class="error-place">
+                                                    <div *ngIf="type.errors && (type.dirty || type.touched || submitted)" class="error">
+                                                        <span *ngIf="type.errors.required">
+                                                            Type is required
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="rdsStatus">Status*</label>
+                                                <select class="form-control" id="rdsStatus" name="rdsStatus" required placeholder="Enter status" [(ngModel)]="rdsSts" #rdsStatus="ngModel">
+                                                    <option value="">Please Select</option>
+                                                    <option value="1">open</option>
+                                                    <option value="0">close</option>
+                                                </select>
+                                                <div class="error-place">
+                                                    <div *ngIf="rdsStatus.errors && (rdsStatus.dirty || rdsStatus.touched || submitted)" class="error">
+                                                        <span *ngIf="rdsStatus.errors.required">
+                                                            Status is required
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="addrss">Address*</label>
+                                                <textarea class="form-control" id="addrss" name="addrss" required placeholder="Enter address" [(ngModel)]="rdsaddrss" #addrss="ngModel"></textarea>
+                                                <div class="error-place">
+                                                    <div *ngIf="addrss.errors && (addrss.dirty || addrss.touched || submitted)" class="error">
+                                                        <span *ngIf="addrss.errors.required">
+                                                            Address is required
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngFor="let sdD of subDistFldArray; let i = index;">
+                                        <div class="col-sm-11">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="prvnc">Province*</label>
+                                                        <select class="form-control" (change)="getdistrict(i)" [(ngModel)]="sdD['rdsprvnc']" [ngModelOptions]="{standalone: true}">
+                                                            <option value="">Please Select</option>
+                                                            <option *ngFor="let pCd of sdD.allprvnc" value="{{pCd.id}}">{{pCd.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label>District*</label>
+                                                        <select class="form-control" (change)="getCity(i)" [(ngModel)]="sdD['rdsDistr']" [ngModelOptions]="{standalone: true}">
+                                                            <option value="">Please Select</option>
+                                                            <option *ngFor="let pCd of sdD.allDistr" value="{{pCd.id}}">{{pCd.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="cty">City/Municipality*</label>
+                                                        <select type="text" class="form-control" [(ngModel)]="sdD['rdscty']" (change)="getSubDist(i)" [ngModelOptions]="{standalone: true}">
+                                                            <option value="">Please Select</option> 
+                                                            <option *ngFor="let muncplt of sdD.allcty" value="{{muncplt.id}}">{{muncplt.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="SbDst">Sub District*</label>
+                                                        <select type="text" class="form-control" [(ngModel)]="sdD['rdsSbDst']" (change)="chkSubDist(i)" [ngModelOptions]="{standalone: true}">
+                                                            <option value="">Please Select</option>   
+                                                            <option *ngFor="let sDist of sdD.allSbDst" value="{{sDist.id}}">{{sDist.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <button class="btn darkBtn closeButton" type="submit" (click)="removesubDistFld(i)"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="subDistErrDisplay" class="error">
+                                        <span>
+                                            {{addSubDistErr}}
+                                        </span>
+                                    </div>
+                                    <div class="row" *ngIf="holcimIdErrDisplay" class="error">
+                                        <span>
+                                            Holcim id is already exists.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="buttonContainer">
+                                <div class="form-group">
+                                    <button *ngIf="!loading" class="btn darkBtn" type="submit" (click)="AddsubDistFld()">Add</button>
+                                    <button *ngIf="!loading" class="btn darkBtn" type="submit" (click)="submit()">Submit</button>
+                                    <div class="loader" *ngIf="loading"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dargPop">
+    <p-dialog [modal]="true" [(visible)]="display" *ngIf="result == 'success'">
+        <h6>Inserted Successfully</h6>
+    </p-dialog>
+    <p-dialog header="Insert" [modal]="true" [(visible)]="display" *ngIf="result != 'success'">
+        <p>{{result}}</p>
+    </p-dialog>
+</div>

@@ -1,0 +1,219 @@
+<div class="overlay" *ngIf="loading">
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw contCenter"></i> <span class="sr-only">Loading...</span>
+</div>
+<div class="animated fadeIn" *ngIf="!loading">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <button type="button" class="backBtn" tabindex="0" [routerLinkActive]="['active']" [routerLink]="['/reward']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                    <div>
+                        Reward Form
+                    </div>
+                </div>
+                <div class="row">
+                    <form #nmc="ngForm">
+                        <div class="col-md-12">
+                            <div class="card-Wrapper">
+                                <div class="card-block">
+                                    <div class="primaryDetails">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="rewardname">Name*</label>
+                                                    <input type="text" class="form-control" id="rewardname" name="rewardname" required placeholder="Enter Reward Name" maxlength="25" [(ngModel)]="rewdname" #rewardname="ngModel" pattern="^[^-\s][a-zA-Z '\s-]+$">
+                                                    <div class="error-place">
+                                                        <div *ngIf="rewardname.errors && (rewardname.dirty || rewardname.touched || submitted)" class="error">
+                                                            <span *ngIf="rewardname.errors.required && submitted">
+                                                                    Reward name is required
+                                                            </span>
+                                                            <span *ngIf="rewardname.errors.pattern">
+                                                                    Please enter a valid reward name
+										                    </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="rewarddescription">Description*</label>
+                                                    <input type="text" class="form-control" id="rewarddescription" name="rewarddescription" required placeholder="Enter Reward description" maxlength="200" [(ngModel)]="rewdescription" #rewarddescription="ngModel" pattern="^[^-\s][a-zA-Z0-9., '\s-]+$">
+                                                    <div class="error-place">
+                                                        <div *ngIf="rewarddescription.errors && (rewarddescription.dirty || rewarddescription.touched || submitted)" class="error">
+                                                            <span *ngIf="rewarddescription.errors.required && submitted">
+                                                                    Reward description is required
+                                                            </span>
+                                                            <span *ngIf="rewarddescription.errors.pattern">
+                                                                    Please enter a valid description.
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="rewardpoints">Points*</label>
+                                                    <input type="number" class="form-control" id="rewardpoints" name="rewardpoints" required placeholder="Enter Reward points" maxlength="20" min="1" pattern="^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$" [(ngModel)]="rewpoints" #rewardpoints="ngModel">
+                                                    <div class="error-place">
+                                                        <div *ngIf="rewardpoints.errors && (rewardpoints.dirty || rewardpoints.touched || submitted)" class="error">
+                                                            <span *ngIf="rewardpoints.errors.required && submitted">
+                                                                    Reward points is required
+                                                            </span>
+                                                            <span *ngIf="rewardpoints.errors.pattern">
+                                                                    Please enter a valid points.
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="rewardcategory">Reward Category*</label>
+                                                    <select class="form-control" id="rewardcategory" name="rewardcategory" required placeholder="Choose category" [(ngModel)]="rewcategory" #rewardcategory="ngModel">
+                                                        <option value="">Please Select</option>
+                                                        <option *ngFor="let cat of category" value="{{cat.rew_category_id}}">{{cat.rew_category_name}}</option>
+                                                    </select>
+                                                    <div class="error-place">
+                                                        <div *ngIf="rewardcategory.errors && (rewardcategory.dirty || rewardcategory.touched || submitted)" class="error">
+                                                            <span *ngIf="rewardcategory.errors.required && submitted">
+                                                                    Category is required
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+											<div class="col-md-3">
+                                                <div class="form-group">
+                                                <label for="rewcategory">Reward Status*</label>
+                                                <select class="form-control" id="rewstatus" name="rewstatus" required placeholder="Choose Status" [(ngModel)]="rewardstatus" #rewstatus="ngModel">
+                                                        <option value="">Please Select</option>
+                                                        <option value="1">Active</option>
+                                                        <option value="0">Inactive</option>
+                                                </select>
+                                                <div class="error-place">
+                                                    <div *ngIf="rewstatus.errors && (rewstatus.dirty || rewstatus.touched || submitted)" class="error">
+                                                        <span *ngIf="rewstatus.errors.required">
+                                                            Status is required
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="rewarditem">Reward Item*</label>
+                                                <input type="text" class="form-control" id="rewarditem" name="rewarditem" required placeholder="Enter Reward item" maxlength="200" [(ngModel)]="rewitem" #rewarditem="ngModel" pattern="^[^-\s][a-zA-Z0-9 '\s-]+$">
+                                                <div class="error-place">
+                                                    <div *ngIf="rewarditem.errors && (rewarditem.dirty || rewarditem.touched || submitted)" class="error">
+                                                        <span *ngIf="rewarditem.errors.required && submitted">
+                                                                Reward item is required
+                                                        </span>
+                                                        <span *ngIf="rewarditem.errors.pattern">
+                                                            Please enter a valid Reward item.
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="rewardcode">Reward Code*</label>
+                                                    <input type="text" class="form-control" id="rewardcode" name="rewardcode" required placeholder="Enter Reward code" maxlength="200" [(ngModel)]="rewcode" #rewardcode="ngModel" pattern="^[^-\s][a-zA-Z0-9 '\s-]+$">
+                                                    <div class="error-place">
+                                                        <div *ngIf="rewardcode.errors && (rewardcode.dirty || rewardcode.touched || submitted)" class="error">
+                                                            <span *ngIf="rewardcode.errors.required && submitted">
+                                                                    Reward code is required
+                                                            </span>
+                                                            <span *ngIf="rewardcode.errors.pattern">
+                                                                Please enter a valid code.
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="rewardimage">Reward Image*</label>
+                                                    <input (change)="onFileChange($event)" type="file" class="form-control" id="rewardimage" name="rewardimage" [(ngModel)]="rewimage" #rewardimage="ngModel">
+                                                    <label>jpg/jpeg/png(max 5Mb)</label>
+                                                    <div class="row" *ngIf="imgErrDisplay" class="error">
+                                                        <span>
+                                                            {{imgErr}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <button *ngIf="imgshow!=''" class="removeBtn" type="submit" (click)="removeimage()" label="Show">
+                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                    </button>
+                                                    <img *ngIf="imgshow!=''" src="{{imgshow}}" width="150" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+							<!--<div class="card-Wrapper">
+								<div class="card-block">
+									<div class="primaryDetails">
+										<div class="row" *ngFor="let sdD of prmtnFldArray; let i = index;">
+											<div class="col-md-3">
+												<label>Promotion From</label>
+												<p-calendar dateFormat="dd.mm.yy" [disabledDates]="invalidDates" [(ngModel)]="sdD['promFrm']" [ngModelOptions]="{standalone: true}"></p-calendar>
+											</div>
+											<div class="col-sm-3">
+												<label>Promotion to</label>
+												<p-calendar dateFormat="dd.mm.yy" [disabledDates]="invalidDates" [(ngModel)]="sdD['promTo']" [ngModelOptions]="{standalone: true}"></p-calendar>
+											</div>
+											<div class="col-sm-3">
+												<label>Promotion Points</label>
+												<input class="form-control" type="number" required placeholder="Enter Reward points" maxlength="200" pattern="^[^-\s][0-9]+$"  [(ngModel)]="sdD['promPts']" [ngModelOptions]="{standalone: true}">
+											</div>
+											<div class="col-sm-3">
+												<div class="buttonContainer">
+													<div class="form-group">
+														<button class="btn darkBtn" type="submit" (click)="removeRwdFld(i)" >X</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row" *ngIf="promErrDisplay"  class="error">
+											<span>
+												{{addPromErr}}
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-md-12">
+								<div class="buttonContainer">
+									<div class="form-group">
+										<button class="btn darkBtn" type="submit" (click)="AddRwdFld()" >Add</button>
+										<button class="btn darkBtn" type="submit" (click)="submit()" >Submit</button>							
+									</div>
+								</div>
+							</div>-->
+                        <div class="col-md-12">
+                            <div class="buttonContainer">
+                                <div class="form-group">
+                                    <button *ngIf="!loading" class="btn darkBtn" type="submit" (click)="submit()">Submit</button>
+                                    <div class="loader" *ngIf="loading"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dargPop">
+    <p-dialog [modal]="true" [(visible)]="display" *ngIf="result == 'success'">
+        <h6>Added new reward</h6>
+    </p-dialog>
+    <p-dialog header="Added new reward" [modal]="true" [(visible)]="display" *ngIf="result != 'success'">
+        <p>{{result}}</p>
+    </p-dialog>
+</div>

@@ -1,0 +1,126 @@
+<div class="animated fadeIn">
+    <div class="row" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <button type="button" class="backBtn" [routerLinkActive]="['active']" [routerLink]="['/users/hpb-update-approval']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                </div>
+                <div class="detailsContainer productContainer">
+                    <div class="card-details">
+                        <div class="card-block">
+                            <div class="blockTop productBlock">
+                                <div class="items">
+                                    <div class="gutter-space">
+                                        <div class="panelWrapper">
+                                            <div class="panelHead">
+                                                <h3>Hpb Approval Status</h3>
+                                            </div>
+                                            <div class="panelBody">
+                                                <ul class="panelitem panelInfo">
+                                                    <li>
+                                                        <p>Name</p>
+                                                        <h4>{{updateUserData.hpb_name || '-'}}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>New {{updateUserData.label_name}} Number</p>
+                                                        <h4>{{updateUserData.field_new_value || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Old {{updateUserData.label_name}} Number</p>
+                                                        <h4>{{updateUserData.field_old_value || '-' }}</h4>
+                                                    </li>
+                                                    <li class="badge-{{updateUserData.classname}}">
+                                                        <p>Status</p>
+                                                        <h4><i class="icon-{{updateUserData.status}}"></i>{{updateUserData.status || '-'}}</h4>
+                                                    </li>
+                                                </ul>
+                                                <ul class="panelitem panelInfo">
+                                                    <li *ngIf="updateUserData.approval_status == '0'">
+                                                        <div class="statusBtn" *ngIf="!rejection && updateUserData.approval_status == '0'">
+                                                            <button type="button" (click)="confirm(id,1)" class="btn btnApprove">Approve</button>
+                                                            <button type="button" (click)="reject(id,-1)" class="btn btnReject">Reject</button>
+                                                        </div>
+                                                        <div class="statusBtn editStatus" *ngIf="rejection">
+                                                            <textarea id="reason" name="reason" placeholder="Enter Reason" [(ngModel)]="reason"></textarea>
+                                                            <div class="error-place">
+                                                                <div *ngIf="reasonError" class="error">
+                                                                    <span>
+                                                                         Reason is required
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="statusBtn statusRej" *ngIf="rejection">
+                                                            <button type="button " (click)="approveHpbStatus(id,-1)" class="btn darkBtn">Submit</button>
+                                                            <button type="button" (click)="goBack()" class="btn darkBtn">Cancel</button>
+                                                        </div>
+                                                    </li>
+                                                    <li *ngIf="updateUserData.approval_status == '-1'">
+                                                        <p>Reason Of Rejection</p>
+                                                        <h4>{{updateUserData.rejection_reason || '-' }}</h4>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Hpb Approval History</h3>
+                </div>
+                <div class="detailsContainer productContainer">
+                    <div class="card-details">
+                        <div class="card-block" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+                            <table class="table table-bordered productRequestTable">
+                                <thead>
+                                    <tr>
+                                        <th>Sr no</th>
+                                        <th>Name</th>
+                                        <th>Old Data</th>
+                                        <th>New Data</th>
+                                        <th>Type</th>
+                                        <th>Updated Date</th>
+                                        <th>Created Date</th>
+                                        <th>Approval Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let user of updateUserHistory;let i=index;">
+                                        <td>{{i+1}}</td>
+                                        <td>{{user.hpb_name || '-'}}</td>
+                                        <td>{{user. field_old_value || '-'}}</td>
+                                        <td>{{user. field_new_value || '-'}}</td>
+                                        <td>{{user. field_name || '-'}}</td>
+                                        <td>{{user. updated_date || '-'}}</td>
+                                        <td>{{user. created_date || '-'}}</td>
+                                        <td><span class="{{user.classname}}">{{user.status || '-'}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-block" *ngIf="updateUserHistory?.length==0">
+                            <div class="row">
+                                <div class="col-md-4">&nbsp;</div>
+                                <div class="col-md-4">
+                                    <h4>NO RESULT FOUND</h4>
+                                </div>
+                                <div class="col-md-4">&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" #cd>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" label="Yes" (click)="cd.accept()"></button>
+        <button type="button" pButton icon="fa-check" label="No" (click)="cd.reject()"></button>
+    </p-footer>
+</p-confirmDialog>

@@ -1,0 +1,162 @@
+<div class="forecast animated fadeIn">
+	<div class="row">
+	<div class="col-lg-12">
+	
+	<div class="card">
+		<div class="card-header">
+			<strong>Product Form</strong>
+		</div>
+		<div class="card-block">
+            <form #productRec="ngForm">
+					<div class="row">
+					<div class="form-group col-sm-3">
+						<label for="projectid">Project*</label>
+						<select  class="form-control" id="projectid" name="projectid" required 
+							placeholder="Enter your projectid"
+							[(ngModel)]="productRec.projectid" #projectid="ngModel">
+							<option *ngFor="let proj of projData" id="{{proj.hpb_id}}" value="{{proj.project_id}}-{{proj.hpb_id}}">{{proj.project_name}}</option>
+						</select>
+						<div class="error-place">
+							<div *ngIf="projectid.errors && (projectid.dirty || projectid.touched || submitted)" class="error">
+								<span *ngIf="projectid.errors.required">
+										projectid is required
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-sm-3">
+						<label for="productid">Product*</label>
+						<select  class="form-control" id="productid" name="productid" required 
+							placeholder="Enter your productid"
+							[(ngModel)]="productRec.productid" #productid="ngModel">
+							<option *ngFor="let prod of prodData" value="{{prod.id}}">{{prod.name}}</option>
+						</select>
+						<div class="error-place">
+							<div *ngIf="productid.errors && (productid.dirty || productid.touched || submitted)" class="error">
+								<span *ngIf="productid.errors.required">
+										Productid is required
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-sm-3">
+						<label for="quantity">Quantity*</label>
+						<input type="text" class="form-control" id="quantity" name="quantity" required 
+						placeholder="Enter your quantity"
+						[(ngModel)]="productRec.quantity" #quantity="ngModel" pattern="^[0-9]*$" >
+						<div class="error-place">
+							<div *ngIf="quantity.errors && (quantity.dirty || quantity.touched || submitted)" class="error">
+								<span *ngIf="quantity.errors.required">
+									Quantity is required
+								</span>
+								<span *ngIf="quantity.errors.pattern">
+									Please enter a valid quantity.
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-sm-3">
+						<label for="unit">Unit*</label>
+						<input type="text" class="form-control" id="unit" name="unit" required placeholder="Enter unit"
+						[(ngModel)]="productRec.unit"  #unit="ngModel" pattern="^[a-zA-Z0-9_@]*$">
+						<div class="error-place">
+							<div *ngIf="unit.errors && (unit.dirty || unit.touched || submitted)" class="error">
+								<span *ngIf="unit.errors.required">
+									Unit is required
+								</span>
+								<span *ngIf="unit.errors.pattern">
+									Please enter a valid unit.
+								</span>
+							</div>
+						</div>
+					</div>
+                      
+					<div class="form-group col-sm-3">
+						<label for="pDate">Purchase Date*</label>
+						<input type="date" class="form-control" id="pDate" name="pDate" required placeholder="Enter pDate"
+						[(ngModel)]="productRec.pDate"  #pDate="ngModel">
+						<div class="error-place">
+							<div *ngIf="pDate.errors && (pDate.dirty || pDate.touched || submitted)" class="error">
+								<span *ngIf="pDate.errors.required">
+									Date is required
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-sm-3">
+						<label for="invcqnt">Invoice quantity*</label>
+						<input type="number" class="form-control" id="invcqnt" name="invcqnt" required placeholder="Enter invcqnt" 
+						[(ngModel)]="productRec.invcqnt"  #invcqnt="ngModel" pattern="^[0-9]*$">
+						<div class="error-place">
+							<div *ngIf="invcqnt.errors && (invcqnt.dirty || invcqnt.touched || submitted)" class="error">
+								<span *ngIf="invcqnt.errors.required">
+									Invcqnt is required
+								</span>
+								<span *ngIf="invcqnt.errors.pattern">
+									Please enter a valid invcqnt.
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-sm-3">
+						<label for="comments">Comments*</label>
+						<input type="text" class="form-control" id="comments" name="comments" required placeholder="Enter comments" 
+						[(ngModel)]="productRec.comments" #comments="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+						<div class="error-place">
+							<div *ngIf="comments.errors && (comments.dirty || comments.touched || submitted)" class="error">
+								<span *ngIf="comments.errors.required">
+									Comments is required
+								</span>
+								<span *ngIf="comments.errors.pattern">
+									Please enter a valid comments.
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-sm-3">
+						<label for="longitude">Longitude*</label>
+						<input type="text" class="form-control" id="longitude" name="longitude" required placeholder="Enter longitude" 
+						[(ngModel)]="productRec.longitude" #longitude="ngModel" pattern="^[0-9.]*$">
+						<div class="error-place">
+							<div *ngIf="longitude.errors && (longitude.dirty || longitude.touched || submitted)" class="error">
+								<span *ngIf="longitude.errors.required">
+									Longitude is required
+								</span>
+								<span *ngIf="longitude.errors.pattern">
+									Please enter a valid longitude.
+								</span>
+							</div>
+						</div>
+					</div>
+                       
+					<div class="form-group col-sm-3">
+						<label for="latitude">Latitude*</label>
+						<input type="text" class="form-control" id="latitude" name="latitude" required placeholder="Enter latitude"
+						[(ngModel)]="productRec.latitude" #latitude="ngModel" pattern="^[0-9.]*$">
+						<div class="error-place">
+							<div *ngIf="latitude.errors && (latitude.dirty || latitude.touched || submitted)" class="error">
+								<span *ngIf="latitude.errors.required">
+									Latitude is required
+								</span>
+								<span *ngIf="latitude.errors.pattern">
+									Please enter a valid latitude.
+								</span>
+							</div>
+						</div>
+					</div>
+                            <button class="forcastbtn col-sm-3" type="submit" (click)="submit()" pButton icon="fa-external-link-square" label="Show">Submit</button>
+                        </div>
+                        
+					</form>
+		</div>		
+	</div>
+	
+	</div>
+		<!--/.col-->
+	</div>	
+</div>
+<div>
+	<p-dialog header="Edit product Details" [modal]="true" [(visible)]="display">
+	<p>{{result}}</p>
+	</p-dialog>
+</div>

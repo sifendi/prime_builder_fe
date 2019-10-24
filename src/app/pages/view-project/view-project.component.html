@@ -1,0 +1,183 @@
+<div class="animated fadeIn" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <button type="button" class="backBtn" [routerLinkActive]="['active']" [routerLink]="['/project']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                </div>
+                <div class="productImages">
+                    <p>Project Photos</p>
+                    <ul class="projectPhoto">
+                        <li *ngFor="let project_photo_image of project_photo_array; let i = index">
+							<img class="img-frame" [src]="project_photo_image.thumb" (click)="open(project_photo_array,i)" width="100" height="100"/>
+                        </li>
+                    </ul>
+                </div>
+                <div class="detailsContainer productContainer">
+                    <div class="card-details">
+                        <div class="card-block">
+                            <div class="blockTop productBlock">
+                                <div class="items">
+                                    <div class="gutter-space">
+                                        <div class="panelWrapper">
+                                            <div class="panelHead">
+                                                <h3>Project Details</h3>
+                                            </div>
+                                            <div class="panelBody">
+                                                <ul class="panelitem panelInfo">
+                                                    <li class="badge-{{this.tlhApproval.srku_approval_class}}">
+                                                        <p>{{tlhApproval.srku_approval_status}}</p>
+                                                        <h4><i class="icon-{{tlhApproval.srku_approval_status}}"></i>TLH</h4>
+                                                        <p>{{tlhApproval.srku_rejection_reason}}</p>
+                                                    </li>
+                                                    <li>
+                                                        <p>Project Name</p>
+                                                        <h4>{{ProjData.project_name || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Completion date</p>
+                                                        <h4>{{ProjData.project_completion_date || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Project Type</p>
+                                                        <h4>{{ProjData.project_type_name || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Project Stage</p>
+                                                        <h4>{{ProjData.project_stage_name || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Cement Estimation</p>
+                                                        <h4>{{ProjData.project_quantity_estimation || '-' }} (tons)</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>HPB Assigned</p>
+                                                        <h4><a *ngIf="ProjData.hpb_id" [routerLink]="['/view-hpb',ProjData.hpb_id]">{{ProjData.hpb_name || '-' }}</a></h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Is SRKU</p>
+                                                        <h4>{{ProjData.is_srku || '-' }}</h4>
+                                                    </li>
+                                                    <li class="addProj">
+                                                        <p>Address</p>
+                                                        <h4>{{ProjData.project_address || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>City / Municipality</p>
+                                                        <h4>{{ProjData.project_city || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Province</p>
+                                                        <h4>{{ProjData.project_province || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Sub District</p>
+                                                        <h4>{{ProjData.project_sub_district || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Postal Code</p>
+                                                        <h4>{{ProjData.project_pincode || '-' }}</h4>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="items">
+                                    <div class="gutter-space">
+                                        <div class="panelWrapper">
+                                            <div class="panelHead">
+                                                <h3>SRKU Details</h3>
+                                            </div>
+                                            <div class="panelBody">
+                                                <ul class="panelitem panelInfo">
+                                                    <li>
+                                                        <p>Owner</p>
+                                                        <h4>{{ProjData.srku_owner_name || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Owner Mobile</p>
+                                                        <h4>{{ProjData.srku_owner_mobile_no || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Floor Size</p>
+                                                        <h4>{{ProjData.floor_size || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>No. of home units</p>
+                                                        <h4>{{ProjData.number_of_units || '-' }}</h4>
+                                                    </li>
+                                                    <li class="addProj">
+                                                        <p>Address</p>
+                                                        <h4>{{ProjData.srku_owner_address || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>City / Municipality</p>
+                                                        <h4>{{ProjData.srku_city || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Province</p>
+                                                        <h4>{{ProjData.srku_province || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Sub District</p>
+                                                        <h4>{{ProjData.srku_sub_district || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Postal Code</p>
+                                                        <h4>{{ProjData.srku_pincode || '-' }}</h4>
+                                                    </li>
+                                                    <li>
+                                                        <p>Has Micro Credit</p>
+                                                        <h4>{{ProjData.is_micro_credit || '-' }}</h4>
+                                                    </li>
+                                                    <li *ngIf="ProjData.is_micro_credit == 'Yes'">
+                                                        <p>Bank Name</p>
+                                                        <h4>{{ProjData.bank_name || '-' }}</h4>
+                                                    </li>
+                                                    <li *ngIf="ProjData.is_micro_credit == 'Yes'">
+                                                        <p>Bank Documents</p>
+                                                        <ul class="projectPhoto noBorder">
+                                                            <li *ngFor="let bank_document of bank_document_array; let i = index">
+                                                                <!--<img src="{{bank_document.fileType}}" alt="">-->
+                                                                <a href="{{bank_document.serverPath}}" target="_blank"><img *ngIf="bank_document.fileType!='jpeg' && bank_document.fileType!='jpg' && bank_document.fileType!='png'; else elseBlock" src="assets/img/document.jpg" alt="" width="100" height="100">
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+														<ul class="projectPhoto" *ngIf="bank_document_image_array?.length > 0">
+                                                            <img class="img-frame" [src]="bank_document_image_array[0]['serverPath']" (click)="open(ProjData.doc_images,0)" width="100" height="100"/>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <p>NMC Type</p>
+                                                        <h4>{{ProjData.nmc_type || '-' }}</h4>
+                                                    </li>
+                                                    <li *ngIf="ProjData.is_micro_credit == 'No'">
+                                                        <ul class="noBorder">
+                                                            <li *ngFor="let nmc_document of nmc_document_array; let i = index">
+                                                                <!--<img src="{{bank_document.fileType}}" alt="">-->
+                                                                <a href="{{nmc_document.serverPath}}" target="_blank"><img *ngIf="nmc_document.fileType!='jpeg' && bank_document.fileType!='jpg' && bank_document.fileType!='png'; else elseBlock" src="assets/img/document.jpg" alt="" width="100" height="100">
+                                                                    <ng-template #elseBlock>
+                                                                        <img src="{{nmc_document.serverPath}}" alt="" width="100" height="100">
+                                                                    </ng-template>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="addProj">
+                                                        <p>Note</p>
+                                                        <h4>{{ProjData.additional_comments || '-' }}</h4>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

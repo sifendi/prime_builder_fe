@@ -1,0 +1,116 @@
+<div class="overlay" *ngIf="loading">
+  <i class="fa fa-spinner fa-pulse fa-3x fa-fw contCenter"></i> <span class="sr-only">Loading...</span>
+</div>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <button type="button" class="backBtn" [routerLinkActive]="['active']" [routerLink]="['/monthly-forecast-target']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+          <div>
+            Upload Mason / Contractor Target
+          </div>
+        </div>
+        <div>
+          <button type="button" class="btn darkBtn" *ngIf="uploadedData" (click)="uploadAgain()">Upload another CSV</button>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card-Wrapper">
+              <div class="card-block" *ngIf="!uploadedData">
+                <form #product="ngForm">
+                  <div class="primaryDetails">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="name">Upload CSV</label>
+                          <input type="file" class="form-control uploadFile" id="upload" name="upload" placeholder="Enter your upload" [(ngModel)]="product.upload" (change)="_onChange($event)" #upload="ngModel" required>
+                          <div class="error-place" *ngIf="csvError">
+                            
+							<div class="error">
+                              <span>{{csvError}}</span>
+                            </div>
+							
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="buttonContainer">
+              <div class="form-group">
+                <button *ngIf="!uploadedData" class="btn darkBtn" type="submit" (click)="uploadTarget()">UPLOAD MASON / CONTRACTOR TARGET</button>
+                <div class="loader" *ngIf="loading"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          Format
+        </div>
+        <div class="card-Wrapper">
+          <div class="card-block" *ngIf="!uploadedData">
+            <table class="table table-bordered productRequestTable">
+              <thead>
+                <tr>
+                  <th>target date</th>
+                  <th>sph mobile</th>
+                  <th>visitor mobile</th>
+                  <th>visitor type</th>
+                  <th>status</th>
+                  <th>srku vol</th>
+                  <th>cement vol switching</th>
+                  <th>cement vol maintain</th>
+                  <th>terablock</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>7/11/2017</td>
+                  <td>8692903858</td>
+                  <td>9833411533</td>
+                  <td>Mason</td>
+                  <td>active</td>
+                  <td>12</td>
+                  <td>14</td>
+                  <td>15</td>
+                  <td>16</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-block" *ngIf="uploadedData">
+            <table class="table table-bordered productRequestTable">
+              <thead>
+                <tr>
+                  <th>Target Date</th>
+                                <th>SPH</th>
+                                <th>Visitor</th>
+                                <th>Target of</th>
+                                <th>Target Value</th>
+                                <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let tg of uploadedData">
+                                <td class="{{tg.class}}">{{tg.target_date}}</td>
+                                <td class="{{tg.class}}">{{tg.sph_mobile}}</td>
+                                <td class="{{tg.class}}">{{tg.visitor_mobile}}</td>
+                                <td class="{{tg.class}}">{{tg.target_label}}</td>
+                                <td class="{{tg.class}}">{{tg.target_value}}</td>
+                                <td class="{{tg.class}}">{{tg.status}}</td>
+                            </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

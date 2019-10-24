@@ -1,0 +1,320 @@
+<div class="forecast animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Project Form</strong>
+                            </div>
+                            <div class="card-block">
+                                <form #project="ngForm">
+                                    <div class="row">
+                                        <div class="form-group col-sm-3">
+                                            <label for="hpbid">HPB*</label>
+                                            <select class="form-control" id="hpbid" name="hpbid" required placeholder="Enter your hpbid" [(ngModel)]="project.hpbid" #hpbid="ngModel">
+                                                <option *ngFor="let hpb of hpbData" value="{{hpb.hpb_id}}">{{hpb.hpb_name}}</option>
+                                            </select>
+                                            <div class="error-place">
+                                                <div *ngIf="hpbid.errors && (hpbid.dirty || hpbid.touched || submitted)" class="error">
+                                                    <span *ngIf="hpbid.errors.required">HPB id is required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <label for="project">Project*</label>
+                                            <input type="text" class="form-control" id="project" name="project" required placeholder="Enter your project" [(ngModel)]="project.project" #project="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+                                            <div class="error-place">
+                                                <div *ngIf="project.errors && (project.dirty || project.touched || submitted)" class="error">
+                                                    <span *ngIf="project.errors.required">Project is required</span>
+                                                    <span *ngIf="project.errors.pattern">Please enter a valid project.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <label for="completionDate">completion Date*</label>
+                                            <input type="date" class="form-control" id="completionDate" name="completionDate" required placeholder="Enter your completionDate" [(ngModel)]="project.completionDate" #completionDate="ngModel">
+                                            <div class="error-place">
+                                                <div *ngIf="completionDate.errors && (completionDate.dirty || completionDate.touched || submitted)" class="error">
+                                                    <span *ngIf="completionDate.errors.required">CompletionDate is required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <label for="quantityEstimation">Quantity Estimation*</label>
+                                            <input type="text" class="form-control" id="quantityEstimation" name="quantityEstimation" required placeholder="Enter quantityEstimation" [(ngModel)]="project.quantityEstimation" #quantityEstimation="ngModel" pattern="^[0-9]*$">
+                                            <div class="error-place">
+                                                <div *ngIf="quantityEstimation.errors && (quantityEstimation.dirty || quantityEstimation.touched || submitted)" class="error">
+                                                    <span *ngIf="quantityEstimation.errors.required">QuantityEstimation is required</span>
+                                                    <span *ngIf="quantityEstimation.errors.pattern">Please enter a valid quantityEstimation.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+									</div>
+                                    <div class="row">
+										<div class="form-group col-sm-3">
+											<label for="typeId">Type*</label>
+											<select class="form-control" id="typeId" name="typeId" required placeholder="Enter your typeId" [(ngModel)]="project.typeId" #typeId="ngModel">
+												<option *ngFor="let type of typeData" value="{{type.id}}">{{type.project_type}}</option>
+											</select>
+											<div class="error-place">
+												<div *ngIf="typeId.errors && (typeId.dirty || typeId.touched || submitted)" class="error">
+													<span *ngIf="typeId.errors.required">TypeId is required</span>
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-sm-3">
+											<label for="stageid">Stage*</label>
+											<select class="form-control" id="stageid" name="stageid" required placeholder="Enter your stageid" [(ngModel)]="project.stageid" #stageid="ngModel">
+												<option *ngFor="let stg of stgData" value="{{stg.id}}">{{stg.project_stage}}</option>
+											</select>
+											<div class="error-place">
+												<div *ngIf="stageid.errors && (stageid.dirty || stageid.touched || submitted)" class="error">
+													<span *ngIf="stageid.errors.required">Stageid is required</span>
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-sm-3">
+											<label for="address">Address*</label>
+											<input type="text" class="form-control" id="address" name="address" required placeholder="Enter address" [(ngModel)]="project.address" #address="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+											<div class="error-place">
+												<div *ngIf="address.errors && (address.dirty || address.touched || submitted)" class="error">
+													<span *ngIf="address.errors.required">Address is required</span>
+													<span *ngIf="address.errors.pattern">Please enter a valid address.</span>
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-sm-3">
+											<label for="province">Province*</label>
+											<input type="text" class="form-control" id="province" name="province" required placeholder="Enter province" [(ngModel)]="project.province" #province="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+											<div class="error-place">
+												<div *ngIf="province.errors && (province.dirty || province.touched || submitted)" class="error">
+													<span *ngIf="province.errors.required">Province is required</span>
+													<span *ngIf="province.errors.pattern">Please enter a valid province.</span>
+												</div>
+											</div>
+										</div>
+                                    </div>
+                                    <div class="row">
+										<div class="form-group col-sm-3">
+											<label for="municipality">Municipality*</label>
+											<input type="text" class="form-control" id="municipality" name="municipality" required placeholder="Enter municipality" [(ngModel)]="project.municipality" #municipality="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+											<div class="error-place">
+												<div *ngIf="municipality.errors && (municipality.dirty || municipality.touched || submitted)" class="error">
+													<span *ngIf="municipality.errors.required">Municipality is required</span>
+													<span *ngIf="municipality.errors.pattern">Please enter a valid municipality.</span>
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-sm-3">
+											<label for="subDistrict">SubDistrict*</label>
+											<input type="text" class="form-control" id="subDistrict" name="subDistrict" required placeholder="Enter subDistrict" [(ngModel)]="project.subDistrict" #subDistrict="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+											<div class="error-place">
+												<div *ngIf="subDistrict.errors && (subDistrict.dirty || subDistrict.touched || submitted)" class="error">
+													<span *ngIf="subDistrict.errors.required">SubDistrict is required</span>
+													<span *ngIf="subDistrict.errors.pattern">Please enter a valid subDistrict.</span>
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-sm-3">
+											<label for="pCdId">Postal code</label>
+											<select class="form-control" id="pCdId" name="pCdId" required placeholder="Enter your pCdId" [(ngModel)]="project.pCdId" #pCdId="ngModel">
+												<option *ngFor="let pCd of pCdData" value="{{pCd.id}}">{{pCd.postal_code}}</option>
+											</select>
+											<div class="error-place">
+												<div *ngIf="pCdId.errors && (pCdId.dirty || pCdId.touched || submitted)" class="error">
+													<span *ngIf="pCdId.errors.required">PCdId is required</span>
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-sm-3">
+											<label for="isSrku">Is SRKU*</label>
+											<select class="form-control" id="isSrku" name="isSrku" required placeholder="Enter your isSrku" [(ngModel)]="project.isSrku" #isSrku="ngModel">
+												<option value=1>YES</option>
+												<option value=0>NO</option>
+											</select>
+											<div class="error-place">
+												<div *ngIf="isSrku.errors && (isSrku.dirty || isSrku.touched || submitted)" class="error">
+													<span *ngIf="isSrku.errors.required">IsSrku is required</span>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="form-group col-sm-3" >
+											<label for="srkuOwnerName">Srku ownername*</label>
+											<input type="text" class="form-control" id="srkuOwnerName" name="srkuOwnerName" required placeholder="Enter srkuOwnerName" [(ngModel)]="project.srkuOwnerName" #srkuOwnerName="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+											<div class="error-place">
+												<div *ngIf="srkuOwnerName.errors && (srkuOwnerName.dirty || srkuOwnerName.touched || submitted)" class="error">
+													<span *ngIf="srkuOwnerName.errors.required">Srku owner Name is required</span>
+													<span *ngIf="srkuOwnerName.errors.pattern">Please enter a valid srkuOwnerName.</span>
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-sm-3" >
+											<label for="srkuOwnerAdd">Srku owner address*</label>
+											<input type="text" class="form-control" id="srkuOwnerAdd" name="srkuOwnerAdd" required placeholder="Enter srkuOwnerAdd" [(ngModel)]="project.srkuOwnerAdd" #srkuOwnerAdd="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+											<div class="error-place">
+												<div *ngIf="srkuOwnerAdd.errors && (srkuOwnerAdd.dirty || srkuOwnerAdd.touched || submitted)" class="error">
+													<span *ngIf="srkuOwnerAdd.errors.required">Srku owner Address is required</span>
+													<span *ngIf="srkuOwnerAdd.errors.pattern">Please enter a valid srkuOwnerAdd.</span>
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-sm-3" >
+											<label for="srkuOwnerMob">Srku owner mob*</label>
+											<input type="text" class="form-control" id="srkuOwnerMob" name="srkuOwnerMob" required placeholder="Enter srkuOwnerMob" [(ngModel)]="project.srkuOwnerMob" #srkuOwnerMob="ngModel" pattern="^[0-9.]*$">
+											<div class="error-place">
+												<div *ngIf="srkuOwnerMob.errors && (srkuOwnerMob.dirty || srkuOwnerMob.touched || submitted)" class="error">
+													<span *ngIf="srkuOwnerMob.errors.required">Srku owner Mobile is required</span>
+													<span *ngIf="srkuOwnerMob.errors.pattern">Please enter a valid srkuOwnerMob.</span>
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-sm-3" >
+											<label for="srkuProvince">Srku owner province*</label>
+											<input type="text" class="form-control" id="srkuProvince" name="srkuProvince" required placeholder="Enter srkuProvince" [(ngModel)]="project.srkuProvince" #srkuProvince="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+											<div class="error-place">
+												<div *ngIf="srkuProvince.errors && (srkuProvince.dirty || srkuProvince.touched || submitted)" class="error">
+													<span *ngIf="srkuProvince.errors.required">Srku province is required</span>
+													<span *ngIf="srkuProvince.errors.pattern">Please enter a valid srkuProvince.</span>
+												</div>
+											</div>
+										</div>
+									</div>
+                                   
+
+                                    <div class="row">
+                                        <div class="form-group col-sm-3" >
+                                            <label for="srkuMncplty">Srku owner municipality*</label>
+                                            <input type="text" class="form-control" id="srkuMncplty" name="srkuMncplty" required placeholder="Enter srkuMncplty" [(ngModel)]="project.srkuMncplty" #srkuMncplty="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+                                            <div class="error-place">
+                                                <div *ngIf="srkuMncplty.errors && (srkuMncplty.dirty || srkuMncplty.touched || submitted)" class="error">
+                                                    <span *ngIf="srkuMncplty.errors.required">Srku muncipality is required</span>
+                                                    <span *ngIf="srkuMncplty.errors.pattern">Please enter a valid srkuMncplty.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-3" >
+                                            <label for="srkuSbDst">Srku owner sub district*</label>
+                                            <input type="text" class="form-control" id="srkuSbDst" name="srkuSbDst" required placeholder="Enter srkuSbDst" [(ngModel)]="project.srkuSbDst" #srkuSbDst="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+                                            <div class="error-place">
+                                                <div *ngIf="srkuSbDst.errors && (srkuSbDst.dirty || srkuSbDst.touched || submitted)" class="error">
+                                                    <span *ngIf="srkuSbDst.errors.required">Srku subdistrict is required</span>
+                                                    <span *ngIf="srkuSbDst.errors.pattern">	Please enter a valid srkuSbDst.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-3" >
+                                            <label for="srkupCdId">Srku Postal code*</label>
+                                            <select class="form-control" id="srkupCdId" name="srkupCdId" required placeholder="Enter your srkupCdId" [(ngModel)]="project.srkupCdId" #srkupCdId="ngModel">
+                                                <option *ngFor="let pCd of pCdData" value="{{pCd.id}}">{{pCd.postal_code}}</option>
+                                            </select>
+                                            <div class="error-place">
+                                                <div *ngIf="srkupCdId.errors && (srkupCdId.dirty || srkupCdId.touched || submitted)" class="error">
+                                                    <span *ngIf="srkupCdId.errors.required">Srku pCdId is required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <label for="frlSize">Floor Size*</label>
+                                            <input type="text" class="form-control" id="frlSize" name="frlSize" required placeholder="Enter frlSize" [(ngModel)]="project.frlSize" #frlSize="ngModel" pattern="^[a-zA-Z0-9_@]*$">
+                                            <div class="error-place">
+                                                <div *ngIf="frlSize.errors && (frlSize.dirty || frlSize.touched || submitted)" class="error">
+                                                    <span *ngIf="frlSize.errors.required">Floor size is required</span>
+                                                    <span *ngIf="frlSize.errors.pattern">Please enter a valid Floor size.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+									<div class="row">
+                                        <div class="form-group col-sm-3">
+                                            <label for="hmNoUnit">Home No Unit*</label>
+                                            <input type="text" class="form-control" id="hmNoUnit" name="hmNoUnit" required placeholder="Enter hmNoUnit" [(ngModel)]="project.hmNoUnit" #hmNoUnit="ngModel" pattern="^[0-9]*$">
+                                            <div class="error-place">
+                                                <div *ngIf="hmNoUnit.errors && (hmNoUnit.dirty || hmNoUnit.touched || submitted)" class="error">
+                                                    <span *ngIf="hmNoUnit.errors.required">Home no unit is required</span>
+                                                    <span *ngIf="hmNoUnit.errors.pattern">	Please enter a valid home no unit.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <label for="isMcrCrd">Is Micro Creadit*</label>
+                                            <select class="form-control" id="isMcrCrd" name="isMcrCrd" required placeholder="Enter your isMcrCrd" [(ngModel)]="project.isMcrCrd" #isMcrCrd="ngModel">
+                                                <option value=1>YES</option>
+                                                <option value=0>NO</option>
+                                            </select>
+                                            <div class="error-place">
+                                                <div *ngIf="isMcrCrd.errors && (isMcrCrd.dirty || isMcrCrd.touched || submitted)" class="error">
+                                                    <span *ngIf="isMcrCrd.errors.required">	is Micro Creadit is required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-3" *ngIf="project.isMcrCrd ==1">
+                                            <label for="bankNm">Bank Name*</label>
+                                            <input type="text" class="form-control" id="bankNm" name="bankNm" required placeholder="Enter bankNm" [(ngModel)]="project.bankNm" #bankNm="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+                                            <div class="error-place">
+                                                <div *ngIf="bankNm.errors && (bankNm.dirty || bankNm.touched || submitted)" class="error">
+                                                    <span *ngIf="bankNm.errors.required">	bankNm is required</span>
+                                                    <span *ngIf="bankNm.errors.pattern">	Please enter a valid bankNm.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <label for="nmcTypeId">NMC Type*</label>
+                                            <select class="form-control" id="nmcTypeId" name="nmcTypeId" required placeholder="Enter your nmcTypeId" [(ngModel)]="project.nmcTypeId" #nmcTypeId="ngModel">
+                                                <option *ngFor="let nmc of nmcData" value="{{nmc.id}}">{{nmc.nmc_type}}</option>
+                                            </select>
+                                            <div class="error-place">
+                                                <div *ngIf="nmcTypeId.errors && (nmcTypeId.dirty || nmcTypeId.touched || submitted)" class="error">
+                                                    <span *ngIf="nmcTypeId.errors.required">		nmcTypeId is required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+									
+                                    <div class="row">
+                                        <div class="form-group col-sm-3">
+                                            <label for="comments">Comments*</label>
+                                            <input type="text" class="form-control" id="comments" name="comments" required placeholder="Enter comments" [(ngModel)]="project.comments" #comments="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+                                            <div class="error-place">
+                                                <div *ngIf="comments.errors && (comments.dirty || comments.touched || submitted)" class="error">
+                                                    <span *ngIf="comments.errors.required">	comments is required</span>
+                                                    <span *ngIf="comments.errors.pattern">	Please enter a valid comments.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <label for="longitude">Longitude*</label>
+                                            <input type="text" class="form-control" id="longitude" name="longitude" required placeholder="Enter longitude" [(ngModel)]="project.longitude" #longitude="ngModel" pattern="^[0-9.]*$">
+                                            <div class="error-place">
+                                                <div *ngIf="longitude.errors && (longitude.dirty || longitude.touched || submitted)" class="error">
+                                                    <span *ngIf="longitude.errors.required">	longitude is required</span>
+                                                    <span *ngIf="longitude.errors.pattern">	Please enter a valid longitude.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <label for="latitude">Latitude*</label>
+                                            <input type="text" class="form-control" id="latitude" name="latitude" required placeholder="Enter latitude" [(ngModel)]="project.latitude" #latitude="ngModel" pattern="^[0-9.]*$">
+                                            <div class="error-place">
+                                                <div *ngIf="latitude.errors && (latitude.dirty || latitude.touched || submitted)" class="error">
+                                                    <span *ngIf="latitude.errors.required">	latitude is required</span>
+                                                    <span *ngIf="latitude.errors.pattern">	Please enter a valid latitude.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="forcastbtn col-sm-3" type="submit" (click)="submit()" pButton icon="fa-external-link-square" label="Show">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

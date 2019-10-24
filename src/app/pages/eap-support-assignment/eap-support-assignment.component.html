@@ -1,0 +1,86 @@
+<div class="overlay" *ngIf="loading">
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw contCenter"></i> <span class="sr-only">Loading...</span>
+</div>
+<div class="animated fadeIn" *ngIf="!loading">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    EAP Support Assignment
+                </div>
+                <div class="card-Wrapper">
+                    <div class="card-block">
+                        <div class="primaryDetails">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Lead </label>
+                                        <p-autoComplete field="lead_name" required [(ngModel)]="lead_id" [suggestions]="filteredLead" (completeMethod)="filterLead($event)" (loading-text)="loading" (onFocus)="filterLead($event)" #leadId="ngModel"></p-autoComplete>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>SPH </label>
+                                        <p-autoComplete field="realm" required [(ngModel)]="sph_id" [suggestions]="filteredSph" (completeMethod)="filterSph($event)" (loading-text)="loading" (onFocus)="filterSph($event)" #sphId="ngModel"></p-autoComplete>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="buttonContainer">
+                    <div class="form-group">
+                        <a href="javascript:void(0);" (click)="searchData()" class="btn darkBtn">Apply</a>
+                        <a href="javascript:void(0);" (click)="resetData()" class="btn darkBtn">Reset</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    RESULTS
+                </div>
+                <div class="ui-g-12 ui-md-4">
+                    Displaying <span>{{(offset==0)?1:(perPageLimit*(offset+1))-perPageLimit+1}} - {{(offset==0)?perPageLimit-(perPageLimit-proData?.length):perPageLimit*(offset+1)-(perPageLimit-proData?.length)}} of {{total}}</span>
+                </div>
+                <div class="card-Wrapper">
+                    <div class="card-block" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+                        <table class="table table-bordered productRequestTable">
+                            <thead>
+                                <tr>
+                                    <th>Sr No.</th>
+                                    <th>Lead</th>
+                                    <th>SPH</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pro of proData; let i =index;">
+                                    <td>{{i+1+(offset?offset*10:0)}}</td>
+                                    <td>{{pro.lead_name}}</td>
+                                    <td>{{pro.realm || '-'}}</td>
+                                    <td>
+                                        <div class="groupBtn">
+                                            <a href="javascript:void(0);" class="btn btnEdit" (click)="edit(pro.leadId)">Edit</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p-paginator class="paginCustome" *ngIf="paginationVal" rows="10" totalRecords={{total}} (onPageChange)="paginate($event)"></p-paginator>
+                    </div>
+                    <div class="card-block" *ngIf="proData?.length==0">
+                        <div class="row">
+                            <div class="col-md-4">&nbsp;</div>
+                            <div class="col-md-4">
+                                <h4>NO RESULT FOUND</h4>
+                            </div>
+                            <div class="col-md-4">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

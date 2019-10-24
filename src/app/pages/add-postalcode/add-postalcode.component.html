@@ -1,0 +1,142 @@
+<div [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+    <div class="row forecast">
+        <div class="col-sm-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <button class="backBtn" type="button" tabindex="0" [routerLinkActive]="['active']" [routerLink]="['/postalcode']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                    <div>Add Postal Code</div>
+
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-Wrapper">
+                            <div class="card-block">
+                                <div class="primaryDetails">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Region*</label>
+                                                <p-autoComplete field="name" required [(ngModel)]="region_id" [suggestions]="filteredRegion" (completeMethod)="filterRegion($event)" (loading-text)="loading" (keyup)="deSelect($event,'region')" (keypress)="deSelect($event,'region')" (onFocus)="filterRegion($event)"
+                                                    #regionId="ngModel" (onUnselect)="filterRegionMultipleUnSelect($event)" (onSelect)="filterRegionMultipleSelect($event)"></p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="regionId.errors && (regionId.dirty || regionId.touched || submitted)" class="error">
+                                                        <span *ngIf="regionId.errors.required">
+											Region is required
+										</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Province*</label>
+                                                <p-autoComplete field="name" [(ngModel)]="Prvnc" [suggestions]="filteredProvince" (completeMethod)="filterProvince($event)" (loading-text)="loading" (keyup)="deSelect($event,'province')" (keypress)="deSelect($event,'province')" [disabled]="(filteredRegion?.length>0)?false:true"
+                                                    required #provinceId="ngModel" (onFocus)="filterProvince($event)" (onUnselect)="filterProvinceMultipleUnSelect($event)" (onSelect)="filterProvinceMultipleSelect($event)"></p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="provinceId.errors && (provinceId.dirty || provinceId.touched || submitted)" class="error">
+                                                        <span *ngIf="provinceId.errors.required">
+											Province is required
+										</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>District*</label>
+                                                <p-autoComplete field="name" [(ngModel)]="Distr" [suggestions]="filteredDistrict" (completeMethod)="filterDistrict($event)" (loading-text)="loading" (keyup)="deSelect($event,'district')" (keypress)="deSelect($event,'district')" [disabled]="(filteredProvince?.length>0)?false:true"
+                                                    required #districtId="ngModel" (onFocus)="filterDistrict($event)" (onUnselect)="filterDistrictMultipleUnSelect($event)" (onSelect)="filterDistrictMultipleSelect($event)"></p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="districtId.errors && (districtId.dirty || districtId.touched || submitted)" class="error">
+                                                        <span *ngIf="districtId.errors.required">
+											District is required
+										</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>City / Municipality*</label>
+                                                <p-autoComplete field="name" [(ngModel)]="cty" [suggestions]="filteredMun" (completeMethod)="filterMun($event)" (loading-text)="loading" (keyup)="deSelect($event,'municipality')" (keypress)="deSelect($event,'municipality')" [disabled]="(filteredDistrict?.length>0)?false:true"
+                                                    required #cityId="ngModel" (onFocus)="filterMun($event)" (onUnselect)="filterMunMultipleUnSelect($event)" (onSelect)="filterMunMultipleSelect($event)"></p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="cityId.errors && (cityId.dirty || cityId.touched || submitted)" class="error">
+                                                        <span *ngIf="cityId.errors.required">
+											City/Municipality is required
+										</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Sub District*</label>
+                                                <p-autoComplete field="name" [(ngModel)]="subdistrict_id" [suggestions]="filteredSubDistrict" (completeMethod)="filterSubDistrict($event)" (keyup)="deSelect($event,'subdistrict')" (keypress)="deSelect($event,'subdistrict')" [disabled]="(filteredMun?.length>0)?false:true"
+                                                    required #subDisId="ngModel" (loading-text)="loading" (onFocus)="filterSubDistrict($event)" (onUnselect)="filterSubDistrictMultipleUnSelect($event)" (onSelect)="filterSubDistrictMultipleSelect($event)"></p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="subDisId.errors && (subDisId.dirty || subDisId.touched || submitted)" class="error">
+                                                        <span *ngIf="subDisId.errors.required">
+											Subdistrict is required
+										</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="postal_code">Postal code*</label>
+                                                <input type="tel" class="form-control" (ngModelChange)="NameChange($event)" id="postal_code" name="postal_code" required [(ngModel)]="postal_codeId" #postal_code="ngModel" maxlength='10' pattern="^[0-9]*$">
+                                                <div class="error-place">
+                                                    <div *ngIf="postal_code.errors && (postal_code.dirty || postal_code.touched || submitted)" class="error">
+                                                        <span *ngIf="postal_code.errors.required">
+											Postal code is required
+										</span>
+                                                        <span *ngIf="postal_code.errors.pattern">
+											Please enter a valid postal code.
+										</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="postal_code_code">Postalcode code*</label>
+                                                <input type="tel" readonly class="form-control" id="postal_code_code" name="postal_code_code" [(ngModel)]="postal_code_codeId" #postal_code_code="ngModel">
+                                                <span *ngIf="namechkResErr" class="error">
+										Postalcode code loading.please wait
+								</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="buttonContainer">
+
+                            <button class="btn darkBtn" type="submit" (click)="submit()" pButton icon="fa-external-link-square" label="Show">Submit</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dargPop">
+    <p-dialog [modal]="true" [(visible)]="display" *ngIf="result == 'success'">
+        <h6>Added new postalcode</h6>
+    </p-dialog>
+    <p-dialog header="Added new postalcode" [modal]="true" [(visible)]="display" *ngIf="result != 'success'">
+        <p>{{result}}</p>
+    </p-dialog>
+</div>

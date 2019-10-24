@@ -1,0 +1,131 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <button type="button" class="backBtn" [routerLinkActive]="['active']" [routerLink]="['/product-request']"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+        </div>
+        <div class="detailsContainer productContainer">
+          <div class="card-details">
+            <div class="card-block">
+              <div class="blockTop productBlock">
+                <div class="items">
+                  <div class="gutter-space">
+                    <div class="panelWrapper">
+                      <div class="panelHead">
+                        <h3>Product Request Details</h3>
+                      </div>
+                      <div class="panelBody">
+                        <ul class="panelitem panelInfo">
+                          <li class="badge-{{req.product_request_class}}">
+                            <p>Request Status</p>
+                            <h4><i class="icon-{{req.product_request_status}}"></i>{{req.product_request_status || '-'}}</h4>
+                          </li>
+                          <li>
+                            <p>Project Name</p>
+                            <h4><a *ngIf="req.project_id" [routerLink]="['/view-project', req.project_id]" >{{req.project}}</a></h4>
+                          </li>
+                          <li>
+                            <p>HPB</p>
+                            <h4><a *ngIf="req.hpb_id" [routerLink]="['/view-hpb', req.hpb_id]">{{req.hpb_name}}</a></h4>
+                          </li>
+                          <li>
+                            <p>Request Date</p>
+                            <h4>{{req.request_date || '-'}}</h4>
+                          </li>
+                          <li>
+                            <p>Quantity Required</p>
+                            <h4>{{req.quantity_required || '-'}}</h4>
+                          </li>
+                          <li>
+                            <p>New Price Request</p>
+                            <h4>{{req.new_price_request || '-'}}</h4>
+                          </li>
+                          <li>
+                            <p>Term of payment</p>
+                            <h4>{{req.term_of_payment || '-'}}</h4>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="panelHead">
+                        <h3>Person In Charge Details</h3>
+                      </div>
+                      <div class="panelBody">
+                        <ul class="panelitem panelInfo">
+                          <li>
+                            <p>Name</p>
+                            <h4>{{req.pic_name || '-'}}</h4>
+                          </li>
+                          <li>
+                            <p>Designation</p>
+                            <h4>{{req.pic_designation || '-'}}</h4>
+                          </li>
+                          <li>
+                            <p>Mobile</p>
+                              <h4>{{req.pic_mobile || '-'}}</h4>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="panelHead">
+                        <h3>Other Details</h3>
+                      </div>
+                      <div class="panelBody">
+                        <ul class="panelitem panelInfo">
+                          <li>
+                            <p>Request Remark</p>
+                            <h4>{{req.product_request_status_remark || '-'}}</h4>
+                          </li>
+                          <li>
+                            <p>Request Remark Comment</p>
+                            <h4>{{req.product_request_status_remark_comment || '-'}}</h4>
+                          </li>
+                          <li *ngIf="req.hpb_digital_sign">
+                            <p>Signature</p>
+                            <ul class="invoiceImages">
+                              <li>
+                               <a href="{{req.hpb_digital_sign}}" target="_blank"><img src="{{req.hpb_digital_sign}}" alt="" width="200" height="200"></a>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="items" *ngIf="brand">
+                  <div class="gutter-space">
+                    <div class="panelWrapper">
+                      <div class="panelHead">
+                        <h3>BRAND CAPTURED</h3>
+                      </div>
+                      <div class="panelBody">
+                        <ul class="panelitem panelInfo" *ngFor="let brnd of brand">
+                          <li>
+                            <p>Product Name</p>
+                            <h4>{{brnd.product_name || '-' }}</h4>
+                          </li>
+                          <li>
+                            <p>Retailer Name</p>
+                            <h4>{{brnd.req_rds_name || '-' }}</h4>
+                          </li>
+                          <li>
+                            <p>Price</p>
+                            <h4>{{brnd.price || '-' }}</h4>
+                          </li>
+                          <li class="addProj">
+                            <p>Note</p>
+                            <h4>{{req.additional_comments || '-'}}</h4>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
