@@ -20,7 +20,7 @@
 * }
 **/
 export class LoopBackConfig {
-  private static path: string = '//0.0.0.0:9000';
+  private static path: string = 'https://pb.solusibangunindonesia.com/';
   private static version: string | number = 'api';
   private static authPrefix: string = '';
   private static debug: boolean = true;
