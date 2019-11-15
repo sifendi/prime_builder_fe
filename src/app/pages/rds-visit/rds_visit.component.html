@@ -28,11 +28,11 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Type</label>
+                                                <label>Visit Type</label>
                                                 <select class="form-control" [(ngModel)]="rdsType">
                                                     <option value="">All</option>
-                                                    <option value="retailer">Retailer</option>
-                                                    <option value="distributor">Distributor</option>
+                                                    <option value="Visit Toko">Visit Toko</option>
+                                                    <option value="Visit Project">Visit Project</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -75,7 +75,7 @@
 					Displaying <span>{{(offset==0)?1:(perPageLimit*(offset+1))-perPageLimit+1}} - {{(offset==0)?perPageLimit-(perPageLimit-rdsVisitData?.length):perPageLimit*(offset+1)-(perPageLimit-rdsVisitData?.length)}} of {{total}}</span>
 				</div>
                 <div class="card-Wrapper">
-                    <div class="card-block" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}" [class.tableWrap]="rdsVisitData?.length > 0">
+                     <div class="card-block" [class.tableWrap]="rdsVisitData?.length > 0" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
                         <table class="table table-bordered productRequestTable">
                             <thead>
                                 <tr>

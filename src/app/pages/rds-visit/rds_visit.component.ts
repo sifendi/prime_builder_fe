@@ -235,7 +235,7 @@ export class RdsVisitComponent {
 								"No HP" : data.result[i].NoHP,
 								"PB Status" : data.result[i].PBStatus,
 								"Keterangan" : data.result[i].Keterangan,
-								"project_quantity_estimation" : data.result[i].project_quantity_estimation,
+								"quantity_required" : data.result[i].quantity_required,
 							};
 					(this.exportData).push(arr);
 				}
