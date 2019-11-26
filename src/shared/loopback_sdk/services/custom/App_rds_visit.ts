@@ -167,7 +167,7 @@ export class App_rds_visitApi extends BaseLoopBackApi {
    *
    *  - `result` – `{object}` - 
    */
-  public getRdsVisit(rds_visit_id: any = {}, rds_id: any = {}, created_date: any = {}, created_by: any = {}, updated_date: any = {}, updated_by: any = {}, limit: any = {}, page: any = {}, user_id: any = {}, rolename: any = {}, rdsName: any = {}, rdsType: any = {}, visitDateFrom: any = {}, visitDateTo: any = {}, customHeaders?: Function): Observable<any> {
+  public getRdsVisit(rds_visit_id: any = {}, rds_id: any = {}, created_date: any = {}, created_by: any = {}, updated_date: any = {}, updated_by: any = {}, limit: any = {}, page: any = {}, user_id: any = {}, rolename: any = {}, rdsName: any = {}, rdsType: any = {}, visitDateFrom: any = {}, visitDateTo: any = {}, rds_start: any = {}, rds_total: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/app_rds_visit/getRdsVisit";
@@ -188,6 +188,8 @@ export class App_rds_visitApi extends BaseLoopBackApi {
     if (typeof rdsType !== 'undefined' && rdsType !== null) _urlParams.rdsType = rdsType;
     if (typeof visitDateFrom !== 'undefined' && visitDateFrom !== null) _urlParams.visitDateFrom = visitDateFrom;
     if (typeof visitDateTo !== 'undefined' && visitDateTo !== null) _urlParams.visitDateTo = visitDateTo;
+    if (typeof rds_start !== 'undefined' && rds_start !== null) _urlParams.rds_start = rds_start;
+    if (typeof rds_total !== 'undefined' && rds_total !== null) _urlParams.rds_total = rds_total;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }

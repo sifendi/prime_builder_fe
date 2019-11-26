@@ -31,6 +31,8 @@ export class RdsVisitComponent {
 	userList:any;
 	user_id:any;
 	exportData:any = [];
+	rdsStart:Number=0;
+	rdsTotal:Number=0;
 	
 	allUsersFullName:any=[];
 	filteredUserFullName:any=[];
@@ -155,7 +157,7 @@ export class RdsVisitComponent {
 	}
 	
 	getData(offset,limit,visitDateFrom,visitDateTo,rdsName,rdsType,createdBy){
-		this.busy = this.rdsVisit.getRdsVisit("","","",createdBy,"","",limit,offset,this.user_id,this.rolename,rdsName,rdsType,visitDateFrom,visitDateTo).subscribe(
+		this.busy = this.rdsVisit.getRdsVisit("","","",createdBy,"","",limit,offset,this.user_id,this.rolename,rdsName,rdsType,visitDateFrom,visitDateTo,"","").subscribe(
 			data=>{
 				var totalData = data.result.length;
 				if(totalData == 0){
@@ -208,7 +210,7 @@ export class RdsVisitComponent {
 	{
 		this.exportData = [];
 
-		this.busy = this.rdsVisit.getRdsVisit("","","","","","","","","","","","","","").subscribe(
+		this.busy = this.rdsVisit.getRdsVisit("","","","","","","","","","","","","","",this.rdsStart,this.rdsTotal).subscribe(
 			data=>{
 				var totalData = data.result.length;
 				if(totalData == 0){

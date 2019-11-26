@@ -65,12 +65,40 @@
                 </div>
             </div>
             <div class="card">
-                <div class="row">
-                    <div class="card-header col-lg-12">
-                        RESULTS
-                         <a href="javascript:void(0);" *ngIf="total > 0" class="exportWish pull-right" (click)="download()">
-                            <i class="fa fa-cloud-download fa-lg mt-4"></i>Export
-                        </a>
+                <div class="card-header">
+                    Result
+                </div>
+                <div class="row" *ngIf="total > 0">
+                    <div class="col-md-12">
+                        <div class="card-Wrapper">
+                            <div class="card-block">
+                                <div class="primaryDetails">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Start Kolom</label>
+                                                <input class="form-control" type="number" [(ngModel)]="rdsStart" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Jumlah Data</label>
+                                                <input class="form-control" type="number" [(ngModel)]="rdsTotal" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="buttonContainer">
+                            <div class="form-group">
+                                <a href="javascript:void(0);" class="exportWish btn darkBtn" (click)="download()">
+                                    <i class="fa fa-cloud-download fa-lg mt-4"></i>Export
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
