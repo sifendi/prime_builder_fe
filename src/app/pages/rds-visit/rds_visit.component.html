@@ -28,11 +28,11 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Type</label>
+                                                <label>Visit Type</label>
                                                 <select class="form-control" [(ngModel)]="rdsType">
                                                     <option value="">All</option>
-                                                    <option value="retailer">Retailer</option>
-                                                    <option value="distributor">Distributor</option>
+                                                    <option value="visittoko">Visit Toko</option>
+                                                    <option value="visitproject">Visit Project</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -65,52 +65,93 @@
                 </div>
             </div>
             <div class="card">
-                <div class="card-header">
-                    RESULTS
-                </div>
-				<div class="ui-g-12 ui-md-4">
-					Displaying <span>{{(offset==0)?1:(perPageLimit*(offset+1))-perPageLimit+1}} - {{(offset==0)?perPageLimit-(perPageLimit-rdsVisitData?.length):perPageLimit*(offset+1)-(perPageLimit-rdsVisitData?.length)}} of {{total}}</span>
-				</div>
-                <div class="card-Wrapper">
-                    <div class="card-block" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
-                        <table class="table table-bordered productRequestTable">
-                            <thead>
-                                <tr>
-									<th>Sr No.</th>
-                                    <th>Visit Date</th>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Created By</th>
-                                    <th>Created Date</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let rds of rdsVisitData; let i=index;">
-									<td>{{i+1+(offset?offset*10:0)}}</td>
-                                    <td>{{rds.visit_date}}</td>
-                                    <td>{{rds.retailer}}</td>
-                                    <td>{{rds.rds_type}}</td>
-                                    <td>{{rds.sph_name}}</td>
-                                    <td>{{rds.created_date}}</td>
-                                    <td>
-                                        <div class="groupBtn">
-                                            <!-- <a href="javascript:void(0);" class="btn btnEdit" (click)="viewRds(rds.rds_visit_id)">View</a> -->
-                                            <a class="btn btnEdit" target="_blank" [routerLink]="['/view-rds-visit', rds.rds_visit_id]">View</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <p-paginator *ngIf="paginationVal" rows="10" totalRecords={{total}} (onPageChange)="paginate($event)"></p-paginator>
+                <div class="row">
+                    <div class="card-header col-lg-12">
+                        RESULTS
+                         <a href="javascript:void(0);" *ngIf="total > 0" class="exportWish pull-right" (click)="download()">
+                            <i class="fa fa-cloud-download fa-lg mt-4"></i>Export
+                        </a>
                     </div>
-                    <div class="card-block" *ngIf="rdsVisitData?.length==0">
-                        <div class="row">
-                            <div class="col-md-4">&nbsp;</div>
-                            <div class="col-md-4">
-                                <h4>NO RESULT FOUND</h4>
+                </div>
+                <div class="row">
+    				<div class="ui-g-12 ui-md-4">
+    					Displaying <span>{{(offset==0)?1:(perPageLimit*(offset+1))-perPageLimit+1}} - {{(offset==0)?perPageLimit-(perPageLimit-rdsVisitData?.length):perPageLimit*(offset+1)-(perPageLimit-rdsVisitData?.length)}} of {{total}}</span>
+    				</div>
+                </div>
+                <div class="row">
+                    <div class="card-Wrapper  row col-lg-12">
+                         <div class="card-block" [class.tableWrap]="rdsVisitData?.length > 0" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+                            <table class="table table-bordered productRequestTable">
+                                <thead>
+                                    <tr>
+    									<th>Sr No.</th>
+                                        <th>Regional</th>
+                                        <th>Nama AC</th>
+                                        <th>Distrik</th>
+                                        <th>Nama SPH</th>
+                                        <th>Tanggal Filter</th>
+                                        <th>Waktu Kunjungan</th>
+                                        <th>GPS In</th>
+                                        <th>Tanggal Out</th>
+                                        <th>GPS Out</th>
+                                        <th>Tipe Proyek</th>
+                                        <th>Tipe Visit</th>
+                                        <th>Nama tempat</th>
+                                        <th>Alamat</th>
+                                        <th>Nama PB</th>
+                                        <th>No HP</th>
+                                        <th>PB Status</th>
+                                        <th>Keterangan</th>
+                                        <th>Qantity Required FPS</th>
+                                        <!-- <th>Action</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let rds of rdsVisitData; let i=index;">
+    									<td>{{i+1+(offset?offset*10:0)}}</td>
+                                        <td>{{rds.Regional}}</td>
+                                        <td>{{rds.NamaAC}}</td>
+                                        <td>{{rds.Distrik}}</td>
+                                        <td>{{rds.NamaSPH}}</td>
+                                        <td>{{rds.TanggalFilter}}</td>
+                                        <td>{{rds.TanggalKunjungan}}</td>
+                                        <td>
+
+                                            <a class="btn btnEdit" target="_blank" href="https://www.google.com/maps/?q={{rds.GPSin}}">See</a>
+                                            
+                                        </td>
+                                        <td>{{rds.TanggalOut}}</td>
+                                        <td>
+                                             <a class="btn btnEdit" target="_blank" href="https://www.google.com/maps/?q={{rds.GPSout}}">See</a>
+                                        </td>
+                                        <td>{{rds.TipeProyek}}</td>
+                                        <td>{{rds.TipeVisit}}</td>
+                                        <td>{{rds.NamaTempat}}</td>
+                                        <td>{{rds.Alamat}}</td>
+                                        <td>{{rds.NamaPB}}</td>
+                                        <td>{{rds.NoHP}}</td>
+                                        <td>{{rds.PBStatus}}</td>
+                                        <td>{{rds.Keterangan}}</td>
+                                        <td>{{rds.quantity_required}}</td>                                    
+                                        <!-- <td> -->
+                                            <!--   <div class="groupBtn">
+                                                <a class="btn btnEdit" target="_blank" [routerLink]="['/view-rds-visit', rds.Regional]">View</a>
+                                            </div> -->
+                                            -
+                                        <!-- </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p-paginator *ngIf="paginationVal" rows="10" totalRecords={{total}} (onPageChange)="paginate($event)"></p-paginator>
+                        </div>
+                        <div class="card-block" *ngIf="rdsVisitData?.length==0">
+                            <div class="row">
+                                <div class="col-md-4">&nbsp;</div>
+                                <div class="col-md-4">
+                                    <h4>NO RESULT FOUND</h4>
+                                </div>
+                                <div class="col-md-4">&nbsp;</div>
                             </div>
-                            <div class="col-md-4">&nbsp;</div>
                         </div>
                     </div>
                 </div>

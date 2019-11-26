@@ -4,6 +4,7 @@ import { LoopBackConfig, LoopBackAuth,App_rds_visitApi, Retrieve_created_byApi }
 import * as moment from 'moment'; //for date manupalation
 import {CalendarModule} from 'primeng/primeng';
 import {PaginatorModule} from 'primeng/primeng';
+import { ExcelService } from 'providers/services/services';
 
 @Component({
   templateUrl: 'rds_visit.component.html'
@@ -29,6 +30,7 @@ export class RdsVisitComponent {
 	createdBy:any;
 	userList:any;
 	user_id:any;
+	exportData:any = [];
 	
 	allUsersFullName:any=[];
 	filteredUserFullName:any=[];
@@ -44,7 +46,7 @@ export class RdsVisitComponent {
 
 	createdByErrors: boolean=false;
 
-	constructor(private rdsVisit:App_rds_visitApi,private router: Router,private loopAuth:LoopBackAuth, private createdApi:Retrieve_created_byApi) {}
+	constructor(private rdsVisit:App_rds_visitApi,private router: Router,private loopAuth:LoopBackAuth,private service:ExcelService, private createdApi:Retrieve_created_byApi) {}
 	
 	// viewRds(id){
 	// 	let navigationExtras: NavigationExtras = {
@@ -200,5 +202,48 @@ export class RdsVisitComponent {
 			}
 		}
 		this.router.navigate(["/"+page],navigationExtras);
+	}
+
+	download(offset,limit,visitDateFrom,visitDateTo,rdsName,rdsType,createdBy)
+	{
+		this.exportData = [];
+
+		this.busy = this.rdsVisit.getRdsVisit("","","","","","","","","","","","","","").subscribe(
+			data=>{
+				var totalData = data.result.length;
+				if(totalData == 0){
+					this.ifEmpty = true;
+				}
+				for(var i=0; i<totalData; i++){
+					data.result[i].TanggalKunjungan = moment(data.result[i].TanggalKunjungan).format("DD MMM YYYY hh:mm:ss");
+					data.result[i].TanggalOut = moment(data.result[i].TanggalOut).format("DD MMM YYYY hh:mm:ss");
+					// data.result[i].created_date = moment(data.result[i].created_date).format("DD MMM YYYY");
+					var arr = {	'Regional':data.result[i].Regional, 
+								'Nama AC':data.result[i].NamaAC, 
+								"Distrik" : data.result[i].Distrik,
+								"Nama SPH" : data.result[i].NamaSPH,
+								"Tanggal Filter" : data.result[i].TanggalFilter,
+								"Tanggal Kunjungan" : data.result[i].TanggalKunjungan,
+								"GPS In" : data.result[i].GPSin,
+								"Tanggal Out" : data.result[i].TanggalOut,
+								"GPS Out" : data.result[i].GPSout,
+								"Tipe Proyek" : data.result[i].TipeProyek,
+								"Tipe Visit" : data.result[i].TipeVisit,
+								"Nama Tempat" : data.result[i].NamaTempat,
+								"Alamat" : data.result[i].Alamat,
+								"Nama PB" : data.result[i].NamaPB,
+								"No HP" : data.result[i].NoHP,
+								"PB Status" : data.result[i].PBStatus,
+								"Keterangan" : data.result[i].Keterangan,
+								"quantity_required" : data.result[i].quantity_required,
+							};
+					(this.exportData).push(arr);
+				}
+				//Function Call
+				this.service.makeExcel(this.exportData,"rds_visit_export");
+			},
+			err=>{},	
+			()=>{}
+		)
 	}
 }
