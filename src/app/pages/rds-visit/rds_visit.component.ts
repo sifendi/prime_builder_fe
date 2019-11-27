@@ -14,6 +14,8 @@ export class RdsVisitComponent {
 	busy:any;
 	rdsVisitData:any;
 	ifEmpty:boolean = false;
+	display:boolean = true;
+	result:any = "";
 
 	userDetails:any;
 	rolename:any;
@@ -208,44 +210,51 @@ export class RdsVisitComponent {
 
 	download(offset,limit,visitDateFrom,visitDateTo,rdsName,rdsType,createdBy)
 	{
-		this.exportData = [];
+		if(this.rdsStart === 0 || this.rdsTotal === 0){
+			this.display = true;
+			this.result = true;
+		} else {
+			this.display = false;
+			this.result = false;
+			this.exportData = [];
 
-		this.busy = this.rdsVisit.getRdsVisit("","","","","","","","","","","","","","",this.rdsStart,this.rdsTotal).subscribe(
-			data=>{
-				var totalData = data.result.length;
-				if(totalData == 0){
-					this.ifEmpty = true;
-				}
-				for(var i=0; i<totalData; i++){
-					data.result[i].TanggalKunjungan = moment(data.result[i].TanggalKunjungan).format("DD MMM YYYY hh:mm:ss");
-					data.result[i].TanggalOut = moment(data.result[i].TanggalOut).format("DD MMM YYYY hh:mm:ss");
-					// data.result[i].created_date = moment(data.result[i].created_date).format("DD MMM YYYY");
-					var arr = {	'Regional':data.result[i].Regional, 
-								'Nama AC':data.result[i].NamaAC, 
-								"Distrik" : data.result[i].Distrik,
-								"Nama SPH" : data.result[i].NamaSPH,
-								"Tanggal Filter" : data.result[i].TanggalFilter,
-								"Tanggal Kunjungan" : data.result[i].TanggalKunjungan,
-								"GPS In" : data.result[i].GPSin,
-								"Tanggal Out" : data.result[i].TanggalOut,
-								"GPS Out" : data.result[i].GPSout,
-								"Tipe Proyek" : data.result[i].TipeProyek,
-								"Tipe Visit" : data.result[i].TipeVisit,
-								"Nama Tempat" : data.result[i].NamaTempat,
-								"Alamat" : data.result[i].Alamat,
-								"Nama PB" : data.result[i].NamaPB,
-								"No HP" : data.result[i].NoHP,
-								"PB Status" : data.result[i].PBStatus,
-								"Keterangan" : data.result[i].Keterangan,
-								"quantity_required" : data.result[i].quantity_required,
-							};
-					(this.exportData).push(arr);
-				}
-				//Function Call
-				this.service.makeExcel(this.exportData,"rds_visit_export");
-			},
-			err=>{},	
-			()=>{}
-		)
+			this.busy = this.rdsVisit.getRdsVisit("","","","","","","","","","","","","","",this.rdsStart,this.rdsTotal).subscribe(
+				data=>{
+					var totalData = data.result.length;
+					if(totalData == 0){
+						this.ifEmpty = true;
+					}
+					for(var i=0; i<totalData; i++){
+						data.result[i].TanggalKunjungan = moment(data.result[i].TanggalKunjungan).format("DD MMM YYYY hh:mm:ss");
+						data.result[i].TanggalOut = moment(data.result[i].TanggalOut).format("DD MMM YYYY hh:mm:ss");
+						// data.result[i].created_date = moment(data.result[i].created_date).format("DD MMM YYYY");
+						var arr = {	'Regional':data.result[i].Regional, 
+									'Nama AC':data.result[i].NamaAC, 
+									"Distrik" : data.result[i].Distrik,
+									"Nama SPH" : data.result[i].NamaSPH,
+									"Tanggal Filter" : data.result[i].TanggalFilter,
+									"Tanggal Kunjungan" : data.result[i].TanggalKunjungan,
+									"GPS In" : data.result[i].GPSin,
+									"Tanggal Out" : data.result[i].TanggalOut,
+									"GPS Out" : data.result[i].GPSout,
+									"Tipe Proyek" : data.result[i].TipeProyek,
+									"Tipe Visit" : data.result[i].TipeVisit,
+									"Nama Tempat" : data.result[i].NamaTempat,
+									"Alamat" : data.result[i].Alamat,
+									"Nama PB" : data.result[i].NamaPB,
+									"No HP" : data.result[i].NoHP,
+									"PB Status" : data.result[i].PBStatus,
+									"Keterangan" : data.result[i].Keterangan,
+									"quantity_required" : data.result[i].quantity_required,
+								};
+						(this.exportData).push(arr);
+					}
+					//Function Call
+					this.service.makeExcel(this.exportData,"rds_visit_export");
+				},
+				err=>{},	
+				()=>{}
+		)	
+		}
 	}
 }
