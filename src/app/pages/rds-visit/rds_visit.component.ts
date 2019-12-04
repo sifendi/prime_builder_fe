@@ -50,14 +50,6 @@ export class RdsVisitComponent {
 
 	constructor(private rdsVisit:App_rds_visitApi,private router: Router,private loopAuth:LoopBackAuth,private service:ExcelService, private createdApi:Retrieve_created_byApi) {}
 	
-	// viewRds(id){
-	// 	let navigationExtras: NavigationExtras = {
-	// 		queryParams: {
-	// 		  "id": id,
-	// 		}
-	// 	};
-	// 	this.router.navigate(["view-rds-visit"], navigationExtras);
-	// }
 	
 	ngAfterViewInit(): void {
 		this.userDetails = this.loopAuth.getCurrentUserData();
@@ -72,13 +64,14 @@ export class RdsVisitComponent {
 		this.getCount(0,10,"","","","","");
 		
 		this.maxDate = new Date();
+		this.value=this.maxDate;
 	}
 	
 	getCount(offset,limit,visitDateFrom,visitDateTo,rdsName,rdsType,createdBy){
 		if(createdBy){
 			createdBy = createdBy.user_id;
 		}
-		this.busy = this.rdsVisit.getRdsVisitCount("","","",createdBy,"","","",0,this.user_id,this.rolename,rdsName,rdsType,visitDateFrom,visitDateTo).subscribe(
+		this.busy = this.rdsVisit.getRdsVisitCount("","",this.value,createdBy,"","","",0,this.user_id,this.rolename,rdsName,rdsType,visitDateFrom,visitDateTo).subscribe(
 			data=>{
 				this.total = data['result'][0]['total'];
 				if(this.total <= 10){
@@ -157,7 +150,7 @@ export class RdsVisitComponent {
 	}
 	
 	getData(offset,limit,visitDateFrom,visitDateTo,rdsName,rdsType,createdBy){
-		this.busy = this.rdsVisit.getRdsVisit("","","",createdBy,"","",limit,offset,this.user_id,this.rolename,rdsName,rdsType,visitDateFrom,visitDateTo,"","").subscribe(
+		this.busy = this.rdsVisit.getRdsVisit("","",this.value,createdBy,"","",limit,offset,this.user_id,this.rolename,rdsName,rdsType,visitDateFrom,visitDateTo,"","").subscribe(
 			data=>{
 				var totalData = data.result.length;
 				if(totalData == 0){
@@ -210,7 +203,7 @@ export class RdsVisitComponent {
 	{
 		this.exportData = [];
 
-		this.busy = this.rdsVisit.getRdsVisit("","","","","","","","","","","","","","",this.rdsStart,this.rdsTotal).subscribe(
+		this.busy = this.rdsVisit.getRdsVisitDownload("","","","","","","","","","","","","","",this.rdsStart,this.rdsTotal).subscribe(
 			data=>{
 				var totalData = data.result.length;
 				if(totalData == 0){
