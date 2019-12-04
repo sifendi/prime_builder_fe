@@ -155,9 +155,9 @@ export class App_rds_visitApi extends BaseLoopBackApi {
    *
    * @param {string} rdsType 
    *
-   * @param {number} visitDateFrom 
+   * @param {string} visitDateFrom 
    *
-   * @param {number} visitDateTo 
+   * @param {string} visitDateTo 
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -251,9 +251,9 @@ export class App_rds_visitApi extends BaseLoopBackApi {
    *
    * @param {string} rdsType 
    *
-   * @param {number} visitDateFrom 
+   * @param {string} visitDateFrom 
    *
-   * @param {number} visitDateTo 
+   * @param {string} visitDateTo 
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned

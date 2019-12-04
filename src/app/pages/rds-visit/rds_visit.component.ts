@@ -31,7 +31,7 @@ export class RdsVisitComponent {
 	userList:any;
 	user_id:any;
 	exportData:any = [];
-	rdsStart:Number=0;
+	rdsStart:Number=1;
 	rdsTotal:Number=0;
 	
 	allUsersFullName:any=[];
@@ -60,18 +60,23 @@ export class RdsVisitComponent {
 			this.rolename = "";
 		}
 		
-		
-		this.getCount(0,10,"","","","","");
-		
 		this.maxDate = new Date();
 		this.value=this.maxDate;
+		var dd = ('0' + this.maxDate.getDate()).slice(-2);
+		var mm = ('0' + (this.maxDate.getMonth()+1)).slice(-2);
+		var yyyy = this.maxDate.getFullYear();
+		this.visitDateFrom=yyyy+'-'+mm+'-'+dd;
+
+		console.log(yyyy+'-'+mm+'-'+dd);
+
+		this.getCount(0,10,this.visitDateFrom,"","","","");
 	}
 	
 	getCount(offset,limit,visitDateFrom,visitDateTo,rdsName,rdsType,createdBy){
 		if(createdBy){
 			createdBy = createdBy.user_id;
 		}
-		this.busy = this.rdsVisit.getRdsVisitCount("","",this.value,createdBy,"","","",0,this.user_id,this.rolename,rdsName,rdsType,visitDateFrom,visitDateTo).subscribe(
+		this.busy = this.rdsVisit.getRdsVisitCount("","","",createdBy,"","","",0,this.user_id,this.rolename,rdsName,rdsType,visitDateFrom,visitDateTo).subscribe(
 			data=>{
 				this.total = data['result'][0]['total'];
 				if(this.total <= 10){
@@ -96,14 +101,14 @@ export class RdsVisitComponent {
 		if(this.visitDateFromSearch || this.rdsNameSearch || this.rdsTypeSearch || createdBy){
 			this.getData(this.offset,10,this.visitDateFromSearch,this.visitDateToSearch,this.rdsNameSearch,this.rdsTypeSearch,createdBy);
 		}else{
-			this.getData(this.offset,10,"","","","","");
+			this.getData(this.offset,10,this.visitDateFrom,"","","","");
 		}
 	}
 
 	searchData(){
 		if(this.value){			
-			this.visitDateFrom = moment(this.value).startOf('day').unix()*1000;
-			this.visitDateTo = moment(this.value).endOf('day').unix()*1000;
+			this.visitDateFrom = this.value;
+			this.visitDateTo = this.value;
 		}else{
 			this.visitDateFrom = "";
 			this.visitDateTo = "";
@@ -121,8 +126,8 @@ export class RdsVisitComponent {
 			this.rdsVisitData =[];
 			this.rdsNameSearch = this.rdsName;
 			this.rdsTypeSearch = this.rdsType;
-			this.visitDateFromSearch = this.visitDateFrom;
-			this.visitDateToSearch = this.visitDateTo;
+			this.visitDateFromSearch = moment(this.visitDateFrom).format("YYYY-MM-DD");
+			this.visitDateToSearch = moment(this.visitDateTo).format("YYYY-MM-DD");
 			this.createdBySearch = this.createdBy;
 			this.offset = 0;
 			this.paginationVal = false;
