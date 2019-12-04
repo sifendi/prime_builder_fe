@@ -31,7 +31,7 @@ export class RdsVisitComponent {
 	userList:any;
 	user_id:any;
 	exportData:any = [];
-	rdsStart:Number=0;
+	rdsStart:Number=1;
 	rdsTotal:Number=0;
 	
 	allUsersFullName:any=[];
@@ -61,7 +61,7 @@ export class RdsVisitComponent {
 		}
 		
 		
-		this.getCount(0,10,"","","","","");
+		this.getCount(0,10,this.value,"","","","");
 		
 		this.maxDate = new Date();
 		this.value=this.maxDate;
@@ -150,7 +150,7 @@ export class RdsVisitComponent {
 	}
 	
 	getData(offset,limit,visitDateFrom,visitDateTo,rdsName,rdsType,createdBy){
-		this.busy = this.rdsVisit.getRdsVisit("","",this.value,createdBy,"","",limit,offset,this.user_id,this.rolename,rdsName,rdsType,visitDateFrom,visitDateTo,"","").subscribe(
+		this.busy = this.rdsVisit.getRdsVisit("","",visitDateFrom,createdBy,"","",limit,offset,this.user_id,this.rolename,rdsName,rdsType,visitDateFrom,visitDateTo,"","").subscribe(
 			data=>{
 				var totalData = data.result.length;
 				if(totalData == 0){
