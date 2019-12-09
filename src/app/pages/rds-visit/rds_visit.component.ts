@@ -28,6 +28,7 @@ export class RdsVisitComponent {
 	rdsName:any;
 	rdsType:any="";
 	createdBy:any;
+	namatoko:any;
 	userList:any;
 	user_id:any;
 	exportData:any = [];
@@ -45,6 +46,7 @@ export class RdsVisitComponent {
 	rdsNameSearch:any="";
 	rdsTypeSearch:any="";
 	createdBySearch:any="";
+	namatokoSearch:any="";
 
 	createdByErrors: boolean=false;
 
@@ -72,11 +74,9 @@ export class RdsVisitComponent {
 		this.getCount(0,10,this.visitDateFrom,"","","","");
 	}
 	
-	getCount(offset,limit,visitDateFrom,visitDateTo,rdsName,rdsType,createdBy){
-		if(createdBy){
-			createdBy = createdBy.user_id;
-		}
-		this.busy = this.rdsVisit.getRdsVisitCount("","","",createdBy,"","","",0,this.user_id,this.rolename,rdsName,rdsType,visitDateFrom,visitDateTo).subscribe(
+	getCount(offset,limit,visitDateFrom,visitDateTo,rdsName,rdsType,namatokoSearch){
+		
+		this.busy = this.rdsVisit.getRdsVisitCount("","","",namatokoSearch,"","","",0,this.user_id,this.rolename,rdsName,rdsType,visitDateFrom,visitDateTo).subscribe(
 			data=>{
 				this.total = data['result'][0]['total'];
 				if(this.total <= 10){
@@ -84,7 +84,7 @@ export class RdsVisitComponent {
 				}else{
 					this.paginationVal=true;
 				}
-				this.getData(offset,limit,visitDateFrom,visitDateTo,rdsName,rdsType,createdBy);
+				this.getData(offset,limit,visitDateFrom,visitDateTo,rdsName,rdsType,namatokoSearch);
 			},
 			err=>{},
 			()=>{}
@@ -98,8 +98,8 @@ export class RdsVisitComponent {
 		if(this.createdBySearch){
 			createdBy = this.createdBySearch.user_id;
 		}
-		if(this.visitDateFromSearch || this.rdsNameSearch || this.rdsTypeSearch || createdBy){
-			this.getData(this.offset,10,this.visitDateFromSearch,this.visitDateToSearch,this.rdsNameSearch,this.rdsTypeSearch,createdBy);
+		if(this.visitDateFromSearch || this.rdsNameSearch || this.rdsTypeSearch || this.namatokoSearch){
+			this.getData(this.offset,10,this.visitDateFromSearch,this.visitDateToSearch,this.rdsNameSearch,this.rdsTypeSearch,this.namatokoSearch);
 		}else{
 			this.getData(this.offset,10,this.visitDateFrom,"","","","");
 		}
@@ -126,21 +126,21 @@ export class RdsVisitComponent {
 			this.rdsVisitData =[];
 			this.rdsNameSearch = this.rdsName;
 			this.rdsTypeSearch = this.rdsType;
+			this.namatokoSearch = this.namatoko;
 			this.visitDateFromSearch = moment(this.visitDateFrom).format("YYYY-MM-DD");
 			this.visitDateToSearch = moment(this.visitDateTo).format("YYYY-MM-DD");
 			this.createdBySearch = this.createdBy;
 			this.offset = 0;
 			this.paginationVal = false;
 			this.ifEmpty = false;
-			this.getCount(0,10,this.visitDateFromSearch,this.visitDateToSearch,this.rdsNameSearch,this.rdsTypeSearch,this.createdBySearch);
+			this.visitDateFrom = this.visitDateFromSearch;
+			this.getCount(0,10,this.visitDateFromSearch,this.visitDateToSearch,this.rdsNameSearch,this.rdsTypeSearch,this.namatokoSearch);
 		}
 	}
 
 	resetData(){
 		this.paginationVal=false;
 		this.offset=0;
-		this.value = null;
-		this.visitDateFrom = null;
 		this.visitDateTo = null;
 		this.rdsName = "";
 		this.rdsType = "";
@@ -150,8 +150,9 @@ export class RdsVisitComponent {
 		this.rdsNameSearch = "";
 		this.rdsTypeSearch = "";
 		this.createdBySearch = "";
+		this.namatokoSearch="";
 		this.createdByErrors = false;
-		this.getCount(0,10,"","","","","");
+		this.getCount(0,10,this.visitDateFrom,"","","","");
 	}
 	
 	getData(offset,limit,visitDateFrom,visitDateTo,rdsName,rdsType,createdBy){
@@ -204,11 +205,11 @@ export class RdsVisitComponent {
 		this.router.navigate(["/"+page],navigationExtras);
 	}
 
-	download(offset,limit,visitDateFrom,visitDateTo,rdsName,rdsType,createdBy)
+	download()
 	{
 		this.exportData = [];
 
-		this.busy = this.rdsVisit.getRdsVisitDownload("","","","","","","","","","","","","","",this.rdsStart,this.rdsTotal).subscribe(
+		this.busy = this.rdsVisit.getRdsVisitDownload("","",this.visitDateFrom,this.namatokoSearch,"","","","",this.user_id,this.rolename,this.rdsName,this.rdsType,this.visitDateFrom,this.visitDateTo,this.rdsStart,this.rdsTotal).subscribe(
 			data=>{
 				var totalData = data.result.length;
 				if(totalData == 0){
@@ -235,7 +236,6 @@ export class RdsVisitComponent {
 								"No HP" : data.result[i].NoHP,
 								"PB Status" : data.result[i].PBStatus,
 								"Keterangan" : data.result[i].Keterangan,
-								"quantity_required" : data.result[i].quantity_required,
 							};
 					(this.exportData).push(arr);
 				}

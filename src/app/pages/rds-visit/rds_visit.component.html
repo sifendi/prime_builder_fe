@@ -20,12 +20,7 @@
                                                 <p-calendar name="visit_date" dateFormat="dd MM yy" [maxDate]="maxDate" [(ngModel)]="value"></p-calendar>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Name </label>
-                                                <input class="form-control" [(ngModel)]="rdsName" />
-                                            </div>
-                                        </div>
+                                     
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Visit Type</label>
@@ -36,18 +31,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Created By</label>
-                                                <p-autoComplete field="sph_name" [(ngModel)]="createdBy" [suggestions]="filteredUserFullName" (completeMethod)="filterFullName($event)" (onFocus)="filterFullName($event)">
-                                                </p-autoComplete>
-                                                <div class="error-place">
-                                                    <div *ngIf="createdByErrors" class="error">
-                                                        <span>Please enter a valid name</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +115,6 @@
                                         <th>No HP</th>
                                         <th>PB Status</th>
                                         <th>Keterangan</th>
-                                        <th>Qantity Required FPS</th>
                                         <!-- <th>Action</th> -->
                                     </tr>
                                 </thead>
@@ -160,8 +143,7 @@
                                         <td>{{rds.NamaPB}}</td>
                                         <td>{{rds.NoHP}}</td>
                                         <td>{{rds.PBStatus}}</td>
-                                        <td>{{rds.Keterangan}}</td>
-                                        <td>{{rds.quantity_required}}</td>                                    
+                                        <td>{{rds.Keterangan}}</td>                                 
                                         <!-- <td> -->
                                             <!--   <div class="groupBtn">
                                                 <a class="btn btnEdit" target="_blank" [routerLink]="['/view-rds-visit', rds.Regional]">View</a>
