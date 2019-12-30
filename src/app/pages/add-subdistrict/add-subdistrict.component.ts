@@ -21,7 +21,7 @@ export class AddSubdistrictComponent {
 	Distr:any;
 	cty:any;
 	region_id:any;
-	
+	loading:boolean=false;
 	display:boolean = false;
 	submitted:boolean = false;
 	result:any;

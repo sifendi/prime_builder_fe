@@ -25,6 +25,7 @@ export class ViewHpbComponent {
 	hpbData: any = []; pCdData: any;
 	hpbPoints: any;
 	msgs: Message[] = [];
+	msgsG: Message[] = [];
 	compDtl:any="Hide";
 	id_card_image_array: any = []; //array to stor images of id card
 	busy:any;

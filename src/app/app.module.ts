@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
@@ -18,26 +18,26 @@ import { AuthenticatedRole } from '../providers/authenticated-role/authenticated
 
 import { ShareService } from '../providers/share-service/share-service';
 
-// Routing Module
-import { AppRoutingModule } from './app.routing';
+
 
 // include this for csv reader
-import { FileUtil }  from '../providers/file.util';
+import { FileUtil } from '../providers/file.util';
 
 //Layouts
 import { FullLayoutComponent } from './layouts/full-layout.component';
 
 import { SDKBrowserModule } from '../shared/loopback_sdk/';
-import {enableProdMode} from '@angular/core';
-import { CookieService   } from 'angular2-cookie/services/cookies.service';
-import {PaginatorModule} from 'primeng/primeng';
-import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
-import {AutoCompleteModule} from 'primeng/primeng';
-import {CalendarModule} from 'primeng/primeng';
-import {ButtonModule} from 'primeng/primeng';
-import {BusyModule} from 'angular2-busy';
+import { enableProdMode } from '@angular/core';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { PaginatorModule } from 'primeng/primeng';
+import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+import { AutoCompleteModule } from 'primeng/primeng';
+import { CalendarModule } from 'primeng/primeng';
+import { ButtonModule } from 'primeng/primeng';
+import { BusyModule } from 'angular2-busy';
 import { ExcelService } from 'providers/services/services';
-
+// Routing Module
+import { AppRoutingModule } from './app.routing';
 enableProdMode();
 @NgModule({
   imports: [
@@ -45,16 +45,16 @@ enableProdMode();
     BrowserModule,
     PaginatorModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     DropdownModule.forRoot(),
     TabsModule.forRoot(),
     AutoCompleteModule,
-	BusyModule,
+    BusyModule,
     CalendarModule,
     ButtonModule,
     ChartsModule,
     HttpModule,
-	SDKBrowserModule.forRoot()
+    AppRoutingModule,
+    SDKBrowserModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -68,14 +68,14 @@ enableProdMode();
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   },
- { provide: CookieService, useFactory: cookieServiceFactory },
-  AuthenticatedGuard,
-  AuthenticatedRole,
-  ShareService,
-  FileUtil,
-  ExcelService
+  { provide: CookieService, useFactory: cookieServiceFactory },
+    AuthenticatedGuard,
+    AuthenticatedRole,
+    ShareService,
+    FileUtil,
+    ExcelService
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
 

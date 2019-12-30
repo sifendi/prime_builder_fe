@@ -23,6 +23,7 @@ export class AddPostalCodeComponent {
 	cty:any;
 	region_id:any;
 	subdistrict_id:any;
+	loading:boolean=false;
 
 	display:boolean = false;
 	submitted:boolean = false;

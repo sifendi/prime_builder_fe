@@ -14,9 +14,9 @@ export class RdsComponent {
 	display: boolean=false;
 	busy:any;
 	rdsData:any;
-	total:Number=0;
+	total:number=0;
 	paginationVal:any=true;
-	offset:Number=0;
+	offset:number=0;
 	rdsType:any = "";
 	rdsName:any;
 	sdData:any;

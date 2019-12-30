@@ -15,6 +15,7 @@ export class AcScorecardComponent {
 	busy:any;
 	display:boolean = false;
 	submitted:boolean=false;
+	loading:boolean=false;
 	report:any;
 	timeFactor:any;
 	columns:any = [];
@@ -48,8 +49,8 @@ export class AcScorecardComponent {
 	year:any;
 	monthErr:boolean = false;
 	monthsArr:any = [];
-	currentYear:Number;
-	currentMonth:Number;
+	currentYear:number;
+	currentMonth:number;
 	nameTyped:any = "";
 	filterNameCall:any;
 	filterDisCall:any;

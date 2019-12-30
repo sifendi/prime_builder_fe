@@ -14,6 +14,7 @@ export class RegisterComponent {
   username:any;
   password:any;
   busy:  Subscription;
+  loading:boolean=false;
   msgs: Message[] = [];
   constructor(private router:Router,private userApi:UserApi,private _cookieService:CookieService) {
       let loginFlagToken = this._cookieService.get('$LoopBackSDK$id');

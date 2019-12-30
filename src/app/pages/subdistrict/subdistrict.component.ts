@@ -15,6 +15,7 @@ export class SubdistrictComponent {
 	display:boolean = false;
 	submitted:boolean = false;
 	allMun:any=[];
+	loading:boolean=false;
 	filteredMun:any=[];
 	munCall:any;
 	allSubDistrict:any=[];
@@ -24,9 +25,9 @@ export class SubdistrictComponent {
 	subdistrict_id:any;
 	cty:any;
 
-	total:Number=0;
+	total:number=0;
 	paginationVal:any=true;
-	offset:Number=0;
+	offset:number=0;
 	perPageLimit:any=10;
 	offsetAuto:any=0;
 	subdistrict_idSearch:any="";

@@ -12,11 +12,12 @@ export class ProjectStageComponent {
 	display:boolean = false;
 	submitted:boolean = false;
 	proStageData:any;
-	offset:Number = 0;
-	total:Number=0;
+	offset:number = 0;
+	total:number=0;
 	paginationVal:any=true;
+	loading:boolean=false;
 	ifEmpty:boolean=false;
-	pagePerLimit:Number = 10;
+	pagePerLimit:number = 10;
 	constructor(private proStApi:Project_stageApi,private router: Router) {}
 	
 	showDialog() { 

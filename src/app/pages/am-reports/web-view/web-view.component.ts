@@ -45,7 +45,7 @@ export class WebViewComponent {
 	year:any;
 	monthErr:boolean = false;
 	monthsArr:any = [];
-	currentYear:Number;
+	currentYear:number;
 	
 	userDetails:any;
 	rolename:any;

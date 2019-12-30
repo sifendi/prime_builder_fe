@@ -20,9 +20,9 @@ export class PendingProductReceiptComponent {
 	ifEmpty:boolean = false;
 	
 	busy:any;
-	total:Number=0;
+	total:number=0;
 	paginationVal:any=true;
-	offset:Number=0;
+	offset:number=0;
 	
 	allUsersFullName:any=[];
 	filteredUserFullName:any=[];

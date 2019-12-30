@@ -13,7 +13,7 @@ export class RedemptionComponent {
 	hpbNameErrors: boolean;
 	busy:any;
 	exportData:any = [];
-
+	loading:boolean=false;
 	rewardName:any;
 	hpbName:any;
 	name:any;
@@ -23,7 +23,7 @@ export class RedemptionComponent {
 	reqDateTo:any;
 
 	offset:any=0;
-	total:Number=0;
+	total:number=0;
 	rewardData:any;
 	ifEmpty:boolean = false;
 	paginationVal:boolean=true;

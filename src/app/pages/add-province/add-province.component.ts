@@ -18,7 +18,7 @@ export class AddProvinceComponent {
 	provinceregion:any;
 	result:any;
 	busy:any;
-	
+	loading:boolean=false;
 	userDetails:any;
 	rolename:any;
 

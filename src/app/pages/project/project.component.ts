@@ -53,8 +53,8 @@ export class ProjectComponent {
 	createdFromSearch:any="";
 	paginationVal:any=true;
 	perPageLimit:any=10;
-	offset:Number=0;
-	total:Number=0;
+	offset:number=0;
+	total:number=0;
 
 	hpbAssignErrors: boolean=false;
 	hpbNameErrors: boolean=false;

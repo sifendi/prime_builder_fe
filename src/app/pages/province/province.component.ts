@@ -12,6 +12,7 @@ import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
 export class ProvinceComponent {	
 	busy:any;
 	display:boolean = false;
+	loading:boolean=false;
 	submitted:boolean=false;
 	proData:any;
 	regiond:any;	

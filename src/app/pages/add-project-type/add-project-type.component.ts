@@ -10,6 +10,7 @@ export class AddProjectTypeComponent {
 	@ViewChild('project_type') project_type: NgModel;
 	display:boolean = false;
 	submitted:boolean = false;
+	loading:boolean=false;
 	projects:any;
 	result:any;
 	projecttype:any;

@@ -1,0 +1,108 @@
+<div class="overlay" *ngIf="loading">
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw contCenter"></i> <span class="sr-only">Loading...</span>
+</div>
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    {{reportName}}
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-Wrapper">
+                            <div class="card-block">
+                                <div class="primaryDetails">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Periode </label>
+                                                <select name="periode" class="form-control" [(ngModel)]="uiDdlPeriode">
+                                                    <option *ngFor="let mn of monthsArr; let i=index" value="{{i+1}}">{{mn}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>AC </label>
+                                                <p-autoComplete field="realm" [(ngModel)]="uiTxtAc" 
+                                                    [suggestions]="userAc" 
+                                                    (completeMethod)="getAcList($event)" 
+                                                    (onFocus)="getAcList($event)">
+                                                    </p-autoComplete>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Ideal Kunjungan </label>
+                                                <select name="visitIdeal" class="form-control" [(ngModel)]="uiTxtDdlVisitIdeal">
+                                                    <option *ngFor="let mn of visitIdealRate;" value="mn">{{mn}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="error" *ngIf="monthErr">To-Month needs to be greater than From-Month</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="buttonContainer">
+                            <div class="form-group">
+                                <a href="javascript:void(0);" (click)="searchData()" class="btn darkBtn">Apply</a>
+                                <a href="javascript:void(0);" (click)="resetData()" class="btn darkBtn">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header ">
+                    RESULTS
+                    <a href="javascript:void(0);" class="exportWish pull-right" (click)="downloadData()">
+                        <i class="fa fa-cloud-download fa-lg mt-4"></i>Export
+                    </a>
+                </div>
+                <div class="card-Wrapper">
+                    <div class="card-block tableWrap" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600} ">
+                        <table class="table table-bordered reportSummaryHoTable ">
+                            <thead>
+                                <tr>
+                                    <th>Nama AC </th>
+                                    <th>Tanggal </th>
+                                    <th>Jumlah SPH </th>
+                                    <th>Jumlah Kunjungan </th>
+                                    <th>% </th>
+                                    <th>Banyak Nota </th>
+                                    <th>Volume Nota </th>
+                                    <th>Banyak Fps </th>
+                                    <th>Volume Fps </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of resultList" [ngClass]="{'isRegion': data.isregion}">
+                                    <td>{{data.acName}}</td>
+                                    <td>{{data.visitDate}}</td>
+                                    <td>{{data.visitSphCount}}</td>
+                                    <td>{{data.visitCount}}</td>
+                                    <td>{{1}}</td>
+                                    <td>{{data.notaCount}}</td>
+                                    <td>{{data.notaVolume}}</td>
+                                    <td>{{data.fpsCount}}</td>
+                                    <td>{{data.fpsVolume}}</td>
+                                </tr>
+                                <tr *ngIf="resultList?.length==0">
+                                    <td>No Data Available</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

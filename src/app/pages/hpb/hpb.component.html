@@ -55,7 +55,9 @@
                         <div class="form-group">
                           <label>Created By</label>
                           <p-autoComplete field="sph_name" [(ngModel)]="createdBy" [suggestions]="filteredUserFullName" (completeMethod)="filterFullName($event)" (onFocus)="filterFullName($event)">
+                          
                           </p-autoComplete>
+
                           <div class="error-place">
                             <div *ngIf="createdByErrors" class="error">
                                 <span>Please enter a valid name</span>

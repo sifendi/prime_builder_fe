@@ -23,7 +23,7 @@ export class HpbUpdateListComponent {
 	allUsersFullName: any;
 	filteredUserFullName: any;
 	status:any="";
-	total:Number=0;
+	total:number=0;
 	paginationVal:any=true;
 	offset:any=0;
 	ifEmpty:boolean=false;

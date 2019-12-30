@@ -17,9 +17,9 @@ export class SaComponent {
 	name:any;
 	mobile:any;
 	perPageLimit:any=10;
-	total:Number;
+	total:number;
 	paginationVal:any = true;
-	offset:Number = 0;
+	offset:number = 0;
 	allUsersFullName:any=[];
 	filteredUserFullName:any=[];
 	allUsersUserName:any=[];

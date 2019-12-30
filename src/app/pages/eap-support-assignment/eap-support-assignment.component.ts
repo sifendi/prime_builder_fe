@@ -16,6 +16,7 @@ export class EapSupportAssignmentComponent {
 	proData:any;
 	offset:any = 0;
 	total:any;
+	loading:boolean=false;
 	paginationVal:any=true;
 	
 	sph_id:any;

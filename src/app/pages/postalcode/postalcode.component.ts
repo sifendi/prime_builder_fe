@@ -13,6 +13,7 @@ export class PostalCodeComponent {
 	display:boolean = false;
 	submitted:boolean = false;
 	postalCode:any;sdData:any;
+	loading:boolean=false;
 	allSubDistrict:any=[];
 	filteredSubDistrict:any=[];
 	subDisCall:any;
@@ -22,9 +23,9 @@ export class PostalCodeComponent {
 	rdssbdstrct:any;
 	postlcd:any;
 
-	total:Number=0;
+	total:number=0;
 	paginationVal:any=true;
-	offset:Number=0;
+	offset:number=0;
 	perPageLimit:any=100;
 	offsetAuto:any=0;
 	rdssbdstrctSearch:any="";

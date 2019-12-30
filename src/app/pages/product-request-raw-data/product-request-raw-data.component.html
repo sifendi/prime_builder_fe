@@ -1,0 +1,234 @@
+<div class="overlay" *ngIf="loading">
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw contCenter"></i> <span class="sr-only">Loading...</span>
+</div>
+<div class="animated fadeIn" *ngIf="!loading">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    Product Request Raw Data
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-Wrapper">
+                            <div class="card-block">
+                                <div class="primaryDetails">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>HPB Name </label>
+                                                <p-autoComplete field="hpb_name" [(ngModel)]="hpbName" [suggestions]="filteredHpb" (completeMethod)="filterHpb($event)" (onFocus)="filterHpb($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="hpbNameErrors" class="error">
+                                                        <span>Please enter a valid HPB name</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Project Name </label>
+                                                <p-autoComplete field="project_name" [(ngModel)]="projectName" [suggestions]="filteredProject" (completeMethod)="filterProject($event)" (onFocus)="filterProject($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="projectNameErrors" class="error">
+                                                        <span>Please enter a valid project name</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Request Date </label>
+                                                <p-calendar dateFormat="dd MM yy" [maxDate]="maxDate" [(ngModel)]="value"></p-calendar>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Created By</label>
+                                                <p-autoComplete field="sph_name" [(ngModel)]="createdBy" [suggestions]="filteredUserFullName" (completeMethod)="filterFullName($event)" (onFocus)="filterFullName($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="createdByErrors" class="error">
+                                                        <span>Please enter a valid name</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Request Status</label>
+                                                <select class="form-control" [(ngModel)]="reqStatus">
+                                                    <option value="">All</option>
+                                                    <option value="0">Pending</option>
+                                                    <option value="1">Approved</option>
+                                                    <option value="-1">Rejected</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="buttonContainer">
+                            <div class="form-group">
+                                <a href="javascript:void(0);" (click)="searchData()" class="btn darkBtn">Apply</a>
+                                <a href="javascript:void(0);" (click)="resetData()" class="btn darkBtn">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    RESULTS
+                    <a href="javascript:void(0);" *ngIf="total > 0" class="exportWish pull-right" (click)="download()">
+                        <i class="fa fa-cloud-download fa-lg mt-4"></i>Export
+                    </a>
+                </div>
+				<div class="ui-g-12 ui-md-4">
+					Displaying <span>{{(offset==0)?1:(perPageLimit*(offset+1))-perPageLimit+1}} - {{(offset==0)?perPageLimit-(perPageLimit-prodRequest?.length):perPageLimit*(offset+1)-(perPageLimit-prodRequest?.length)}} of {{total}}</span>
+                </div>
+                <div class="card-Wrapper">
+                    <div class="card-block" [class.tableWrap]="prodRequest?.length > 0" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+                        <table class="table table-bordered productRequestTable">
+                            <thead>
+                                <tr>
+                                    <th>Sr No.</th>
+                                    <th>Request Status</th>
+                                    <th>Project</th>
+                                    <th>HPB</th>
+                                    <th>Request Date</th>
+                                    <th>Quantity Required</th>
+                                    <th>New Price Request</th>
+                                    <th> Term of payment</th>
+                                    <th>Name</th>
+                                    <th>Designation</th>
+                                    <th>Mobile</th>
+                                    <th>Product Name</th>
+                                    <th>Retailer Name</th>
+                                    <th>Price</th>
+                                    <th>Note</th>
+                                    <th>Request Remark</th>
+                                    <th>Request Remark Comment</th>
+                                    <th>Project</th>
+                                    <th>Is SRKu?</th>
+                                    <th>Project Type</th>
+                                    <th>Project Stage</th>
+                                    <th>Cement Estimation</th>
+                                    <th>Address</th>
+                                    <th>Province</th>
+                                    <th>City / Municipality</th>
+                                    <th>Sub District</th>
+                                    <th>Name</th>
+                                    <th>HPB Status</th>
+                                    <th>Maintain Date</th>
+                                    <th>Switching Date</th>
+                                    <th>HPB Type</th>
+                                    <th>Primary Mobile No</th>
+                                    <th>Secondary Mobile No</th>
+                                    <th>Id Card Number</th>
+                                    <th>Id Card Address </th>
+                                    <th>Province</th>
+                                    <th>City / Municipality</th>
+                                    <th>Sub District</th>
+                                    <th>Domicile Address</th>
+                                    <th>Domicile Province</th>
+                                    <th>Domicile City / Municipality</th>
+                                    <th>Domicile Sub District</th>
+                                    <th>Place Of Birth</th>
+                                    <th>Date Of Birth</th>
+                                    <th>Email</th>
+                                    <th>Company name</th>
+                                    <th>Company Representative Name</th>
+                                    <th>Designation</th>
+                                    <th>Sph Name</th>
+                                    <th>Sph Username/Mobile No</th>
+                                    <th>District</th>
+                                    <th>Province</th>
+                                    <th>Region</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rds of prodRequest; let i=index;">
+                                <td>{{i+1+(offset?offset*10:0)}}</td>
+                                <td><span class="{{rds.productclassname}}">{{rds.product_request_status || '-'}}</span></td>
+                                    <td>{{rds.project_name}}
+                                        <!-- <a href="javascript:void(0);" (click)="goToPage('view-project',rds.project_id)">{{rds.project}}</a> -->
+                                        <!--a target="_blank" [routerLink]="['/view-project', rds.project_id]">{{rds.project || '-'}}</a>-->
+                                    </td>
+                                    <td>
+                                        <!-- <a href="javascript:void(0);" (click)="goToPage('view-hpb',rds.hpb_id)">{{rds.hpb_name}}</a> -->
+                                        <a target="_blank" [routerLink]="['/view-hpb', rds.hpb_id]">{{rds.hpb_name || '-'}}</a>
+                                    </td>
+                                    <td>{{rds.request_date}}</td>
+                                    <td>{{rds.quantity_required}}</td>
+                                    <td>{{rds.new_price_request}}</td>
+                                    <td>{{rds.term_of_payment}}</td>
+                                    <td>{{rds.pic_name}}</td>
+                                    <td>{{rds.pic_designation}}</td>
+                                    <td>{{rds.pic_mobile}}</td>
+                                    <td>{{rds.product_name}}</td>
+                                    <td>{{rds.req_rds_name}}</td>
+                                    <td>{{rds.new_price_request}}</td>
+                                    <td>{{rds.additional_comments}}</td>
+                                    <td>{{rds.product_request_status_remark}}</td>
+                                    <td>{{rds.product_request_status_remark_comment}}</td>
+                                    <td>{{rds.project_name}}</td>
+                                    <td>{{rds.is_srku?"Yes":"No"}}</td>
+                                    <td>{{rds.Type}}</td>
+                                    <td>{{rds.Stage}}</td>
+                                    <td>{{rds.project_quantity_estimation}}</td>
+                                    <td>{{rds.project_address}}</td>
+                                    <td>{{rds.project_province}}</td>
+                                    <td>{{rds.project_city}}</td>
+                                    <td>{{rds.project_sub_district}}</td>
+                                    <td>{{rds.hpb_name}}</td>
+                                    <td>{{rds.hpb_status}}</td>
+                                    <td>{{rds.switching_maintain_dt |date: "d MMM y" || '-'}}</td>
+                                    <td>{{rds.prospect_switching_dt |date: "d MMM y" || '-'}}</td>
+                                    <td>{{rds.hpb_type}}</td>
+                                    <td>{{rds.primary_mobile_no}}</td>
+                                    <td>{{rds.secondary_mobile_no}}</td>
+                                    <td>{{rds.id_card_number}}</td>
+                                    <td>{{rds.id_card_address}}</td>
+                                    <td>{{rds.project_province}}</td>
+                                    <td>{{rds.id_card_city}}</td>
+                                    <td>{{rds.id_card_sub_district }}</td>
+                                    <td>{{rds.domicile_address}}</td>
+                                    <td>{{rds.domicile_province}}</td>
+                                    <td>{{rds.domicile_city}}</td>
+                                    <td>{{rds.domicile_sub_district }}</td>
+                                    <td>{{rds.place_of_birth}}</td>
+                                    <td>{{rds.date_of_birth | date : "d MMM y"}}</td>
+                                    <td>{{rds.hpb_email}}</td>
+                                    <td>{{rds.company_name}}</td>
+                                    <td>{{rds.company_representative_name}}</td>
+                                    <td>{{rds.company_designation }}</td>
+                                    <td>{{rds.realm}}</td>
+                                    <td>{{rds.username }}</td>
+                                    <td>{{rds.district}}</td>
+                                    <td>{{rds.province}}</td>
+                                    <td>{{rds.region}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p-paginator *ngIf="paginationVal" rows="10" totalRecords={{total}} (onPageChange)="paginate($event)"></p-paginator>
+                    <div class="card-block" *ngIf="prodRequest?.length==0">
+                        <div class="row">
+                            <div class="col-md-4">&nbsp;</div>
+                            <div class="col-md-4">
+                                <h4>NO RESULT FOUND</h4>
+                            </div>
+                            <div class="col-md-4">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

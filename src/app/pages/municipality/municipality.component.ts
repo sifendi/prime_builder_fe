@@ -15,6 +15,7 @@ export class MunicipalityComponent {
 	allDistrict:any=[];
 	filteredDistrict:any=[];
 	disCall:any;
+	loading:boolean=false;
 	allMun:any=[];
 	filteredMun:any=[];
 	munCall:any;
@@ -23,9 +24,9 @@ export class MunicipalityComponent {
 
 	districtSearch:any="";
 	municipalitySearch:any = "";
-	total:Number=0;
+	total:number=0;
 	paginationVal:any=true;
-	offset:Number=0;
+	offset:number=0;
 	perPageLimit:any=10;
 
 	municipalityErrors: boolean=false;

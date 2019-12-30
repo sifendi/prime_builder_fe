@@ -15,6 +15,7 @@ export class EditSubdistrictComponent {
 	@ViewChild('cityId') cityId: NgModel;
 	
 	postal_code_codeId:any;
+	loading:boolean=false;
 	
 	Prvnc:any;
 	Distr:any;

@@ -36,7 +36,7 @@ export class MonthlyActualTargetComponent {
 	ifEmpty:boolean=false;
 	userDetails:any;
 	rolename:any;
-	totalRows:Number = 0;
+	totalRows:number = 0;
 	
 	filterBrands(event) {
         this.filteredBrands = [];

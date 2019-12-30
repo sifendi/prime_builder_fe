@@ -33,8 +33,8 @@ export class HpbComponent {
 
 	//variables for filter & pagination
 	paginationVal:any=true;
-	perPageLimit:Number = 10;
-	offset:Number=0;
+	perPageLimit:number = 10;
+	offset:number=0;
 	total:number;
 	hpbNameSearch:any="";
 	hpbTypeSearch:any="";

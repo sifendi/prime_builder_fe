@@ -15,7 +15,8 @@ export class RewardComponent {
   	rewardData:any;
   	offset:any = 0;
   	ifEmpty:boolean=false;
-  	total:Number=0;
+	  total:number=0;
+	  loading:boolean=false;
   	paginationVal:any=true;
   	_albums:any = [];
 	perPageLimit = 10;

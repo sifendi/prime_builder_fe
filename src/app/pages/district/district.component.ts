@@ -13,6 +13,7 @@ export class DistrictComponent {
 	display:boolean = false;
 	submitted:boolean=false;
 	allDistrict:any=[];
+	loading:boolean=false;
 	filteredDistrict:any=[];
 	disCall:any;
 	allProvince:any=[];
@@ -25,9 +26,9 @@ export class DistrictComponent {
 	district_idSearch:any="";
 	perPageLimit:any=10;
 	offsetAuto:any=0;
-	total:Number=0;
+	total:number=0;
 	paginationVal:any=true;
-	offset:Number=0;
+	offset:number=0;
 
 	districtErrors: boolean=false;
 	provinceErrors: boolean=false;

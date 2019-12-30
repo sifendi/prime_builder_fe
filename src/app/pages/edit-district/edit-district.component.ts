@@ -15,7 +15,7 @@ export class EditDistrictComponent {
 	display:boolean = false;
 	submitted:boolean=false;
 	result:any;
-	
+	loading:boolean=false;
 	distName:any;
 	distCode:any;
 	Prvnc:any;

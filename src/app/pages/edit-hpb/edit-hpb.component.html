@@ -424,10 +424,10 @@
     </div>
 </div>
 <div class="dargPop">
-    <p-dialog header="Edit HPB User" [modal]="true" *ngIf="success != 1" [(visible)]="display">
+    <p-dialog header="Edit HPB User" [modal]="true" *ngIf="success != true" [(visible)]="display">
         <p>{{result}}</p>
     </p-dialog>
-    <p-dialog header="Success" (onHide)="goToListing()"  [modal]="true" *ngIf="success == 1" [(visible)]="display">
+    <p-dialog header="Success" (onHide)="goToListing()"  [modal]="true" *ngIf="success == true" [(visible)]="display">
         <p>User updated successfully</p>
     </p-dialog>
 </div>

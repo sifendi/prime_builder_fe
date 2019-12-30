@@ -16,6 +16,7 @@ export class ViewEapSupportAssignmentComponent {
 	sphIdErr:boolean = false;
 	support: any = [];
 	support_id:any;
+	loading:boolean=false;
 	
 	userDetails:any;
 	rolename:any;

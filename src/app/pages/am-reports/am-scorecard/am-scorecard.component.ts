@@ -16,6 +16,7 @@ export class AmScorecardComponent {
 	display:boolean = false;
 	submitted:boolean=false;
 	report:any;
+	loading:boolean=false;
 	timeFactor:any;
 	columns:any = [];
 	key:any = [];
@@ -48,8 +49,8 @@ export class AmScorecardComponent {
 	year:any;
 	monthErr:boolean = false;
 	monthsArr:any = [];
-	currentYear:Number;
-	currentMonth:Number;
+	currentYear:number;
+	currentMonth:number;
 	nameTyped:any = "";
 	filterNameCall:any;
 	filterDisCall:any;

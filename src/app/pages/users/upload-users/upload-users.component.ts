@@ -53,6 +53,7 @@ export class UploadUserComponent {
 	msgsG: Message[] = [];
 	uploadedFiles: any[] = [];
 	items: MenuItem[];
+	loading:boolean=false;
 	activeIndex: number = 0;
 	constructor(private router:Router,private confirmationService: ConfirmationService,private uApi: App_usersApi,public userMapApi:User_mapApi, private route: ActivatedRoute,public regionApi:RegionApi,public provinceApi:ProvinceApi,public districtApi:DistrictApi,public municipalityApi:MunicipalityApi,public subdistrictApi:SubdistrictApi,public postal_codeApi:Postal_codeApi) {
 	

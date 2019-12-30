@@ -13,6 +13,7 @@ export class CementBagRemovalComponent {
 	busy:any;
 	removal:any;
 	display:boolean = false;
+	loading:boolean=false;
 	submitted:boolean=false;
 	ifEmpty:boolean = false;
 	removal_from:Date;
@@ -22,7 +23,7 @@ export class CementBagRemovalComponent {
 	date_to:any;
 	userDetails:any;
 	rolename:any;
-	user_id:Number = 0;
+	user_id:number = 0;
 	paginationVal:any = true;
 	total:any;
 	offset:any = 0;

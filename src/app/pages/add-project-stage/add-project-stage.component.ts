@@ -10,6 +10,7 @@ export class AddProjectStageComponent {
 	@ViewChild('project_stage') project_stage: NgModel;
 	display:boolean = false;
 	submitted:boolean = false;
+	loading:boolean=false;
 	proStageData:any;
 	result:any;
 	projStg:any;

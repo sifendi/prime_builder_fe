@@ -14,11 +14,12 @@ export class RaComponent {
 	userList:any;
 	type:any = "RA";
 	name:any;
+	loading:boolean=false;
 	mobile:any;
 	perPageLimit:any=10;
-	total:Number;
+	total:number;
 	paginationVal:any = true;
-	offset:Number=0;
+	offset:number=0;
 	user_id:any;
 	status:any = "";
 	loggedinrole:any;

@@ -37,7 +37,11 @@ export class AuthenticatedRole implements CanActivate {
 		}else if((this.roleName == "$am") && ((currentUrl.indexOf("/ac-reports/web-view") < 0))){ // if am is trying to view ac reports, redirect him
 			this.router.navigate(['/dashboard', {}]);
 			return false;
-		}else{
+		}else if((this.roleName == "$hpb") && ((currentUrl.indexOf("/ac-reports/web-view") < 0))){ // if hpb is trying to view ac reports, redirect him
+			this.router.navigate(['/dashboard', {}]);
+			return false;
+		}
+		else{
 			return true;
 		}
     }

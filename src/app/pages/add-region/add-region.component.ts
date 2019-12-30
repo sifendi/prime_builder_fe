@@ -16,7 +16,7 @@ export class AddRegionComponent {
 	regionfrmcode:any;  
 	userDetails:any;
 	rolename:any;
-	
+	loading:boolean=false;
 	busy:any;
 	namechkRes:boolean= false;
 	namechkResErr:boolean= false;

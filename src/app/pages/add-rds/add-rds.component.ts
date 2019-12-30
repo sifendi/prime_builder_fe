@@ -26,6 +26,7 @@ export class AddRdsComponent {
 	rdsaddrss:any;
 	rdsSts:any="";
 	display:boolean=false;
+	loading:boolean=false;
 	result:any;
 	submitted:boolean=false;
 	pCdData:any;

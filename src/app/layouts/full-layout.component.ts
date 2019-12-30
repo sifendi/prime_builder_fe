@@ -101,7 +101,20 @@ export class FullLayoutComponent implements OnInit {
 						{
 							"link":"/am-reports",
 							"name":"AM Reports"
+						},
+						{
+							"link":"/hpb-reports",
+							"name":"HPB Reports"
+						},
+						{
+							"link":"/product-request-raw-data",
+							"name":"Product Request Raw Data"
+						},
+						{
+							"link":"/visit-sph-raw",
+							"name":"SPH Visit Raw Data"
 						}
+						
 					];
 					this.menuProject = [
 						{
@@ -176,7 +189,7 @@ export class FullLayoutComponent implements OnInit {
 		else if((currentUrl.indexOf("users/sa")>0)||(currentUrl.indexOf("users/sph")>0)||(currentUrl.indexOf("users")>0)||(currentUrl.indexOf("users/am")>0)||(currentUrl.indexOf("users/ac")>0)||(currentUrl.indexOf("hpb")>0) || (currentUrl.indexOf("users/hpb-update-approval")>0)){
 			this.menuItem = "users";
 		}
-		else if((currentUrl.indexOf("ac-reports")>0)||(currentUrl.indexOf("am-reports")>0)){
+		else if((currentUrl.indexOf("ac-reports")>0)||(currentUrl.indexOf("am-reports")>0) ||(currentUrl.indexOf("hpb-reports")>0)){
 			this.menuItem = "reports";
 		}
 		else if((currentUrl.indexOf("redemption")>0)||(currentUrl.indexOf("rewardwishlist")>0)){

@@ -18,6 +18,7 @@ export class AddMunicipalityComponent {
 	distData:any;
 	result:any;
 	munName:any;
+	loading:boolean=false;
 	munCode:any;
 	
 	userDetails:any;

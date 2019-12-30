@@ -46,6 +46,7 @@ export class AddHpbComponent {
   hpbtype:any;
   hpbpMobile:any;
   hpbsMobile:any;
+  loading:boolean=false;
   hpbemail:any;
   hpbpOBrth: any;
   hpbdOBrth:any;

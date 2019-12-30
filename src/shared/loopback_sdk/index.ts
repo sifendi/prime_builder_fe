@@ -122,6 +122,8 @@ import { Eap_user_update_approvalApi } from './services/custom/Eap_user_update_a
 import { Eap_reportApi } from './services/custom/Eap_report';
 import { Hpb_update_approvalApi } from './services/custom/Hpb_update_approval';
 import { Gps_loginApi } from './services/custom/Gps_login';
+import { ReportSummaryApi } from './services/custom/ReportSummary';
+import { ReportVisitApi } from './services/custom/ReportVisit';
 /**
 * @module SDKBrowserModule
 * @description
@@ -227,6 +229,8 @@ export class SDKBrowserModule {
         Eap_reportApi,
         Hpb_update_approvalApi,
         Gps_loginApi,
+        ReportSummaryApi,
+        ReportVisitApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

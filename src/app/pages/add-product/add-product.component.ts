@@ -19,6 +19,7 @@ export class ProductCrudComponent {
 	submitted:boolean=false;
 	prodName:any;
 	prodUnit:any;
+	loading:boolean=false;
 	prodUnitValue:any;
 	prodPoints:any;
 	prodType:any;

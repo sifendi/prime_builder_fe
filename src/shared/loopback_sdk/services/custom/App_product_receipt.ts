@@ -335,6 +335,7 @@ export class App_product_receiptApi extends BaseLoopBackApi {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/app_product_receipt/getProductReceiptForAdmin";
+    
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};

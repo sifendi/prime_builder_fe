@@ -11,10 +11,11 @@ export class RegionComponent {
 	busy:any;
 	@ViewChild('name') name: NgModel;
 	display:boolean = false;
+	loading:boolean=false;
 	submitted:boolean=false;
 	region:any;
-	offset:Number = 0;
-	total:Number=0;
+	offset:number = 0;
+	total:number=0;
 	paginationVal:boolean=true;
 	perPageLimit:any=10;
 	

@@ -13,9 +13,9 @@ export class UserComponent {
 	name:any;
 	mobile:any;
 	
-	total:Number;
+	total:number;
 	paginationVal:any = true;
-	offset:Number;
+	offset:number;
 	
 	constructor(private uApi:App_usersApi, private loopAuth:LoopBackAuth, private router: Router) {}
   

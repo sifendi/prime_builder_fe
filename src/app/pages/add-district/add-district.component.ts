@@ -18,6 +18,7 @@ export class AddDistrictComponent {
 	
 	display:boolean = false;
 	submitted:boolean=false;
+	loading:boolean=false;
 	result:any;
 	
 	distName:any;

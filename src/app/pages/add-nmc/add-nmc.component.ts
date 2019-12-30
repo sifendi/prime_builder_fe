@@ -13,7 +13,7 @@ export class AddNmcComponent {
 	submitted:boolean = false;
 	result:any;
 	nmctype:any;
-	
+	loading:boolean=false;
 	busy:any;
 	
 	userDetails:any;

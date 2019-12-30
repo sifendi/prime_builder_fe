@@ -1,0 +1,243 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    Product receipt all raw data
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-Wrapper">
+                            <div class="card-block">
+                                <div class="primaryDetails">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Product Name </label>
+                                                <p-autoComplete field="name" [(ngModel)]="product" [suggestions]="filteredProduct" (completeMethod)="filterProduct($event)"
+                                                    (onFocus)="filterProduct($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="productErrors" class="error">
+                                                        <span>Please enter a valid product name</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Project Name </label>
+                                                <p-autoComplete field="project_name" [(ngModel)]="project" [suggestions]="filteredProject" (completeMethod)="filterProject($event)"
+                                                    (onFocus)="filterProject($event)">
+                                                </p-autoComplete>
+                                                <div class="error-place">
+                                                    <div *ngIf="projectErrors" class="error">
+                                                        <span>Please enter a valid project name</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Created From</label>
+                                                <p-calendar name="createdDate" [maxDate]="maxDate" dateFormat="yy-mm-dd" [(ngModel)]="value"></p-calendar>
+                                            </div>
+                                        </div>
+                                        <span class="error" *ngIf="searchErr">Please select Approval &amp; Approval by</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12">
+                        <div class="buttonContainer">
+                            <div class="form-group">
+                                <a href="javascript:void(0);" (click)="searchData()" class="btn darkBtn">Apply</a>
+                                <a href="javascript:void(0);" (click)="resetData()" class="btn darkBtn">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    RESULTS
+                    <a href="javascript:void(0);" *ngIf="total > 0" class="exportWish pull-right" (click)="download()">
+                        <i class="fa fa-cloud-download fa-lg mt-4"></i>Export
+                    </a>
+                </div>
+                <div class="ui-g-12 ui-md-4">
+                    Displaying <span>{{(offset==0)?1:(perPageLimit*(offset+1))-perPageLimit+1}} - {{(offset==0)?perPageLimit-(perPageLimit-prodrecData?.length):perPageLimit*(offset+1)-(perPageLimit-prodrecData?.length)}}
+                        of {{total}}</span>
+                </div>
+                <div class="card-wrapper">
+                    <div class="card-block" [class.tableWrap]="prodrecData?.length > 0" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600}">
+                        <table class="table table-bordered productRequestTable">
+                            <thead>
+                                <tr>
+                                    <th>Sr No.</th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Unit</th>
+                                    <th>Project</th>
+                                    <th>Is SRKu?</th>
+                                    <th>HPB</th>
+                                    <th>HPB Type</th>
+                                    <th>HPB Status</th>
+                                    <th>TLH Approval</th>
+                                    <th>AC Approval</th>
+                                    <th>SA Approval</th>
+                                    <th>Created By</th>
+                                    <th>Created Date</th>
+                                    <th>Purchase Date</th>
+                                    <th>Distributor / Retailer Name</th>
+                                    <th>Note</th>
+                                    <th>Project Name</th>
+                                    <th>Project Type</th>
+                                    <th>Project Stage</th>
+                                    <th>Cement Estimation</th>
+                                    <th>Address</th>
+                                    <th>Province</th>
+                                    <th>City / Municipality</th>
+                                    <th>Sub District</th>
+                                    <th>Floor Size</th>
+                                    <th>No. of home units</th>
+                                    <th>Has Micro Credit</th>
+                                    <th>NMC Type</th>
+                                    <th>BANK Name</th>
+                                    <th>Owner</th>
+                                    <th>Owner Mobile</th>
+                                    <th>Note</th>
+                                    <th>Holcim Id</th>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>Phone</th>
+                                    <th>Type</th>
+                                    <th>Address</th>
+                                    <th>City / Municipality</th>
+                                    <th>Name</th>
+                                    <th>HPB Status</th>
+                                    <th>Maintain Date</th>
+                                    <th>Switching Date</th>
+                                    <th>HPB Type</th>
+                                    <th>Primary Mobile No</th>
+                                    <th>Secondary Mobile No</th>
+                                    <th>Id Card Number</th>
+                                    <th>Id Card Address </th>
+                                    <th>Province</th>
+                                    <th>City / Municipality</th>
+                                    <th>Sub District</th>
+                                    <th>Domicile Address</th>
+                                    <th>Domicile Province</th>
+                                    <th>Domicile City / Municipality</th>
+                                    <th>Domicile Sub District</th>
+                                    <th>Place Of Birth</th>
+                                    <th>Date Of Birth</th>
+                                    <th>Email</th>
+                                    <th>Company name</th>
+                                    <th>Company Representative Name</th>
+                                    <th>Designation</th>
+                                    <th>Full Name</th>
+                                    <th>Mobile No.</th>
+                                    <th>Region</th>
+                                    <th>Province  </th>
+                                    <th>District </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let prod of prodrecData;let i=index; let proj of project; let rds of rdsData">
+                                    <td>{{i+1+(offset?offset*10:0)}}</td>
+                                    <td>{{prod.product}}</td>
+                                    <td>{{prod.quantity}}</td>
+                                    <td>{{prod.unit}}</td>
+                                    <td>
+                                        <!-- <a href="javascript:void(0);" (click)="goToPage('view-project',prod.project_id)">{{prod.project}}</a> -->
+                                        <a target="_blank" [routerLink]="['/view-project', prod.project_id]">{{prod.project}}</a>
+                                    </td>
+                                    <td>{{prod.is_srku?"Yes":"No"}}</td>
+                                    <td>
+                                        <!-- <a href="javascript:void(0);" (click)="goToPage('view-hpb',prod.hpb_id)">{{prod.hpb_name}}</a> -->
+                                        <a target="_blank" [routerLink]="['/view-hpb', prod.hpb_id]">{{prod.hpb_name}}</a>
+                                    </td>
+                                    <td>{{prod.hpb_type}}</td>
+                                    <td>{{prod.hpb_status}}</td>
+                                    <td><span class="{{prod.tlhclassname}}">{{prod.tlhapproval}}</span></td>
+                                    <td><span class="{{prod.acclassname}}">{{prod.acapproval}}</span></td>
+                                    <td><span class="{{prod.saclassname}}">{{prod.saapproval}}</span></td>
+                                    <td>{{prod.sph_name}}</td>
+                                    <td>{{prod.created_date}}</td>
+                                    <td>{{prod.purchase_date | date :"d MMM y"}}</td>
+                                    <td>{{prod.retailer}}</td>
+                                    <td>{{prod.additional_comments}}</td>
+                                    <td>{{prod.project}}</td>
+                                    <td>{{prod.project_type}}</td>
+                                    <td>{{prod.project_stage}}</td>
+                                    <td>{{prod.project_quantity_estimation}}</td>
+                                    <td>{{prod.project_address}}</td>
+                                    <td>{{prod.project_province}}</td>
+                                    <td>{{prod.project_city}}</td>
+                                    <td>{{prod.project_sub_district}}</td>
+                                    <td>{{prod.floor_size}}</td>
+                                    <td>{{prod.number_of_units}}</td>
+                                    <td>{{prod.is_micro_credit}}</td>
+                                    <td>{{prod.non_micro_credit_type}}</td>
+                                    <td>{{prod.bank_name}}</td>
+                                    <td>{{prod.srku_owner_name}}</td>
+                                    <td>{{prod.srku_owner_mobile_no}}</td>
+                                    <td>{{prod.additional_comments}}</td>
+                                    <td>{{prod.holcim_id}}</td>
+                                    <td>{{prod.retailer }}</td>
+                                    <td>{{prod.rds_mobile}}</td>
+                                    <td>{{prod.rds_phone}}</td>
+                                    <td>{{prod.rds_type }}</td>
+                                    <td>{{prod.rds_address}}</td>
+                                    <td class="oneText">{{prod.municipality}}</td>
+                                    <td>{{prod.hpb_name}}</td>
+                                    <td>{{prod.hpb_status}}</td>
+                                    <td *ngIf="prod.hpb_status=='Maintain'">{{prod.switching_maintain_dt |date: "d MMM y" || '-'}}</td>
+                                    <td *ngIf="prod.hpb_status!='Maintain'"> </td>
+                                    <td *ngIf="prod.hpb_status=='Switching'">{{prod.switching_maintain_dt |date: "d MMM y" || '-'}}</td>
+                                    <td *ngIf="prod.hpb_status!='Switching'"> </td>
+                                    <td>{{prod.hpb_type}}</td>
+                                    <td>{{prod.primary_mobile_no}}</td>
+                                    <td>{{prod.secondary_mobile_no}}</td>
+                                    <td>{{prod.id_card_number}}</td>
+                                    <td>{{prod.id_card_address}}</td>
+                                    <td>{{prod.project_province}}</td>
+                                    <td>{{prod.id_card_city}}</td>
+                                    <td>{{prod.id_card_sub_district }}</td>
+                                    <td>{{prod.domicile_address}}</td>
+                                    <td>{{prod.domicile_province}}</td>
+                                    <td>{{prod.domicile_city}}</td>
+                                    <td>{{prod.domicile_sub_district }}</td>
+                                    <td>{{prod.place_of_birth}}</td>
+                                    <td>{{prod.date_of_birth | date : "d MMM y"}}</td>
+                                    <td>{{prod.hpb_email}}</td>
+                                    <td>{{prod.company_name}}</td>
+                                    <td>{{prod.company_representative_name}}</td>
+                                    <td>{{prod.company_designation }}</td>
+                                    <td>{{prod.sph_name}}</td>
+                                    <td>{{prod.username}}</td>
+                                    <td>{{prod.region}}</td>
+                                    <td>{{prod.province }}</td>
+                                    <td>{{prod.district}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p-paginator *ngIf="paginationVal" rows="10" totalRecords={{total}} (onPageChange)="paginate($event)"></p-paginator>
+                    <div class="card-block" *ngIf="prodrecData?.length==0">
+                        <div class="row">
+                            <div class="col-md-4">&nbsp;</div>
+                            <div class="col-md-4">
+                                <h4>NO RESULT FOUND</h4>
+                            </div>
+                            <div class="col-md-4">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

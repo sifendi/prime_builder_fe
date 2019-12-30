@@ -14,6 +14,7 @@ export class RewardwishlistComponent {
 	exportData:any = [];
 	user_id:any;
 	rolename:any;	
+	loading:boolean=false;
 	allHpb:any=[];
 	filteredHpb:any=[];
 	maxDate:any;
@@ -27,7 +28,7 @@ export class RewardwishlistComponent {
 	perPageLimit:any=10;
 	offsetAuto:any=0;
 	offset:any = 0;
-	total:Number;
+	total:number;
 	paginationVal:boolean=true;
 	hpbNameSearch:any;
 	cDateSearch:any;

@@ -12,11 +12,12 @@ export class ProjectTypeComponent {
 	display:boolean = false;
 	submitted:boolean = false;
 	busy:any;
-	offset:Number = 0;
-	total:Number=0;
+	offset:number = 0;
+	total:number=0;
 	paginationVal:any=true;
+	loading:boolean=false;
 	ifEmpty:boolean=false;
-	pagePerLimit:Number = 10;
+	pagePerLimit:number = 10;
 	
 	constructor(public proApi:Project_typeApi,private router: Router) {}
 	

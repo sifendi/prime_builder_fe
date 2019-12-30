@@ -51,9 +51,9 @@ export class ProductReceiptComponent {
 	projectSearch: any="";
 	hpbSearch: any="";
 	createdBySearch: any="";
-	total:Number=0;
+	total:number=0;
 	paginationVal:any=true;
-	offset:Number=0;
+	offset:number=0;
 	
 	constructor(private prodApi:App_productsApi,private ProdRec:App_product_receiptApi,private service:ExcelService, private createdApi:Retrieve_created_byApi, private router: Router,private loopAuth:LoopBackAuth,private hpbApi:App_hpbApi, private projApi:App_projectsApi){
 		this.maxDate = new Date();
@@ -64,6 +64,7 @@ export class ProductReceiptComponent {
 		this.ifEmpty = false;
 		this.searchErr = false;
 		this.prodrecData = [];
+		
 		this.getCount(10,this.offset,this.createdBySearch,this.hpbSearch,this.projectSearch,this.productSearch,this.approvalSearch,this.approvalroleSearch,this.created_dateSearch);
 	}
 	
@@ -123,6 +124,7 @@ export class ProductReceiptComponent {
 		if(this.value){
 			created_date = moment(this.value).startOf('day').unix()*1000;
 		}
+		console.log(created_date);
 
 		if(!this.searchErr && !this.projectErrors && !this.productErrors && !this.hpbErrors && !this.createdByErrors){
 			this.createdBySearch = this.createdBy;

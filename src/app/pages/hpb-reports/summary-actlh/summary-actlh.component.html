@@ -1,0 +1,99 @@
+<div class="overlay" *ngIf="loading">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw contCenter"></i> <span class="sr-only">Loading...</span>
+    </div>
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        {{reportName}}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card-Wrapper">
+                                <div class="card-block">
+                                    <div class="primaryDetails">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>SPH </label>
+                                                    <p-autoComplete field="realm" [(ngModel)]="uiTxtSPH" 
+                                                        [suggestions]="userSPH" 
+                                                        (completeMethod)="getSPHList($event)" 
+                                                        (onFocus)="getSPHList($event)">
+                                                        </p-autoComplete>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>From Month</label>
+                                                    <select name="from_date" class="form-control" [(ngModel)]="uiTxtFromDate">
+                                                        <option *ngFor="let mn of monthsArr; let i=index" value="{{i+1}}">{{mn}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>To Month</label>
+                                                    <select name="to_date" class="form-control" [(ngModel)]="uiTxtToDate">
+                                                        <option *ngFor="let mn of monthsArr; let i=index" value="{{i+1}}">{{mn}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="error" *ngIf="monthErr">To-Month needs to be greater than From-Month</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="buttonContainer">
+                                <div class="form-group">
+                                    <a href="javascript:void(0);" (click)="searchData()" class="btn darkBtn">Apply</a>
+                                    <a href="javascript:void(0);" (click)="resetData()" class="btn darkBtn">Reset</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header ">
+                        RESULTS
+                        <a href="javascript:void(0);" *ngIf="resultList?.length>0" class="exportWish pull-right" (click)="downloadData()">
+                            <i class="fa fa-cloud-download fa-lg mt-4"></i>Export
+                        </a>
+                    </div>
+                    <div class="card-Wrapper">
+                        <div class="card-block tableWrap" [ngBusy]="{busy: busy,backdrop: true, minDuration: 600} ">
+                            <table class="table table-bordered reportSummaryHoTable ">
+                                <thead>
+                                    <tr>
+                                        <th>Purchase (x)</th>
+                                        <th>Number of HPB</th>
+                                        <th>%</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of resultList" [ngClass]="{'isRegion': data.isregion}">
+                                        <td>{{data.quantity}}</td>
+                                        <td>{{data.numberHpb}}</td>
+                                        <td>{{(data.numberHpb/totalHpb)*100}}%</td>
+                                    </tr>
+                                    <tr *ngIf="resultList?.length==0">
+                                        <td>No Data Available</td>
+                                    </tr>
+                                    <tr *ngIf="resultList?.length>0">
+                                        <td></td>
+                                        <td>{{totalHpb}}</td>
+                                        <td>100.0%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

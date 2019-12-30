@@ -9,11 +9,12 @@ import { NmcApi }   from '../../../shared/loopback_sdk';
 export class NmcComponent {
 	busy:any;
 	nmcData:any;
-	offset:Number = 0;
-	total:Number=0;
+	offset:number = 0;
+	total:number=0;
 	paginationVal:any=true;
+	loading:boolean=false;
 	ifEmpty:boolean=false;
-	perpageLimit:Number = 10;
+	perpageLimit:number = 10;
 
 	constructor(private nmc:NmcApi,private router: Router) {}
 

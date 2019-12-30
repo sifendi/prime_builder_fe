@@ -11,9 +11,10 @@ export class ProductComponent {
 	products:any;
 	display:boolean = false;
 	rdsData:any;
-    total:Number=0;
-    paginationVal:any=true;
-    offset:Number=0;
+    total:number=0;
+	paginationVal:any=true;
+	loading:boolean=false;
+    offset:number=0;
 	ifEmpty:boolean=false;
 	allProduct:any=[];
 	filteredProduct:any=[];

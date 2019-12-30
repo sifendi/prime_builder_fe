@@ -14,6 +14,7 @@ export class VisitPlanComponent {
 	visitorType:any = "";
 	visitStatus:any="";
 	dataEmpty:boolean = false;
+	loading:boolean=false;
 	
 	sphList: string[] = [];
     sphId: string[] = [];
