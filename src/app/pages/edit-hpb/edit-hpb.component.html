@@ -48,12 +48,12 @@
                     <p-fieldset legend="User Basic Information" [toggleable]="true" [collapsed]="false">
                         <div class="ui-g ui-fluid">
                             <div class="form-group col-sm-4">
-                                <label for="hpbName">HPB name*</label>
+                                <label for="hpbName">DPB name*</label>
                                 <input type="text" class="form-control" id="hpbName" required [(ngModel)]="hpbnameval" #hpbName="ngModel" [ngModelOptions]="{standalone: true}" minlength="4" maxlength="100" pattern="^[^-\s][a-zA-Z '\s-]+$" >
                                 <div class="error-place">
                                     <div *ngIf="hpbName.errors && (hpbName.dirty || hpbName.touched || submitted)" class="error">
-                                        <span *ngIf="hpbName.errors.required">HPB name is required</span>
-                                        <span *ngIf="hpbName.errors.pattern">Please enter a valid HPB Name</span>
+                                        <span *ngIf="hpbName.errors.required">DPB name is required</span>
+                                        <span *ngIf="hpbName.errors.pattern">Please enter a valid DPB Name</span>
                                     </div>
                                 </div>
                             </div>

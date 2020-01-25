@@ -36,13 +36,13 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Holcim ID</label>
+                                                <label>Prime Builder ID</label>
                                                 <p-autoComplete field="holcim_id" [(ngModel)]="rds_id" [suggestions]="filteredHolcimId" (completeMethod)="filterHolcimId($event)"
                                                     (onFocus)="filterHolcimId($event)">
                                                 </p-autoComplete>
                                                 <div class="error-place">
                                                     <div *ngIf="holcimIdErrors" class="error">
-                                                        <span>Please enter a valid holcim ID</span>
+                                                        <span>Please enter a valid Prime Builder ID</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -108,7 +108,7 @@
                                         <th>Name</th>
                                         <th>Mobile</th>
                                         <th>Type</th>
-                                        <th>Holcim Id</th>
+                                        <th>Prime Builder Id</th>
                                         <th>Address</th>
                                         <th>City / Muncipality</th>
                                         <th>Sub District</th>

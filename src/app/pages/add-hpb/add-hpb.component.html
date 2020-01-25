@@ -12,22 +12,22 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-3">
-                                    <label for="hpbName">HPB Name*</label>
+                                    <label for="hpbName">DPB Name*</label>
                                     <input type="text" class="form-control" id="hpbName" name="hpbName" required placeholder="Enter HPB Name" [(ngModel)]="hpbname" #hpbName="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
                                     <div class="error-place">
                                         <div *ngIf="hpbName.errors && (hpbName.dirty || hpbName.touched || submitted)" class="error">
                                             <span *ngIf="hpbName.errors.required">
-                                                HPB name is required
+                                                DPB name is required
                                             </span>
                                             <span *ngIf="hpbName.errors.pattern">
-                                                Please enter a valid HPB name.
+                                                Please enter a valid DPB name.
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-3">
-                                    <label for="type">HPB Type*</label>
-                                    <select class="form-control" id="type" name="type" required placeholder="Select HPB Type" [(ngModel)]="hpb.type" #type="ngModel">
+                                    <label for="type">DPB Type*</label>
+                                    <select class="form-control" id="type" name="type" required placeholder="Select DPB Type" [(ngModel)]="hpb.type" #type="ngModel">
                                                 <option value=0>Mason</option>
                                                 <option value=1>Contractor</option>
                                             </select>
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <label for="status">HPB Status*</label>
-                                    <select class="form-control" id="status" name="status" required placeholder="Select HPB Status" [(ngModel)]="hpbstatus" #status="ngModel">
+                                    <select class="form-control" id="status" name="status" required placeholder="Select DPB Status" [(ngModel)]="hpbstatus" #status="ngModel">
                                                 <option value="prospect">Prospect</option>
                                                 <option  value="maintain">Maintain</option>
                                                 <option  value="switching">Switching</option>
@@ -49,7 +49,7 @@
                                     <div class="error-place">
                                         <div *ngIf="status.errors && (status.dirty || status.touched || submitted)" class="error">
                                             <span *ngIf="status.errors.required">
-                                                    HPB Status is required
+                                                    DPB Status is required
                                             </span>
                                         </div>
                                     </div>
@@ -87,11 +87,11 @@
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <label for="email">Email</label>
-                                    <input type="text" class="form-control" id="email" name="email" required placeholder="Enter HPB Email" [(ngModel)]="hpbemail" #email="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
+                                    <input type="text" class="form-control" id="email" name="email" required placeholder="Enter DPB Email" [(ngModel)]="hpbemail" #email="ngModel" pattern="^[a-zA-Z0-9_@ ]*$">
                                     <div class="error-place">
                                         <div *ngIf="email.errors && (email.dirty || email.touched || submitted)" class="error">
                                             <span *ngIf="email.errors.required">
-                                                    HPB email id is required
+                                                    DPB email id is required
                                             </span>
                                         </div>
                                     </div>

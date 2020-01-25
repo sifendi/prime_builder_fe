@@ -19,15 +19,15 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="holcimId">Holcim Id*</label>
-                                                <input type="text" class="form-control" id="holcimId" name="holcimId" pattern="^[^-\s][a-zA-Z0-9\s-]+$" required placeholder="Enter your holcim Id" [(ngModel)]="rdsholcimId" #holcimId="ngModel">
+                                                <label for="holcimId">Prime Builder Id*</label>
+                                                <input type="text" class="form-control" id="holcimId" name="holcimId" pattern="^[^-\s][a-zA-Z0-9\s-]+$" required placeholder="Enter your prime builder Id" [(ngModel)]="rdsholcimId" #holcimId="ngModel">
                                                 <div class="error-place">
                                                     <div *ngIf="holcimId.errors && (holcimId.dirty || holcimId.touched || submitted)" class="error">
                                                         <span *ngIf="holcimId.errors.required">
-                                                            Holcim id is required
+                                                            Prime Builder id is required
                                                         </span>
                                                         <span *ngIf="holcimId.errors.pattern">
-                                                            Please enter a valid holcim id
+                                                            Please enter a valid Prime Builder
                                                         </span>
                                                     </div>
                                                 </div>

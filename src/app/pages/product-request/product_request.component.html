@@ -16,12 +16,12 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>HPB Name </label>
+                                                <label>DPB Name </label>
                                                 <p-autoComplete field="hpb_name" [(ngModel)]="hpbName" [suggestions]="filteredHpb" (completeMethod)="filterHpb($event)" (onFocus)="filterHpb($event)">
                                                 </p-autoComplete>
                                                 <div class="error-place">
                                                     <div *ngIf="hpbNameErrors" class="error">
-                                                        <span>Please enter a valid HPB name</span>
+                                                        <span>Please enter a valid DPB name</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -96,7 +96,7 @@
                                 <tr>
 									<th>Sr No.</th>
                                     <th>Project</th>
-                                    <th>HPB</th>
+                                    <th>DPB</th>
                                     <!--<th>RDS</th>-->
                                     <th>Quantity Required</th>
                                     <th>Created By</th>

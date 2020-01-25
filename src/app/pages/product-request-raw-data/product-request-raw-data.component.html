@@ -16,12 +16,12 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>HPB Name </label>
+                                                <label>DPB Name </label>
                                                 <p-autoComplete field="hpb_name" [(ngModel)]="hpbName" [suggestions]="filteredHpb" (completeMethod)="filterHpb($event)" (onFocus)="filterHpb($event)">
                                                 </p-autoComplete>
                                                 <div class="error-place">
                                                     <div *ngIf="hpbNameErrors" class="error">
-                                                        <span>Please enter a valid HPB name</span>
+                                                        <span>Please enter a valid DPB name</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -100,7 +100,7 @@
                                     <th>Sr No.</th>
                                     <th>Request Status</th>
                                     <th>Project</th>
-                                    <th>HPB</th>
+                                    <th>DPB</th>
                                     <th>Request Date</th>
                                     <th>Quantity Required</th>
                                     <th>New Price Request</th>
@@ -124,10 +124,10 @@
                                     <th>City / Municipality</th>
                                     <th>Sub District</th>
                                     <th>Name</th>
-                                    <th>HPB Status</th>
+                                    <th>DPB Status</th>
                                     <th>Maintain Date</th>
                                     <th>Switching Date</th>
-                                    <th>HPB Type</th>
+                                    <th>DPB Type</th>
                                     <th>Primary Mobile No</th>
                                     <th>Secondary Mobile No</th>
                                     <th>Id Card Number</th>
